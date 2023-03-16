@@ -1,12 +1,13 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import MyProgressBar from "./UI/MyProgressBar";
 import theme from "../../theme";
-import {useNavigation} from "@react-navigation/native";
 
-const PreviewComponent = ({backgroundColor, mainImg, sideNextAriaImg, title, subtitle, activePage}) => {
-    const nextScreenBtn = require("../../assets/img/nextScreenBtn.png")
-    const navigation = useNavigation()
+
+const PreviewComponent = ({backgroundColor, mainImg, sideNextAriaImg, title, subtitle, activePage, nextPage}) => {
+    const nextScreenBtnImg = require("../../assets/img/nextScreenBtn.png")
+
+
     return (
         <View style={[styles.container, backgroundColor && {backgroundColor: backgroundColor}]}>
 
@@ -14,13 +15,11 @@ const PreviewComponent = ({backgroundColor, mainImg, sideNextAriaImg, title, sub
                    source={sideNextAriaImg}
             />
 
-            <TouchableOpacity style={styles.nextScreenImgBtn}
-                              onPress={() => navigation.navigate('SecondPreviewScreen')}
-            >
+            <View style={styles.nextScreenImgBtn}>
                 <Image
-                    source={nextScreenBtn}
+                    source={nextScreenBtnImg}
                 />
-            </TouchableOpacity>
+            </View>
 
 
             <Image
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
         },
         subtitle: {
             width: "70%",
-            height:"30%",
+            height: "30%",
             fontFamily: theme.fonts.latoRegular,
             lineHeight: 20,
             fontSize: 16,

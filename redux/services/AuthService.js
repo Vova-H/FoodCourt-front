@@ -1,9 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {IP_ADDRESS} from "../../myConfig";
 
 export const authAPI = createApi({
     reducerPath: 'authAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://127.0.0.1:3000/api/auth/'
+        baseUrl: `${IP_ADDRESS}/auth/`
     }),
     tagTypes: ['Auth'],
     endpoints: (builder) => ({
@@ -22,12 +23,13 @@ export const authAPI = createApi({
             }),
             invalidatesTags: ['Auth']
         }),
+
         login: builder.mutation({
             query: (payload) => ({
-                url: '/login/',
+                url: '/login',
                 method: 'POST',
                 body: {
-                    username: payload.username,
+                    email: payload.email,
                     password: payload.password,
                 },
                 headers: {

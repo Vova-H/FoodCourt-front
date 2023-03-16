@@ -7,7 +7,6 @@ const FirstPreviewScreen = () => {
 
     const title = "delicious food menu"
     const subtitle = "pesanan Anda siap akan segera diambil dan dikirim secara langsung oleh kurir kami."
-
     const mainImg = require("../../assets/img/preview2.png")
     const sideNextAriaImg = require("../../assets/img/sideAriaNext2.png")
 
