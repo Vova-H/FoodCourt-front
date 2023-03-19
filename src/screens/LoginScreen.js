@@ -3,11 +3,14 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import LoginForm from "../components/forms/LoginForm";
+import {i18n} from "../redux/store/reducers/LangSlice";
+import {useNavigation} from "@react-navigation/native";
 
 const LoginScreen = () => {
 
-    const title = "Hello Again!"
-    const subtitle = "Welcome back you’ve been missed!"
+    const navigation = useNavigation()
+    const title = i18n.t("loginScreen.title")
+    const subtitle = i18n.t("loginScreen.subtitle")
     const mainImg = require("../../assets/img/login.png")
 
     return (
@@ -25,13 +28,16 @@ const LoginScreen = () => {
                     {subtitle}
                 </Text>
             </View>
-            <View style={{marginBottom: "30%"}}>
+            <View style={{marginBottom: "10%"}}>
                 <LoginForm/>
             </View>
 
             <TouchableOpacity>
-                <Text style={styles.goToRegisterLink}>
-                    Don’t have an account? <Text style={{fontFamily: theme.fonts.robotoBold}}>Sign Up</Text>
+                <Text
+                    style={styles.goToRegisterLink}
+                    onPress={() => navigation.navigate("RegisterScreen")}
+                >
+                    {i18n.t("loginScreen.registerLink")}
                 </Text>
             </TouchableOpacity>
         </View>
@@ -51,7 +57,7 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     title: {
-        width: "55%",
+        width: "60%",
         fontFamily: theme.fonts.robotoBold,
         color: theme.colors.black,
         textTransform: "capitalize",
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        width: "75%",
+        width: "85%",
         fontFamily: theme.fonts.robotoRegular,
         lineHeight: 20,
         fontSize: 14,

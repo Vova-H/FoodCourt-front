@@ -3,11 +3,12 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import CustomButton from "../components/UI/CustomButton";
 import {mainStyles} from "../styles/global.styles";
 import {useNavigation} from "@react-navigation/native";
+import {i18n} from "../redux/store/reducers/LangSlice";
 
 const GetStartedScreen = () => {
 
-    const title = "we have 5000+ review on our app "
-    const subtitle = "kami memiliki ulasan 5000+ pengguna, Anda dapat memeriksa di app store"
+    const title = i18n.t("getStartedScreen.title")
+    const subtitle = i18n.t("getStartedScreen.subtitle")
     const mainImg = require("../../assets/img/preview3.png")
     const navigation = useNavigation()
     return (
@@ -25,7 +26,7 @@ const GetStartedScreen = () => {
                     {subtitle}
                 </Text>
                 <CustomButton
-                    title={"get started"}
+                    title={i18n.t("getStartedScreen.btn")}
                     pressFunc={() => navigation.navigate("WelcomeScreen")}
                 />
             </View>

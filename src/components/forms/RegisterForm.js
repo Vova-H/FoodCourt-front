@@ -1,39 +1,29 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, View} from "react-native";
-import {useLoginMutation} from "../../redux/services/AuthService";
-import * as SecureStore from 'expo-secure-store';
+import {useLoginMutation, useRegistrationMutation} from "../../redux/services/AuthService";
 import {Formik} from 'formik';
-import LoginSchema from "../../validations/login-validation.Schema";
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
 import theme from "../../../theme";
 import {i18n} from "../../redux/store/reducers/LangSlice";
+import registrationValidationSchema from "../../validations/registration-validation.Schema";
+import {useNavigation} from "@react-navigation/native";
 
-const LoginForm = () => {
+const RegisterForm = () => {
 
-    const [login] = useLoginMutation()
-
-    const loginHandler = async (values) => {
+    const [register] = useRegistrationMutation()
+    const navigation = useNavigation()
+    const registerHandler = async (values) => {
         try {
-            const response = await login(values);
-            if (response?.error?.data) {
-                switch (typeof response.error.data === "object" && !Array.isArray(response.error.data)) {
-                    case true :
-                        if (response.error.data) {
-                            Alert.alert("Login Error", response.error.data.message)
-                        }
-                        break
-                    case false:
-                        if (response?.error?.data) {
-                            Alert.alert("Login Error", response.error.data[0].split("-")[1])
-                        }
-                        break
-                }
+            const response = await register(values);
+            if (response?.error) {
+                Alert.alert("Registration Error", response.error.data.message)
             }
-            const token = response?.data?.token
-            if (token?.length) {
-                await SecureStore.setItemAsync("token", token)
+            if (response?.data?.message) {
+                Alert.alert("Message", response?.data?.message)
+                navigation.navigate("LoginScreen")
             }
+
         } catch (e) {
             console.log(e);
         }
@@ -43,15 +33,15 @@ const LoginForm = () => {
     return (
 
         <Formik
-            initialValues={{email: "", password: ""}}
-            validationSchema={LoginSchema}
-            onSubmit={values => loginHandler(values)}
+            initialValues={{username: "test2", email: "test2@gmail.com", password: "12345678"}}
+            validationSchema={registrationValidationSchema}
+            onSubmit={values => registerHandler(values)}
         >
             {(props) => (
                 <View>
                     <CustomInput
-                        inputLabel={i18n.t("loginScreen.emailLabel")}
-                        placeholder={i18n.t("loginScreen.emailLabel")}
+                        inputLabel={i18n.t("registerScreen.emailLabel")}
+                        placeholder={i18n.t("registerScreen.emailLabel")}
                         onChangeText={props.handleChange('email')}
                         onBlur={props.handleBlur('email')}
                         value={props.values.email}
@@ -63,8 +53,21 @@ const LoginForm = () => {
                     }
 
                     <CustomInput
-                        inputLabel={i18n.t("loginScreen.passwordLabel")}
-                        placeholder={i18n.t("loginScreen.passwordLabel")}
+                        inputLabel={i18n.t("registerScreen.usernameLabel")}
+                        placeholder={i18n.t("registerScreen.usernameLabel")}
+                        onChangeText={props.handleChange('username')}
+                        onBlur={props.handleBlur('username')}
+                        value={props.values.username}
+                    />
+                    {
+                        props.errors.username && props.touched.username ? (
+                            <Text style={styles.validationErrorText}>{props.errors.username}</Text>
+                        ) : <View></View>
+                    }
+
+                    <CustomInput
+                        inputLabel={i18n.t("registerScreen.passwordLabel")}
+                        placeholder={i18n.t("registerScreen.passwordLabel")}
                         onChangeText={props.handleChange('password')}
                         onBlur={props.handleBlur('password')}
                         value={props.values.password}
@@ -75,9 +78,10 @@ const LoginForm = () => {
                             <Text style={styles.validationErrorText}>{props.errors.password}</Text>
                         ) : <View style={{height: 20}}></View>
                     }
+
                     <CustomButton
                         propsButtonStyles={{marginTop: 10}}
-                        title={i18n.t("loginScreen.btnLogin")}
+                        title={i18n.t("registerScreen.btnRegister")}
                         pressFunc={props.handleSubmit}
                     />
                 </View>
@@ -101,4 +105,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginForm;
+export default RegisterForm;

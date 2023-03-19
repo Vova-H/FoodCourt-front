@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
             marginBottom: 20,
         },
         subtitle: {
-            width: "70%",
+            width: "80%",
             height: "30%",
             fontFamily: theme.fonts.latoRegular,
             lineHeight: 20,

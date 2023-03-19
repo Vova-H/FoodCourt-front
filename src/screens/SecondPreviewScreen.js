@@ -1,12 +1,12 @@
 import React from 'react';
 import PreviewComponent from "../components/PreviewComponent";
 import theme from "../../theme";
-
+import {i18n} from "../redux/store/reducers/LangSlice";
 
 const FirstPreviewScreen = () => {
 
-    const title = "delicious food menu"
-    const subtitle = "pesanan Anda siap akan segera diambil dan dikirim secara langsung oleh kurir kami."
+    const title = i18n.t("previewScreen2.title")
+    const subtitle = i18n.t("previewScreen2.subtitle")
     const mainImg = require("../../assets/img/preview2.png")
     const sideNextAriaImg = require("../../assets/img/sideAriaNext2.png")
 

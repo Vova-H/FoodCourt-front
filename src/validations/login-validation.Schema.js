@@ -1,9 +1,13 @@
 import * as Yup from "yup";
+import {i18n} from "../redux/store/reducers/LangSlice";
 
+const invalidEmailError = i18n.t('loginScreen.invalidEmailError')
+const passwordRequiredError = i18n.t('loginScreen.passwordRequiredError')
+const emailRequiredError = i18n.t('loginScreen.emailRequiredError')
 
 const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string().email(invalidEmailError).required(emailRequiredError),
+    password: Yup.string().required(passwordRequiredError)
 });
 
 export default LoginSchema

@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {IP_ADDRESS} from "../../myConfig";
+import {IP_ADDRESS} from "../../../myConfig";
 
 export const authAPI = createApi({
     reducerPath: 'authAPI',

@@ -4,13 +4,13 @@ import CustomButton from "../components/UI/CustomButton";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import {useNavigation} from "@react-navigation/native";
-
+import {i18n} from "../redux/store/reducers/LangSlice";
 const WelcomeScreen = () => {
 
-    const title = "welcome!"
-    const subtitle = "Ayo bergabunglah dengan kami sekarang buat akun atau masuk."
+    const title = i18n.t("welcomeScreen.title")
+    const subtitle = i18n.t("welcomeScreen.subtitle")
     const mainImg = require("../../assets/img/welcome.png")
-    const policyLink = "By signing up accept the Terms of Service and Privacy Policy."
+    const policyLink = i18n.t("welcomeScreen.policy")
     const navigation = useNavigation()
     return (
         <View style={styles.container}>
@@ -27,12 +27,12 @@ const WelcomeScreen = () => {
                     {subtitle}
                 </Text>
                 <CustomButton
-                    title={"view list"}
+                    title={i18n.t("welcomeScreen.btnView")}
                     propsButtonStyles={{marginBottom: 10}}
                     inActive={true}
                 />
                 <CustomButton
-                    title={"log in"}
+                    title={i18n.t("welcomeScreen.btnLogin")}
                     propsButtonStyles={{marginBottom: "12%"}}
                     pressFunc={() => navigation.navigate("LoginScreen")}
                 />
