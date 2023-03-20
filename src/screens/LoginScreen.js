@@ -40,6 +40,14 @@ const LoginScreen = () => {
                     {i18n.t("loginScreen.registerLink")}
                 </Text>
             </TouchableOpacity>
+            <TouchableOpacity>
+                <Text
+                    style={styles.goToRegisterLink}
+                    onPress={() => navigation.navigate("HomeScreen")}
+                >
+                    Skip
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 };

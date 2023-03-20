@@ -1,19 +1,20 @@
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, View} from 'react-native';
 import {useFonts} from 'expo-font';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import {setupStore} from "./src/redux/store/store";
 import {Provider} from "react-redux";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
-import GetStartedScreen from "./src/screens/GetStartedScreen";
 import customFonts from "./src/components/UI/CustomFonts";
+import ChoosingLanguageScreen from "./src/screens/ChoosingLanguageScreen";
+import PreviewScreen from "./src/screens/PreviewScreen";
+import GetStartedScreen from "./src/screens/GetStartedScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
-import PreviewScreen from "./src/screens/PreviewScreen";
-import ChoosingLanguageScreen from "./src/screens/ChoosingLanguageScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import HomeTab from "./src/navigation/HomeTab";
 
 export default function App() {
 
@@ -29,7 +30,7 @@ export default function App() {
         return () => timer && clearTimeout(timer);
     }, [fontsLoaded]);
 
-    const Stack = createNativeStackNavigator();
+    const Stack = createNativeStackNavigator()
 
     return (
         <Provider store={store}>
@@ -37,8 +38,8 @@ export default function App() {
                 {
                     loaded ?
                         <NavigationContainer>
-                            <Stack.Navigator screenOptions={{headerShown: false}}
-                                             initialRouteName="ChoosingLanguageScreen">
+                            <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="ChoosingLanguageScreen">
+                                <Stack.Screen name="HomeScreen" component={HomeTab}/>
                                 <Stack.Screen name="ChoosingLanguageScreen" component={ChoosingLanguageScreen}/>
                                 <Stack.Screen name="PreviewScreen" component={PreviewScreen}/>
                                 <Stack.Screen name="GetStartedScreen" component={GetStartedScreen}/>
