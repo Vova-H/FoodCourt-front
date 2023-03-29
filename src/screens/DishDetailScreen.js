@@ -1,32 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../theme";
 import DishCounter from "../components/DishCounter";
-import {useDispatch} from "react-redux";
-import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice";
+import {useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
+import {
+    useAddToFavoritesMutation,
+    useCheckIsFavoritesMutation,
+    useRemoveFromFavoritesMutation
+} from "../redux/services/DishesService";
+
+const headerImg = require("../../assets/img/MenuItemHeader.png")
+const flame = require("../../assets/img/Flame.png")
 
 
 const DishDetailScreen = (props) => {
     const dish = props.route.params.dish
-    const headerImg = require("../../assets/img/MenuItemHeader.png")
-    const flame = require("../../assets/img/Flame.png")
-    const dispatch = useDispatch()
+    const user = useSelector(state => state.authReducer.userFromJWT)
     const navigation = useNavigation()
+    const [checkIsFavorites] = useCheckIsFavoritesMutation()
+    const [addToFavorites] = useAddToFavoritesMutation()
+    const [removeFromFavorites] = useRemoveFromFavoritesMutation()
+
     const [, setTotalPrice] = useState(dish.price)
     const [quantity, setQuantity] = useState(1)
     const [isLiked, setIsLiked] = useState(false)
 
-    const addFavoriteHandler = () => {
-        setIsLiked(true)
-        dispatch(addFavoriteDish(dish))
+    const checkingIsFavorites = async (userId, dishId) => {
+        return await checkIsFavorites(userId, dishId)
     }
-    const removeFavoriteHandler = () => {
-        setIsLiked(false)
-        dispatch(removeFavoriteDish(dish))
+    const addFavoriteHandler = async (userId, dishId) => {
+        const result = await addToFavorites({userId: userId, dishId: dishId})
+        setIsLiked(result.data)
+    }
+    const removeFavoriteHandler = async (userId, dishId) => {
+        const result = await removeFromFavorites({userId: userId, dishId: dishId})
+        setIsLiked(result.data)
     }
 
+    useEffect(() => {
+        checkingIsFavorites({userId: user.id, dishId: dish.id}).then(res => setIsLiked(res.data))
+    }, [isLiked])
 
     return (
         <View style={styles.container}>
@@ -35,15 +50,15 @@ const DishDetailScreen = (props) => {
                                  style={styles.headerImg}
                 >
                     <View style={styles.headerIcons}>
-                        <TouchableOpacity onPress={()=>navigation.navigate("HomeScreen")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
                             <Ionicons name={"md-arrow-back"} size={40} color="#000"/>
                         </TouchableOpacity>
                         {isLiked ?
-                            <TouchableOpacity onPress={removeFavoriteHandler}>
+                            <TouchableOpacity onPress={() => removeFavoriteHandler(user.id, dish.id)}>
                                 <Ionicons name={"heart"} size={40} color="#000"/>
                             </TouchableOpacity>
                             :
-                            <TouchableOpacity onPress={addFavoriteHandler}>
+                            <TouchableOpacity onPress={() => addFavoriteHandler(user.id, dish.id)}>
                                 <Ionicons name={"heart-outline"} size={40} color="#000"/>
                             </TouchableOpacity>
                         }
