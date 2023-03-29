@@ -1,24 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import theme from "../../theme";
 import WelcomeInfo from "../components/WelcomeInfo";
 import Discount from "../components/Discount";
 import Menu from "../components/Menu";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import {useDispatch, useSelector} from "react-redux";
+import {useGetUserByIdQuery} from "../redux/services/UsersService";
+import {saveUser} from "../redux/features/UserSlice";
 
+const imageForDisc = require("../../assets/img/food1.png")
+const title = "Popular Food"
 
 const HomeScreen = () => {
-    const image = require("../../assets/img/food1.png")
-    const title = "Popular Food"
+
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.authReducer.userFromJWT)
+
+    const [isDiscount, setIsDiscount] = useState(true)
+    const {data, isLoading} = useGetUserByIdQuery(user.id)
+
+    useEffect(() => {
+        if (!isLoading) {
+            dispatch(saveUser(data))
+        }
+    }, [isLoading])
+
+
     return (
         <View style={styles.container}>
             <View style={styles.contentWrapper}>
                 <View style={styles.welcomeInfoWrapper}>
-                    <WelcomeInfo/>
+                    {data &&
+                        <WelcomeInfo user={data}/>
+                    }
                 </View>
-                <View style={styles.discountWrapper}>
-                    <Discount active={true} image={image} title="Get Special Discount" subtitle="80% OFF"/>
-                </View>
+                {isDiscount && <View style={styles.discountWrapper}>
+                    <Discount image={imageForDisc} title="Get Special Discount" subtitle="80% OFF"/>
+                </View>}
                 <Text style={styles.title}>{title}</Text>
                 <View style={{height: "63%", width: "100%"}}>
                     <Menu/>
@@ -44,6 +62,7 @@ const styles = StyleSheet.create({
 
     discountWrapper: {
         height: "20%",
+        maxHeight: "20%",
     },
 
     title: {

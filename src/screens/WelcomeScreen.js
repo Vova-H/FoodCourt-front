@@ -4,7 +4,7 @@ import CustomButton from "../components/UI/CustomButton";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import {useNavigation} from "@react-navigation/native";
-import {i18n} from "../redux/store/reducers/LangSlice";
+import {i18n} from "../redux/features/LangSlice";
 const WelcomeScreen = () => {
 
     const title = i18n.t("welcomeScreen.title")

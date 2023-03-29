@@ -1,22 +1,35 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from "react-native";
+import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
+import {useNavigation} from "@react-navigation/native";
+
+
 
 const MenuItem = ({dish}) => {
+    const navigation = useNavigation()
+
     return (
-        <View style={styles.itemContainer}>
+        <Pressable onPress={() => {
+            navigation.navigate('DishDetailScreen', {
+                dish
+            })
+        }} style={styles.itemContainer}
+        >
             <View style={styles.imageWrapper}>
-                <Image source={dish.img} resizeMode={"contain"}/>
+                <Image
+                    source={{uri: `data:image/jpeg;base64,${dish.image}`}}
+                    resizeMode={"cover"}
+                    style={styles.image}
+                />
             </View>
-            <Text style={styles.title}>{dish.title}</Text>
-            <Text style={styles.price}>{dish.price}</Text>
-        </View>
+            <Text style={styles.title}>{dish.name}</Text>
+            <Text style={styles.price}>{dish.price}$</Text>
+        </Pressable>
     );
 };
 
 const styles = StyleSheet.create({
     itemContainer: {
-        width: "20%",
         justifyContent: 'center',
         flexGrow: 1,
         backgroundColor: "white",
@@ -25,10 +38,19 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 5,
         paddingBottom: 10,
-        paddingTop:10
+        paddingTop: 10,
+        maxWidth: "47%",
     },
     imageWrapper: {
-        alignSelf: "center"
+        alignSelf: "center",
+        marginBottom: 10,
+        width: 100,
+        height: 100,
+    },
+    image: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 50,
     },
     title: {
         paddingHorizontal: 10,

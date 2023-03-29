@@ -7,15 +7,26 @@ import LoginSchema from "../../validations/login-validation.Schema";
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
 import theme from "../../../theme";
-import {i18n} from "../../redux/store/reducers/LangSlice";
+import {i18n} from "../../redux/features/LangSlice";
+import ParseJWTHelper from "../../helpers/parseJWTHelper";
+import {useDispatch} from "react-redux";
+import {saveJWT, saveUserFromJWT} from "../../redux/features/AuthSlice";
+import {useNavigation} from "@react-navigation/native";
+
 
 const LoginForm = () => {
 
     const [login] = useLoginMutation()
 
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
+
+
     const loginHandler = async (values) => {
         try {
             const response = await login(values);
+            const data = response.data.token
+            const userFromJWT = ParseJWTHelper(data)
             if (response?.error?.data) {
                 switch (typeof response.error.data === "object" && !Array.isArray(response.error.data)) {
                     case true :
@@ -33,6 +44,9 @@ const LoginForm = () => {
             const token = response?.data?.token
             if (token?.length) {
                 await SecureStore.setItemAsync("token", token)
+                dispatch(saveUserFromJWT(userFromJWT))
+                dispatch(saveJWT(token))
+                navigation.navigate("HomeScreen")
             }
         } catch (e) {
             console.log(e);
@@ -43,7 +57,7 @@ const LoginForm = () => {
     return (
 
         <Formik
-            initialValues={{email: "", password: ""}}
+            initialValues={{email: "vova@gmail.com", password: "12345678"}}
             validationSchema={LoginSchema}
             onSubmit={values => loginHandler(values)}
         >

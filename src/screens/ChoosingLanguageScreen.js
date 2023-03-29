@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {StatusBar} from "expo-status-bar";
-import {changeLanguage, i18n} from "../redux/store/reducers/LangSlice";
+import {StyleSheet, TouchableOpacity, View, Text} from "react-native";
+import {changeLanguage, i18n} from "../redux/features/LangSlice";
 import {useDispatch} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
-import CountryFlag from "react-native-country-flag";
 import theme from "../../theme";
+import CountryFlag from "react-native-country-flag";
 import CustomButton from "../components/UI/CustomButton";
 
 const ChoosingLanguageScreen = () => {
@@ -13,6 +12,7 @@ const ChoosingLanguageScreen = () => {
     const [lang, setLang] = useState("en")
     const dispatch = useDispatch()
     const navigation = useNavigation()
+
     const changeLng = (loc) => {
         dispatch(changeLanguage(loc))
         setLang(loc)

@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import LoginForm from "../components/forms/LoginForm";
-import {i18n} from "../redux/store/reducers/LangSlice";
+import {i18n} from "../redux/features/LangSlice";
 import {useNavigation} from "@react-navigation/native";
 
 const LoginScreen = () => {
@@ -38,14 +38,6 @@ const LoginScreen = () => {
                     onPress={() => navigation.navigate("RegisterScreen")}
                 >
                     {i18n.t("loginScreen.registerLink")}
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Text
-                    style={styles.goToRegisterLink}
-                    onPress={() => navigation.navigate("HomeScreen")}
-                >
-                    Skip
                 </Text>
             </TouchableOpacity>
         </View>

@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import CustomButton from "../components/UI/CustomButton";
 import {mainStyles} from "../styles/global.styles";
 import {useNavigation} from "@react-navigation/native";
-import {i18n} from "../redux/store/reducers/LangSlice";
+import {i18n} from "../redux/features/LangSlice";
 
 const GetStartedScreen = () => {
 

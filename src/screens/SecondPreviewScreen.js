@@ -1,7 +1,7 @@
 import React from 'react';
 import PreviewComponent from "../components/PreviewComponent";
 import theme from "../../theme";
-import {i18n} from "../redux/store/reducers/LangSlice";
+import {i18n} from "../redux/features/LangSlice";
 
 const FirstPreviewScreen = () => {
 

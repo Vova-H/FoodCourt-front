@@ -1,17 +1,27 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
-const WelcomeInfo = ({username, img}) => {
+const WelcomeInfo = ({user}) => {
     const avatarImg = require("../../assets/img/avatar.png")
     const profileSmallBtn = require("../../assets/img/profileSmallBtn.png")
     return (
         <TouchableOpacity style={styles.container}>
             <View style={styles.infoWrapper}>
                 <View style={styles.imageWrapper}>
-                    <Image source={avatarImg}/>
+                    {user.avatar ?
+                        <Image style={styles.avatar}
+                               source={{uri: `data:image/jpeg;base64,${user.avatar}`}}
+                               resizeMode={"cover"}
+                        />
+                        :
+                        <Image style={styles.avatar}
+                               source={avatarImg}
+                               resizeMode={"cover"}
+                        />
+                    }
                 </View>
                 <Text style={styles.title}>
-                    Welcome {"\n"}Adityatprtma
+                    Welcome {"\n"}{user.username}
                 </Text>
             </View>
             <View style={styles.profileSmallBtn}>
@@ -44,6 +54,11 @@ const styles = StyleSheet.create({
     profileSmallBtn: {
         marginVertical: 20,
         marginRight: 15
+    },
+    avatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
     }
 })
 export default WelcomeInfo;

@@ -5,7 +5,7 @@ import {Formik} from 'formik';
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
 import theme from "../../../theme";
-import {i18n} from "../../redux/store/reducers/LangSlice";
+import {i18n} from "../../redux/features/LangSlice";
 import registrationValidationSchema from "../../validations/registration-validation.Schema";
 import {useNavigation} from "@react-navigation/native";
 

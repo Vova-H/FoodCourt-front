@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import {i18n} from "../redux/store/reducers/LangSlice";
+import {i18n} from "../redux/features/LangSlice";
 import theme from "../../theme";
 import {mainStyles} from "../styles/global.styles";
 import RegisterForm from "../components/forms/RegisterForm";
