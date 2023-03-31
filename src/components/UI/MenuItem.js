@@ -4,7 +4,6 @@ import theme from "../../../theme";
 import {useNavigation} from "@react-navigation/native";
 
 
-
 const MenuItem = ({dish}) => {
     const navigation = useNavigation()
 

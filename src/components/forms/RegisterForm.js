@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, View} from "react-native";
-import {useLoginMutation, useRegistrationMutation} from "../../redux/services/AuthService";
+import {useRegistrationMutation} from "../../redux/services/AuthService";
 import {Formik} from 'formik';
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
@@ -8,19 +8,37 @@ import theme from "../../../theme";
 import {i18n} from "../../redux/features/LangSlice";
 import registrationValidationSchema from "../../validations/registration-validation.Schema";
 import {useNavigation} from "@react-navigation/native";
+import {Asset} from "expo-asset";
+import {IP_ADDRESS} from "../../../myConfig";
+
 
 const RegisterForm = () => {
-
-    const [register] = useRegistrationMutation()
+    const avatarImg = require("../../../assets/img/emptyAvatar.png")
     const navigation = useNavigation()
+
     const registerHandler = async (values) => {
         try {
-            const response = await register(values);
-            if (response?.error) {
-                Alert.alert("Registration Error", response.error.data.message)
-            }
-            if (response?.data?.message) {
-                Alert.alert("Message", response?.data?.message)
+            const formData = new FormData();
+            formData.append('avatar', {
+                uri: Asset.fromModule(avatarImg).uri,
+                name: 'emptyAvatar.png',
+                type: 'image/png',
+            });
+            formData.append('username', values.username);
+            formData.append("email", values.email)
+            formData.append("password", values.password)
+            const response = await fetch(`${IP_ADDRESS}/auth/registration`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            const jsonResponse = await response.json();
+            if (jsonResponse.message !== "The user has been created successfully") {
+                Alert.alert("Registration Error", jsonResponse.message)
+            } else {
+                Alert.alert("Message", jsonResponse.message)
                 navigation.navigate("LoginScreen")
             }
 
@@ -31,13 +49,14 @@ const RegisterForm = () => {
 
 
     return (
-
         <Formik
-            initialValues={{username: "test2", email: "test2@gmail.com", password: "12345678"}}
+            initialValues={{username: "test", email: "test@gmail.com", password: "12345678"}}
             validationSchema={registrationValidationSchema}
             onSubmit={values => registerHandler(values)}
         >
             {(props) => (
+
+
                 <View>
                     <CustomInput
                         inputLabel={i18n.t("registerScreen.emailLabel")}
@@ -78,7 +97,6 @@ const RegisterForm = () => {
                             <Text style={styles.validationErrorText}>{props.errors.password}</Text>
                         ) : <View style={{height: 20}}></View>
                     }
-
                     <CustomButton
                         propsButtonStyles={{marginTop: 10}}
                         title={i18n.t("registerScreen.btnRegister")}

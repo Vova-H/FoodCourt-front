@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     dishes: [],
-    // favoriteDishes: []
+    favoriteDishes: []
 }
 
 const dishesSlice = createSlice({
@@ -12,6 +12,9 @@ const dishesSlice = createSlice({
     reducers: {
         saveDishes: (state, action) => {
             state.dishes = action.payload;
+        },
+        saveFavoritesDishes: (state, action) => {
+            state.favoriteDishes = action.payload
         },
         // addFavoriteDish: (state, action) => {
         //     state.favoriteDishes = [...state.favoriteDishes, action.payload];
@@ -24,5 +27,5 @@ const dishesSlice = createSlice({
         // }
     },
 });
-export const {saveDishes, addFavoriteDish, removeFavoriteDish} = dishesSlice.actions
+export const {saveDishes, addFavoriteDish, removeFavoriteDish, saveFavoritesDishes} = dishesSlice.actions
 export default dishesSlice.reducer;

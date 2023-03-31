@@ -17,9 +17,20 @@ export const dishesAPI = createApi({
                 }
             }),
         }),
+
+        getAllFavorites: build.query({
+            query: (id) => ({
+                url: `favorites/getAll/?userId=${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            }),
+        }),
+
         checkIsFavorites: build.mutation({
             query: (payload) => ({
-                url: 'favorites/',
+                url: 'favorites/check',
                 method: 'POST',
                 body: {
                     userId: payload.userId,
@@ -63,5 +74,6 @@ export const {
     useGetAllDishesQuery,
     useCheckIsFavoritesMutation,
     useAddToFavoritesMutation,
-    useRemoveFromFavoritesMutation
+    useRemoveFromFavoritesMutation,
+    useGetAllFavoritesQuery
 } = dishesAPI;

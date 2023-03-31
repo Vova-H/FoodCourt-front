@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import CartScreen from "../screens/CartScreen";
 import FavoriteDishesScreen from "../screens/FavoriteDishesScreen";
 import MyProfileScreen from "../screens/MyProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {useGetAllFavoritesQuery} from "../redux/services/DishesService";
+import {useSelector} from "react-redux";
 
 
 const HomeTab = () => {
@@ -37,7 +39,7 @@ const HomeTab = () => {
                 },
                 tabBarActiveTintColor: '#FE8C00',
                 tabBarInactiveTintColor: '#000',
-                tabBarShowLabel: false
+                tabBarShowLabel: false,
             })}>
             <Tab.Screen name="Home" component={HomeScreen}/>
             <Tab.Screen name="Cart" component={CartScreen}/>

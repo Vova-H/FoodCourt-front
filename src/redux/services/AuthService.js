@@ -10,15 +10,16 @@ export const authAPI = createApi({
     endpoints: (builder) => ({
         registration: builder.mutation({
             query: (payload) => ({
-                url: '/registration/',
+                url: '/registration',
                 method: 'POST',
                 body: {
                     username: payload.username,
                     email: payload.email,
                     password: payload.password,
+                    avatar: payload.avatar
                 },
                 headers: {
-                    'Content-type': 'application/json; charset=UTF-8'
+                    'Content-Type': `multipart/form-data`,
                 }
             }),
             invalidatesTags: ['Auth']

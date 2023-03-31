@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, View} from "react-native";
 import MenuItem from "./UI/MenuItem";
 import {useGetAllDishesQuery} from "../redux/services/DishesService";
 import {useDispatch} from "react-redux";
@@ -21,22 +21,17 @@ const Menu = () => {
     ), [])
 
     return (
-        <View style={styles.container}>
+        <View>
             <FlatList data={data}
                       renderItem={renderDishes}
                       keyExtractor={item => {
                           return item.id
                       }}
                       numColumns={2}
-                      columnWrapperStyle={{alignItems: "flex-start"}}
             />
         </View>
     );
 };
 
-
-const styles = StyleSheet.create({
-    container: {height: "100%"}
-})
 
 export default Menu;

@@ -20,13 +20,9 @@ const LoginForm = () => {
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
-
-
     const loginHandler = async (values) => {
         try {
             const response = await login(values);
-            const data = response.data.token
-            const userFromJWT = ParseJWTHelper(data)
             if (response?.error?.data) {
                 switch (typeof response.error.data === "object" && !Array.isArray(response.error.data)) {
                     case true :
@@ -41,12 +37,16 @@ const LoginForm = () => {
                         break
                 }
             }
-            const token = response?.data?.token
-            if (token?.length) {
-                await SecureStore.setItemAsync("token", token)
-                dispatch(saveUserFromJWT(userFromJWT))
-                dispatch(saveJWT(token))
-                navigation.navigate("HomeScreen")
+
+            if (response.data.token) {
+                const userFromJWT = ParseJWTHelper(response.data.token)
+                const token = response?.data?.token
+                if (token?.length) {
+                    await SecureStore.setItemAsync("token", token)
+                    dispatch(saveUserFromJWT(userFromJWT))
+                    dispatch(saveJWT(token))
+                    navigation.navigate("HomeScreen")
+                }
             }
         } catch (e) {
             console.log(e);
