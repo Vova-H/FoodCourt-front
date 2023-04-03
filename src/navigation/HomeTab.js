@@ -1,12 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import CartScreen from "../screens/CartScreen";
 import FavoriteDishesScreen from "../screens/FavoriteDishesScreen";
 import MyProfileScreen from "../screens/MyProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {useGetAllFavoritesQuery} from "../redux/services/DishesService";
-import {useSelector} from "react-redux";
 
 
 const HomeTab = () => {

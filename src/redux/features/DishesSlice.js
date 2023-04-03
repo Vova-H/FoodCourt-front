@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     dishes: [],
-    favoriteDishes: []
+    favoriteDishes: [],
 }
 
 const dishesSlice = createSlice({
@@ -16,15 +16,12 @@ const dishesSlice = createSlice({
         saveFavoritesDishes: (state, action) => {
             state.favoriteDishes = action.payload
         },
-        // addFavoriteDish: (state, action) => {
-        //     state.favoriteDishes = [...state.favoriteDishes, action.payload];
-        // },
-        // removeFavoriteDish: (state, action) => {
-        //     state.favoriteDishes.map(dish => {
-        //         console.log(dish.name)
-        //     })
-        //     state.favoriteDishes = state.favoriteDishes.filter(dish => dish.id !== action.payload.id);
-        // }
+        addFavoriteDish: (state, action) => {
+            state.favoriteDishes = [...state.favoriteDishes, action.payload];
+        },
+        removeFavoriteDish: (state, action) => {
+            state.favoriteDishes = state.favoriteDishes.filter(dish => dish.id !== action.payload);
+        },
     },
 });
 export const {saveDishes, addFavoriteDish, removeFavoriteDish, saveFavoritesDishes} = dishesSlice.actions

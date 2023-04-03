@@ -7,6 +7,7 @@ import Menu from "../components/Menu";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetUserByIdQuery} from "../redux/services/UsersService";
 import {saveUser} from "../redux/features/UserSlice";
+import {useNavigation} from "@react-navigation/native";
 
 const imageForDisc = require("../../assets/img/food1.png")
 const title = "Popular Food"
@@ -14,8 +15,8 @@ const title = "Popular Food"
 const HomeScreen = () => {
 
     const dispatch = useDispatch()
+    const favorites = useSelector(state => state.dishesReducer.favoriteDishes)
     const user = useSelector(state => state.authReducer.userFromJWT)
-
     const [isDiscount, setIsDiscount] = useState(true)
     const {data, isLoading} = useGetUserByIdQuery(user.id)
 
@@ -23,7 +24,7 @@ const HomeScreen = () => {
         if (!isLoading) {
             dispatch(saveUser(data))
         }
-    }, [isLoading])
+    }, [isLoading, favorites])
 
 
     return (

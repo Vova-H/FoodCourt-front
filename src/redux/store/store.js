@@ -7,7 +7,6 @@ import langReducer from '../features/LangSlice';
 import dishesReducer from '../features/DishesSlice';
 import userReducer from "../features/UserSlice"
 
-
 export const setupStore = () => {
     return configureStore({
         reducer: {

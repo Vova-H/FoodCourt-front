@@ -3,13 +3,14 @@ import {Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../theme";
 import DishCounter from "../components/DishCounter";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import {
     useAddToFavoritesMutation,
     useCheckIsFavoritesMutation,
     useRemoveFromFavoritesMutation
 } from "../redux/services/DishesService";
+import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice";
 
 const headerImg = require("../../assets/img/MenuItemHeader.png")
 const flame = require("../../assets/img/Flame.png")
@@ -22,7 +23,7 @@ const DishDetailScreen = (props) => {
     const [checkIsFavorites] = useCheckIsFavoritesMutation()
     const [addToFavorites] = useAddToFavoritesMutation()
     const [removeFromFavorites] = useRemoveFromFavoritesMutation()
-
+    const dispatch = useDispatch()
     const [, setTotalPrice] = useState(dish.price)
     const [quantity, setQuantity] = useState(1)
     const [isLiked, setIsLiked] = useState(false)
@@ -32,10 +33,12 @@ const DishDetailScreen = (props) => {
     }
     const addFavoriteHandler = async (userId, dishId) => {
         const result = await addToFavorites({userId: userId, dishId: dishId})
+        dispatch(addFavoriteDish(dish))
         setIsLiked(result.data)
     }
     const removeFavoriteHandler = async (userId, dishId) => {
         const result = await removeFromFavorites({userId: userId, dishId: dishId})
+        dispatch(removeFavoriteDish(dishId))
         setIsLiked(result.data)
     }
 
