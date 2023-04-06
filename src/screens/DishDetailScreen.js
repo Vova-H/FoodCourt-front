@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../theme";
 import DishCounter from "../components/DishCounter";
@@ -11,6 +11,8 @@ import {
     useRemoveFromFavoritesMutation
 } from "../redux/services/DishesService";
 import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice";
+import CustomButton from "../components/UI/CustomButton";
+import {addToCart} from "../redux/features/CartSlice";
 
 const headerImg = require("../../assets/img/MenuItemHeader.png")
 const flame = require("../../assets/img/Flame.png")
@@ -27,7 +29,7 @@ const DishDetailScreen = (props) => {
     const [, setTotalPrice] = useState(dish.price)
     const [quantity, setQuantity] = useState(1)
     const [isLiked, setIsLiked] = useState(false)
-
+    const cart = useSelector(state => state.cartReducer.cart)
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
     }
@@ -40,6 +42,27 @@ const DishDetailScreen = (props) => {
         const result = await removeFromFavorites({userId: userId, dishId: dishId})
         dispatch(removeFavoriteDish(dishId))
         setIsLiked(result.data)
+    }
+
+    const addToCartHelper = (dish, quantity) => {
+        if (cart.length === 0) {
+            dispatch(addToCart([dish, quantity]))
+            navigation.navigate("Cart")
+        } else {
+            let error = false
+            cart.map(product => {
+                if (product[0].id === dish.id) {
+                    error = true
+                }
+            })
+            if (error === false) {
+                dispatch(addToCart([dish, quantity]))
+                navigation.navigate("Cart")
+            } else {
+                Alert.alert("Message", "This dish is already in your cart")
+            }
+        }
+
     }
 
     useEffect(() => {
@@ -89,15 +112,24 @@ const DishDetailScreen = (props) => {
                     </View>
                 </ImageBackground>
             </View>
+            <View style={styles.orderBtnWrapper}>
+                <CustomButton title={"Place Order"}
+                              propsButtonStyles={styles.orderBtn}
+                              pressFunc={() => addToCartHelper(dish, quantity)}
+                />
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        flex: 1,
+        position: "relative"
+    },
     header: {},
     headerImg: {
-        height: "83%",
+        height: "80%",
         maxHeight: "83%",
         paddingTop: 40,
         paddingHorizontal: 30
@@ -136,7 +168,17 @@ const styles = StyleSheet.create({
     detailDescription: {
         fontFamily: theme.fonts.robotoRegular,
         fontSize: 15
-    }
+    },
+    orderBtnWrapper: {
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute",
+        flex: 1,
+        bottom: 10,
+        right: 0,
+        left: 0
+    },
+    orderBtn: {}
 })
 
 export default DishDetailScreen;

@@ -7,7 +7,6 @@ import Menu from "../components/Menu";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetUserByIdQuery} from "../redux/services/UsersService";
 import {saveUser} from "../redux/features/UserSlice";
-import {useNavigation} from "@react-navigation/native";
 
 const imageForDisc = require("../../assets/img/food1.png")
 const title = "Popular Food"

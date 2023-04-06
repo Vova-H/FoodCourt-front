@@ -1,9 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, StyleSheet, Text, View} from "react-native";
 import {useGetAllFavoritesQuery} from "../redux/services/DishesService";
 import {useDispatch, useSelector} from "react-redux";
 import {saveFavoritesDishes} from "../redux/features/DishesSlice";
 import FavoritesItem from "../components/UI/FavoritesItem";
+import theme from "../../theme";
+import LoadingScreen from "./LoadingScreen";
 
 const FavoriteDishesScreen = () => {
 
@@ -23,15 +25,22 @@ const FavoriteDishesScreen = () => {
     ), [fav])
     return (
         <View style={styles.container}>
-            <View>
-                <FlatList data={fav}
-                          renderItem={renderFavoritesDishes}
-                          keyExtractor={item => {
-                              return item.id
-                          }}
-                          numColumns={1}
-                />
-            </View>
+            {
+                fav.length ?
+                    <View style={styles.itemsWrapper}>
+                        <FlatList data={fav}
+                                  renderItem={renderFavoritesDishes}
+                                  keyExtractor={item => {
+                                      return item.id
+                                  }}
+                                  numColumns={1}
+                        />
+                    </View>
+                    :
+                    <View>
+                        <Text style={styles.title}>You don't have any favorite dishes yet</Text>
+                    </View>
+            }
         </View>
     );
 };
@@ -41,7 +50,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+    },
+    itemsWrapper: {
         paddingTop: 50
+    },
+    title: {
+        fontFamily: theme.fonts.playfairDisplayBold,
+        fontSize: 30,
+        paddingHorizontal: 30
     }
 })
 
