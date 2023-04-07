@@ -1,24 +1,29 @@
 import React, {useCallback} from 'react';
 import {Alert, FlatList, StyleSheet, Text, View} from "react-native";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import CartItem from "../components/UI/CartItem";
 import theme from "../../theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/UI/CustomButton";
 import {useCreateOrderMutation} from "../redux/services/OrdersService";
+import {useNavigation} from "@react-navigation/native";
+import {cleanCart} from "../redux/features/CartSlice";
 
 const CartScreen = () => {
 
+    const user = useSelector(state => state.authReducer.userFromJWT)
     const cart = useSelector(state => state.cartReducer.cart)
+    const dispatch = useDispatch()
     const [createOrder] = useCreateOrderMutation()
-
-    const createOrderHandler = async (cart) => {
+    const navigation = useNavigation()
+    const createOrderHandler = async (cart, userId) => {
         const body = []
         cart.map(product => {
             body.push([{id: product[0].id}, product[1]])
         })
-        const result = await createOrder(body)
-        console.log(result)
+        const result = await createOrder({body, userId})
+        dispatch(cleanCart())
+        navigation.navigate("Home")
         Alert.alert("Message", `${result.data.message}`)
     }
 
@@ -27,7 +32,7 @@ const CartScreen = () => {
     ), [cart])
     return (
         <View style={styles.container}>
-            <View style={{height: "80%", marginBottom: 30}}>
+            <View style={styles.contentWrapper}>
                 {
                     cart.length ?
                         <View style={styles.itemsWrapper}>
@@ -46,7 +51,10 @@ const CartScreen = () => {
                         </View>
                 }
             </View>
-            <CustomButton title={"Confirm Order"} pressFunc={() => createOrderHandler(cart)}/>
+            {
+                cart.length !== 0 &&
+                <CustomButton title={"Confirm Order"} pressFunc={() => createOrderHandler(cart, user.id)}/>
+            }
         </View>
     );
 };
@@ -57,7 +65,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-
+    contentWrapper: {
+        height: "80%",
+        marginBottom: 30,
+        justifyContent: "center"
+    },
     title: {
         fontFamily: theme.fonts.playfairDisplayBold,
         fontSize: 30,

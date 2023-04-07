@@ -14,7 +14,7 @@ const theme = {
             latoBlack: "Lato-black",
 
             playfairDisplayRegular: "PlayfairDisplay-regular",
-            playfairDisplayMedium: "playfairDisplay-medium",
+            playfairDisplayMedium: "PlayfairDisplay-medium",
             playfairDisplayBold: "PlayfairDisplay-bold",
             playfairDisplaySemiBold: "PlayfairDisplay-semiBold",
             playfairDisplayExtraBold: "PlayfairDisplay-extraBold",

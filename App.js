@@ -16,6 +16,7 @@ import RegisterScreen from "./src/screens/RegisterScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import HomeTab from "./src/navigation/HomeTab";
 import DishDetailScreen from "./src/screens/DishDetailScreen";
+import MyOrdersScreen from "./src/screens/MyOrdersScreen";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -48,6 +49,7 @@ export default function App() {
                                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                                 <Stack.Screen name="RegisterScreen" component={RegisterScreen}/>
                                 <Stack.Screen name="DishDetailScreen" component={DishDetailScreen}/>
+                                <Stack.Screen name="MyOrdersScreen" component={MyOrdersScreen}/>
                             </Stack.Navigator>
                         </NavigationContainer>
                         :

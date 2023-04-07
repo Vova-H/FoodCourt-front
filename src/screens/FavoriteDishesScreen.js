@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {saveFavoritesDishes} from "../redux/features/DishesSlice";
 import FavoritesItem from "../components/UI/FavoritesItem";
 import theme from "../../theme";
-import LoadingScreen from "./LoadingScreen";
 
 const FavoriteDishesScreen = () => {
 
