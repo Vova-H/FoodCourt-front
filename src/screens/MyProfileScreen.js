@@ -14,9 +14,7 @@ const MyProfileScreen = () => {
                 <Text style={styles.link}>My Settings</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.linkWrapper}
-                              onPress={()=>navigation.navigate("MyOrdersScreen")}
-            >
+            <TouchableOpacity style={styles.linkWrapper} onPress={()=>navigation.navigate("MyOrdersScreen")}>
                 <Ionicons name={"book-outline"} size={40} color={"#000000"}/>
                 <Text style={styles.link}>My Orders</Text>
             </TouchableOpacity>

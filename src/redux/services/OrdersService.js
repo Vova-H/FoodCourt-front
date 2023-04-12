@@ -1,6 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {IP_ADDRESS} from "../../../myConfig";
-import loginForm from "../../components/forms/LoginForm";
 
 export const ordersAPI = createApi({
     reducerPath: 'ordersAPI',

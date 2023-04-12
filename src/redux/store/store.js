@@ -8,6 +8,8 @@ import langReducer from '../features/LangSlice';
 import dishesReducer from '../features/DishesSlice';
 import userReducer from "../features/UserSlice"
 import cartReducer from "../features/CartSlice"
+import orderReducer from "../features/OrdersSlice"
+import orderModalReducer from "../features/OrderModalSlice"
 
 export const setupStore = () => {
     return configureStore({
@@ -20,7 +22,9 @@ export const setupStore = () => {
             authReducer,
             langReducer,
             userReducer,
-            cartReducer
+            cartReducer,
+            orderReducer,
+            orderModalReducer
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat([authAPI.middleware, dishesAPI.middleware, usersAPI.middleware, ordersAPI.middleware])
