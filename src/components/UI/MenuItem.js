@@ -2,17 +2,28 @@ import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
 import {useNavigation} from "@react-navigation/native";
+import {useSelector} from "react-redux";
 
 
 const MenuItem = ({dish}) => {
     const navigation = useNavigation()
+    const isAuth = useSelector(state => state.authReducer.isAuthorized)
 
-    return (
-        <Pressable onPress={() => {
+    const dishDetailHandler = (isAuth) => {
+        if (isAuth) {
             navigation.navigate('DishDetailScreen', {
                 dish
             })
-        }} style={styles.itemContainer}
+        } else {
+            navigation.navigate('UnauthorizedDishDetailScreen', {
+                dish
+            })
+        }
+    }
+
+    return (
+        <Pressable onPress={() => dishDetailHandler(isAuth)}
+                   style={styles.itemContainer}
         >
             <View style={styles.imageWrapper}>
                 <Image

@@ -1,8 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
+import * as SecureStore from "expo-secure-store";
 
 const initialState = {
     JWT: "",
-    userFromJWT: {}
+    userFromJWT: {},
+    isAuthorized: false
 };
 
 export const authSlice = createSlice({
@@ -14,8 +16,20 @@ export const authSlice = createSlice({
         },
         saveUserFromJWT(state, action) {
             state.userFromJWT = action.payload
-        }
+        },
+        authorizeUser(state) {
+            state.isAuthorized = true
+        },
+        logoutUser(state) {
+            state.isAuthorized = false
+            state.JWT = ""
+            state.userFromJWT = {}
+            const removeToken = async () => {
+                await SecureStore.deleteItemAsync("token")
+            }
+            removeToken()
+        },
     }
 });
-export const {saveUserFromJWT, saveJWT} = authSlice.actions
+export const {saveUserFromJWT, saveJWT, authorizeUser, logoutUser} = authSlice.actions
 export default authSlice.reducer;

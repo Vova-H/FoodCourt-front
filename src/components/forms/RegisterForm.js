@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet, Text, View} from "react-native";
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useRegistrationMutation} from "../../redux/services/AuthService";
 import {Formik} from 'formik';
 import CustomInput from "../UI/CustomInput";
@@ -98,10 +98,19 @@ const RegisterForm = () => {
                         ) : <View style={{height: 20}}></View>
                     }
                     <CustomButton
-                        propsButtonStyles={{marginTop: 10}}
+                        propsButtonStyles={{marginBottom: 20}}
                         title={i18n.t("registerScreen.btnRegister")}
                         pressFunc={props.handleSubmit}
                     />
+
+                    <TouchableOpacity style={{alignItems: "center"}}>
+                        <Text
+                            style={styles.goToRegisterLink}
+                            onPress={() => navigation.navigate("LoginScreen")}
+                        >
+                            {i18n.t("registerScreen.registerLink")}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             )}
         </Formik>
@@ -119,7 +128,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         letterSpacing: .4,
         color: "#d91717"
-
+    },
+    goToRegisterLink: {
+        fontSize: 14,
+        fontFamily: theme.fonts.robotoRegular,
+        marginBottom:20
     }
 })
 

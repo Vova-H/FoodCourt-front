@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet, Text, View} from "react-native";
+import {Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useLoginMutation} from "../../redux/services/AuthService";
 import * as SecureStore from 'expo-secure-store';
 import {Formik} from 'formik';
@@ -10,7 +10,7 @@ import theme from "../../../theme";
 import {i18n} from "../../redux/features/LangSlice";
 import ParseJWTHelper from "../../helpers/parseJWTHelper";
 import {useDispatch} from "react-redux";
-import {saveJWT, saveUserFromJWT} from "../../redux/features/AuthSlice";
+import {authorizeUser, saveJWT, saveUserFromJWT} from "../../redux/features/AuthSlice";
 import {useNavigation} from "@react-navigation/native";
 
 
@@ -43,6 +43,7 @@ const LoginForm = () => {
                 const token = response?.data?.token
                 if (token?.length) {
                     await SecureStore.setItemAsync("token", token)
+                    dispatch(authorizeUser())
                     dispatch(saveUserFromJWT(userFromJWT))
                     dispatch(saveJWT(token))
                     navigation.navigate("HomeScreen")
@@ -55,7 +56,6 @@ const LoginForm = () => {
 
 
     return (
-
         <Formik
             initialValues={{email: "vova@gmail.com", password: "12345678"}}
             validationSchema={LoginSchema}
@@ -90,10 +90,19 @@ const LoginForm = () => {
                         ) : <View style={{height: 20}}></View>
                     }
                     <CustomButton
-                        propsButtonStyles={{marginTop: 10}}
+                        propsButtonStyles={{marginBottom: 20}}
                         title={i18n.t("loginScreen.btnLogin")}
                         pressFunc={props.handleSubmit}
                     />
+
+                    <TouchableOpacity style={{alignItems: "center"}}>
+                        <Text
+                            style={styles.goToRegisterLink}
+                            onPress={() => navigation.navigate("RegisterScreen")}
+                        >
+                            {i18n.t("loginScreen.registerLink")}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             )}
         </Formik>
@@ -111,7 +120,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         letterSpacing: .4,
         color: "#d91717"
-
+    },
+    goToRegisterLink: {
+        fontSize: 14,
+        fontFamily: theme.fonts.robotoRegular,
+        marginBottom: 20
     }
 })
 

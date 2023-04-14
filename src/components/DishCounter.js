@@ -17,7 +17,6 @@ const DishCounter = ({price, quantity, setTotalPrice, setQuantity}) => {
 
     return (
         <View style={styles.container}>
-
             <View style={styles.bg}>
                 <Text style={styles.price}>{price * quantity} $</Text>
                 <View style={styles.countWrapper}>

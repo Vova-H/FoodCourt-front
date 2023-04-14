@@ -5,6 +5,7 @@ import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {i18n} from "../redux/features/LangSlice";
+
 const WelcomeScreen = () => {
 
     const title = i18n.t("welcomeScreen.title")
@@ -12,6 +13,7 @@ const WelcomeScreen = () => {
     const mainImg = require("../../assets/img/welcome.png")
     const policyLink = i18n.t("welcomeScreen.policy")
     const navigation = useNavigation()
+
     return (
         <View style={styles.container}>
 
@@ -29,6 +31,7 @@ const WelcomeScreen = () => {
                 <CustomButton
                     title={i18n.t("welcomeScreen.btnView")}
                     propsButtonStyles={{marginBottom: 10}}
+                    pressFunc={() => navigation.navigate("UnauthorizedHomeScreen")}
                     inActive={true}
                 />
                 <CustomButton
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        width: "75%",
+        width: "50%",
         fontFamily: theme.fonts.robotoRegular,
         lineHeight: 20,
         fontSize: 14,

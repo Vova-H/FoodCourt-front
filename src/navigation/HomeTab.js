@@ -6,10 +6,8 @@ import FavoriteDishesScreen from "../screens/FavoriteDishesScreen";
 import MyProfileScreen from "../screens/MyProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-
 const HomeTab = () => {
     const Tab = createBottomTabNavigator()
-
     return (
         <Tab.Navigator
             screenOptions={({route}) => ({

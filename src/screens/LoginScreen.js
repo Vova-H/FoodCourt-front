@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import LoginForm from "../components/forms/LoginForm";
@@ -15,31 +15,23 @@ const LoginScreen = () => {
 
     return (
         <View style={styles.container}>
-
             <Image
                 style={[styles.image]}
                 source={mainImg}
             />
-            <View style={styles.contentWrapper}>
-                <Text style={[styles.title, {fontFamily: theme.fonts.robotoBold, marginBottom: 0}]}>
-                    {title}
-                </Text>
-                <Text style={[styles.subtitle]}>
-                    {subtitle}
-                </Text>
-            </View>
-            <View style={{marginBottom: "10%"}}>
-                <LoginForm/>
-            </View>
-
-            <TouchableOpacity>
-                <Text
-                    style={styles.goToRegisterLink}
-                    onPress={() => navigation.navigate("RegisterScreen")}
-                >
-                    {i18n.t("loginScreen.registerLink")}
-                </Text>
-            </TouchableOpacity>
+            <ScrollView>
+                <View style={styles.contentWrapper}>
+                    <Text style={[styles.title, {fontFamily: theme.fonts.robotoBold, marginBottom: 0}]}>
+                        {title}
+                    </Text>
+                    <Text style={[styles.subtitle]}>
+                        {subtitle}
+                    </Text>
+                </View>
+                <View>
+                    <LoginForm/>
+                </View>
+            </ScrollView>
         </View>
     );
 };
@@ -50,7 +42,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: theme.colors.yellow,
-        alignItems: "center"
+        alignItems: "center",
     },
     image: {
         marginTop: 20,
@@ -79,11 +71,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginBottom: 20
     },
-
-    goToRegisterLink: {
-        fontSize: 14,
-        fontFamily: theme.fonts.robotoRegular
-    }
 });
 
 export default LoginScreen;

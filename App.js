@@ -17,6 +17,9 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import HomeTab from "./src/navigation/HomeTab";
 import DishDetailScreen from "./src/screens/DishDetailScreen";
 import MyOrdersScreen from "./src/screens/MyOrdersScreen";
+import UnauthorizedHomeScreen from "./src/screens/UnauthorizedHomeScreen";
+import unauthorizedHomeScreen from "./src/screens/UnauthorizedHomeScreen";
+import UnauthorizedDishDetailScreen from "./src/screens/UnauthorizedDishDetailScreen";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -40,8 +43,9 @@ export default function App() {
                     loaded ?
                         <NavigationContainer>
                             <Stack.Navigator screenOptions={{headerShown: false}}
-                                             initialRouteName="LoginScreen">
+                                             initialRouteName="WelcomeScreen">
                                 <Stack.Screen name="HomeScreen" component={HomeTab}/>
+                                <Stack.Screen name="UnauthorizedHomeScreen" component={unauthorizedHomeScreen}/>
                                 <Stack.Screen name="ChoosingLanguageScreen" component={ChoosingLanguageScreen}/>
                                 <Stack.Screen name="PreviewScreen" component={PreviewScreen}/>
                                 <Stack.Screen name="GetStartedScreen" component={GetStartedScreen}/>
@@ -49,6 +53,8 @@ export default function App() {
                                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                                 <Stack.Screen name="RegisterScreen" component={RegisterScreen}/>
                                 <Stack.Screen name="DishDetailScreen" component={DishDetailScreen}/>
+                                <Stack.Screen name="UnauthorizedDishDetailScreen"
+                                              component={UnauthorizedDishDetailScreen}/>
                                 <Stack.Screen name="MyOrdersScreen" component={MyOrdersScreen}/>
                             </Stack.Navigator>
                         </NavigationContainer>

@@ -30,6 +30,7 @@ const DishDetailScreen = (props) => {
     const [quantity, setQuantity] = useState(1)
     const [isLiked, setIsLiked] = useState(false)
     const cart = useSelector(state => state.cartReducer.cart)
+
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
     }

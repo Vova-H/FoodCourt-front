@@ -1,22 +1,48 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import {useSelector} from "react-redux";
+import CustomButton from "./UI/CustomButton";
+import userReducer from "../redux/features/UserSlice";
 
-const WelcomeInfo = ({user}) => {
 
+const WelcomeInfo = () => {
+
+    const navigation = useNavigation()
     const profileSmallBtn = require("../../assets/img/profileSmallBtn.png")
+    const isAuthorized = useSelector(state => state.authReducer.isAuthorized)
+    const user = useSelector(state => state.userReducer.user)
+    const goMyProfileHandler = (isAuthorized) => {
+        if (isAuthorized) {
+            navigation.navigate("Profile")
+        }
+    }
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => goMyProfileHandler(isAuthorized)}>
             <View style={styles.infoWrapper}>
-                <View style={styles.imageWrapper}>
-                    <Image style={styles.avatar}
-
-                    source={{uri: `data:image/jpeg;base64,${user.avatar}`}}
-                           resizeMode={"cover"}
-                    />
-                </View>
-                <Text style={styles.title}>
-                    Welcome {"\n"}{user.username}
-                </Text>
+                {isAuthorized ?
+                    <View style={styles.imageWrapper}>
+                        <Image style={styles.avatar}
+                               source={{uri: `data:image/jpeg;base64,${user.avatar}`}}
+                               resizeMode={"cover"}
+                        />
+                    </View> :
+                    <View style={{width: "100%", marginLeft: 10}}>
+                        <CustomButton title="Login"
+                                      pressFunc={() => navigation.navigate("LoginScreen")}
+                                      propsButtonStyles={{
+                                          width: "40%",
+                                          height: "60%",
+                                      }}
+                        />
+                    </View>
+                }
+                {
+                    isAuthorized &&
+                    <Text style={styles.title}>
+                        Welcome {"\n"}{user.username}
+                    </Text>
+                }
             </View>
             <View style={styles.profileSmallBtn}>
                 <Image source={profileSmallBtn}/>
