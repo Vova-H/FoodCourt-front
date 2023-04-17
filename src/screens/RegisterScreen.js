@@ -1,14 +1,13 @@
 import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {useNavigation} from "@react-navigation/native";
+import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import {i18n} from "../redux/features/LangSlice";
 import theme from "../../theme";
 import {mainStyles} from "../styles/global.styles";
 import RegisterForm from "../components/forms/RegisterForm";
 
 const RegisterScreen = () => {
-    const title = i18n.t("registerScreen.title")
-    const subtitle = i18n.t("registerScreen.subtitle")
+    const locTitle = i18n.t("registerScreen.title")
+    const locSubtitle = i18n.t("registerScreen.subtitle")
     const mainImg = require("../../assets/img/signUp.png")
 
     return (
@@ -17,15 +16,16 @@ const RegisterScreen = () => {
                 style={[styles.image]}
                 source={mainImg}
             />
-            <ScrollView>
+
                 <View style={styles.contentWrapper}>
                     <Text style={[styles.title, {fontFamily: theme.fonts.robotoBold, marginBottom: 10}]}>
-                        {title}
+                        {locTitle}
                     </Text>
                     <Text style={[styles.subtitle]}>
-                        {subtitle}
+                        {locSubtitle}
                     </Text>
                 </View>
+            <ScrollView>
                 <View>
                     <RegisterForm/>
                 </View>

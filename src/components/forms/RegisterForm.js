@@ -56,7 +56,6 @@ const RegisterForm = () => {
         >
             {(props) => (
 
-
                 <View>
                     <CustomInput
                         inputLabel={i18n.t("registerScreen.emailLabel")}
@@ -103,12 +102,12 @@ const RegisterForm = () => {
                         pressFunc={props.handleSubmit}
                     />
 
-                    <TouchableOpacity style={{alignItems: "center"}}>
-                        <Text
-                            style={styles.goToRegisterLink}
-                            onPress={() => navigation.navigate("LoginScreen")}
-                        >
-                            {i18n.t("registerScreen.registerLink")}
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("LoginScreen")}
+                        style={{alignItems: "center"}}
+                    >
+                        <Text style={styles.goToRegisterLink}>
+                            {i18n.t("registerScreen.loginLink")}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
     goToRegisterLink: {
         fontSize: 14,
         fontFamily: theme.fonts.robotoRegular,
-        marginBottom:20
+        marginBottom: 20
     }
 })
 

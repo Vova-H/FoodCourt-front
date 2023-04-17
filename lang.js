@@ -1,20 +1,22 @@
 export const localization = {
     en: {
         choosingLanguage: {
-            title: "Choose language",
-            btn: "Next"
+            titleFirstTime: "Choose language",
+            title: "English",
+            btnFirstTime: "Next",
+            btn: "Confirm"
         },
         previewScreen1: {
-            title: "choose your favorite food",
+            title: "Choose your favorite food",
             subtitle: "Let's choose your favorite food your choice with our application."
         },
         previewScreen2: {
-            title: "delicious food menu",
+            title: "Delicious food menu",
             subtitle: "Your order is ready to be picked up and sent directly by our courier"
         },
         getStartedScreen: {
-            title: "we have 5000+ review on our app",
-            subtitle: "we have 5000+ user reviews, You can check in the app store",
+            title: "We have 5000+ review on our app",
+            subtitle: "We have 5000+ user reviews, You can check in the app store",
             btn: "Get Started"
         },
         welcomeScreen: {
@@ -42,7 +44,7 @@ export const localization = {
             emailLabel: "Email",
             passwordLabel: "Password",
             btnRegister: "Register",
-            registerLink: "Already have an account? Log in",
+            loginLink: "Already have an account? Log in",
             emailRequiredError: "Email is required",
             invalidEmailError: "Email is invalid",
             usernameRequiredError: "Username is required",
@@ -51,42 +53,88 @@ export const localization = {
             longUsernameError: "Username is too long",
             shortPasswordError: "Password is too short",
             longPasswordError: "Password is too long"
+        },
+        homeScreen: {
+            welcome: "Welcome",
+            discount: {
+                title: "Get Special Discount",
+                off: "OFF",
+                btn: "Get Voucher"
+            },
+            menu: "Menu",
+            placeOrder: "Place Order"
+        },
+        cartScreen: {
+            title: "Cart is empty",
+            orderBtn: "Confirm Order"
+        },
+        favoritesScreen: {
+            title: "You don't have any favorite dishes yet"
+        },
+        myProfileScreen: {
+            mySettings: "My Settings",
+            myOrders: "My Orders",
+            logout: "Log Out"
+        },
+        mySettingsScreen: {
+            changeLanguage: "Change interface language"
+        },
+        myOrdersScreen: {
+            title: "You don't have any orders yet",
+            status: "Status",
+            statusValue1: "Completed",
+            statusValue2: "In Process",
+            detailsBtn: "Details",
+            totalPrice: "Total price for pay"
+        },
+        modals: {
+            order: {
+                order: "Order",
+                listOfDishes: "List Of Dishes"
+            },
+            dishDetails: {
+                title: "Login Message",
+                messageFavorite: "You need to log in to add this dish to your favorites",
+                messageOrder: "You need to log in to order dishes",
+            }
         }
     },
 
 
     ua: {
         choosingLanguage: {
-            title: "Вибери мову",
-            btn: "Далi"
+            titleFirstTime: "Вибери мову",
+            title: "Українська",
+            btnFirstTime: "Далi",
+            btn: "Підтвердити"
         },
         previewScreen1: {
-            title: "вибрати свою улюблену їжу",
+            title: "Вибрати свою улюблену їжу",
             subtitle: "Давайте виберемо вашу улюблену їжу за допомогою нашої програми."
         },
         previewScreen2: {
-            title: "меню смачної їжі",
+            title: "Меню смачної їжі",
             subtitle: "Ваше замовлення готове до отримання та відправлення безпосередньо нашим кур’єром"
         },
         getStartedScreen: {
-            title: "ми маємо понад 5000 відгуків про наш додаток",
-            subtitle: "у нас є понад 5000 відгуків користувачів, ви можете перевірити в магазині програм",
+            title: "Ми маємо понад 5000 відгуків про наш додаток",
+            subtitle: "У нас є понад 5000 відгуків користувачів, ви можете перевірити в магазині програм",
             btn: "Почати"
         },
         welcomeScreen: {
             title: "Ласкаво просимо!",
             subtitle: "Приєднуйтесь до нас зараз, створіть обліковий запис або увійдіть.",
             btnView: "Перегляд меню",
-            btnLogin: "Логін",
+            btnLogin: "Увiйти",
             policy: "Реєструючись, приймаєте Умови використання та Політику конфіденційності."
         },
         loginScreen: {
             title: "Привіт знову!",
             subtitle: "Ласкаво просимо назад, за вами скучили!",
-            usernameLabel: "Email користувача",
+            emailLabel: "Електронна пошта",
             passwordLabel: "Пароль",
             btnLogin: "Логін",
-            registerLink: "Немає облікового запису? Зареєструйся",
+            registerLink: "Немає облікового запису?",
             emailRequiredError: "Електронна пошта є необхідна",
             invalidEmailError: "Електронна пошта не є коректною",
             passwordRequiredError: "Пароль не може бути пустим"
@@ -97,8 +145,8 @@ export const localization = {
             usernameLabel: "Ім'я користувача",
             emailLabel: "Електронна пошта",
             passwordLabel: "Пароль",
-            btnRegister: "зареєструватися",
-            registerLink: "Вже є аккаунт? авторизуйтесь",
+            btnRegister: "Зареєструватися",
+            loginLink: "Вже є аккаунт? авторизуйтесь",
             emailRequiredError: "Необхідно вказати адресу електронної пошти",
             invalidEmailError: "Електронна адреса недійсна",
             usernameRequiredError: "Потрібно ввести ім'я користувача",
@@ -107,14 +155,60 @@ export const localization = {
             longUsernameError: "Ім'я користувача задовге",
             shortPasswordError: "Пароль занадто короткий",
             longPasswordError: "Пароль задовгий"
+        },
+        homeScreen: {
+            welcome: "Привіт",
+            discount: {
+                title: "Отримайте спеціальну знижку",
+                off: "Знижка",
+                btn: "Отримати ваучер"
+            },
+            menu: "Меню",
+            placeOrder: "Зробити Замовлення"
+        },
+        cartScreen: {
+            title: "Корзина порожня",
+            orderBtn: "Підтвердити замовлення"
+        },
+        favoritesScreen: {
+            title: "У вас ще немає улюблених страв"
+        },
+        myProfileScreen: {
+            mySettings: "Мої налаштування",
+            myOrders: "Мої замовлення",
+            logout: "Вийти"
+        },
+        mySettingsScreen: {
+            changeLanguage: "Змінити мову інтерфейсу"
+        },
+        myOrdersScreen: {
+            title: "У вас ще немає замовлень",
+            status: "Статус",
+            statusValue1: "Завершено",
+            statusValue2: "В процесі",
+            detailsBtn: "Деталі",
+            totalPrice: "Загальна ціна до сплати"
+        },
+        modals: {
+            order: {
+                order: "Замовлення",
+                listOfDishes: "Список страв"
+            },
+            dishDetails: {
+                title: "Повідомлення",
+                messageFavorite: "Вам необхідно авторизуватися, щоб додати цю страву в обране",
+                messageOrder: "Ви повинні увійти, щоб замовити цю страву",
+            }
         }
     },
 
 
     pl: {
         choosingLanguage: {
-            title: "Wybierz język",
-            btn: "Dalej"
+            titleFirstTime: "Wybierz język",
+            title: "Polska",
+            btnFirstTime: "Dalej",
+            btn: "Potwierdzić",
         },
         previewScreen1: {
             title: "wybierz swoje ulubione jedzenie",
@@ -139,7 +233,7 @@ export const localization = {
         loginScreen: {
             title: "Witamy ponownie!",
             subtitle: "Witamy z powrotem, tęskniliśmy!",
-            usernameLabel: "Email użytkownika",
+            emailLabel: "Email",
             passwordLabel: "Hasło",
             btnLogin: "Zaloguj sie",
             registerLink: "Nie masz konta? Zapisz się",
@@ -147,5 +241,67 @@ export const localization = {
             invalidEmailError: "Email jest nie prawidłowy",
             passwordRequiredError: "Hasło jest wymagane"
         },
+
+        registerScreen: {
+            title: "Rejestracja",
+            subtitle: "Wprowadź swoje dane, aby utworzyć konto!",
+            usernameLabel: "Nazwa użytkownika",
+            emailLabel: "E-mail",
+            passwordLabel: "Hasło",
+            btnRegister: "Zarejestruj się",
+            loginLink: "Posiadasz już konto? Zaloguj sie",
+            emailRequiredError: "Adres e-mail jest wymagany",
+            invalidEmailError: "Adres email jest nieprawidłowy",
+            usernameRequiredError: "Musisz wprowadzić nazwę użytkownika",
+            passwordRequiredError: "Hasło musi być wprowadzone",
+            shortUsernameError: "Nazwa użytkownika jest za krótka",
+            longUsernameError: "Nazwa użytkownika jest za długa",
+            shortPasswordError: "Hasło jest za krótkie",
+            longPasswordError: "Hasło jest za długie"
+        },
+        homeScreen: {
+            welcome: "Cześć",
+            discount: {
+                title: "Uzyskaj specjalną zniżkę",
+                off: "Rabat",
+                btn: "Zdobądź kupon"
+            },
+            menu: "Menu",
+            placeOrder: "Złóż Zamówienie"
+        },
+        cartScreen: {
+            title: "Koszyk jest pusty",
+            orderBtn: "Potwierdzić zamówienie"
+        },
+        favoritesScreen: {
+            title: "Nie masz jeszcze ulubionych potraw"
+        },
+        myProfileScreen: {
+            mySettings: "Moje ustawienia",
+            myOrders: "Moje zamówienia",
+            logout: "Wyloguj Się"
+        },
+        mySettingsScreen: {
+            changeLanguage: "Zmień język interfejsu"
+        },
+        myOrdersScreen: {
+            title: "Nie masz jeszcze żadnych zamówień",
+            status: "Stan",
+            statusValue1: "Zakończono",
+            statusValue2: "W toku",
+            detailsBtn: "Szczegóły",
+            totalPrice: "Razem do oplaty"
+        },
+        modals: {
+            order: {
+                order: "Zamówienie",
+                listOfDishes: "Lista dań"
+            },
+            dishDetails: {
+                title: "Wiadomość",
+                messageFavorite: "Musisz być zalogowany, aby dodać to danie do ulubionych",
+                messageOrder: "Musisz być zalogowany, aby aby zamówić to danie",
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useLoginMutation} from "../../redux/services/AuthService";
 import * as SecureStore from 'expo-secure-store';
 import {Formik} from 'formik';
@@ -9,15 +9,15 @@ import CustomButton from "../UI/CustomButton";
 import theme from "../../../theme";
 import {i18n} from "../../redux/features/LangSlice";
 import ParseJWTHelper from "../../helpers/parseJWTHelper";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {authorizeUser, saveJWT, saveUserFromJWT} from "../../redux/features/AuthSlice";
 import {useNavigation} from "@react-navigation/native";
 
 
 const LoginForm = () => {
 
+    const lang = useSelector(state => state.langReducer.lang)
     const [login] = useLoginMutation()
-
     const dispatch = useDispatch()
     const navigation = useNavigation()
     const loginHandler = async (values) => {
@@ -53,7 +53,6 @@ const LoginForm = () => {
             console.log(e);
         }
     };
-
 
     return (
         <Formik
@@ -94,12 +93,11 @@ const LoginForm = () => {
                         title={i18n.t("loginScreen.btnLogin")}
                         pressFunc={props.handleSubmit}
                     />
-
-                    <TouchableOpacity style={{alignItems: "center"}}>
-                        <Text
-                            style={styles.goToRegisterLink}
-                            onPress={() => navigation.navigate("RegisterScreen")}
-                        >
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("RegisterScreen")}
+                        style={{alignItems: "center"}}
+                    >
+                        <Text style={styles.goToRegisterLink}>
                             {i18n.t("loginScreen.registerLink")}
                         </Text>
                     </TouchableOpacity>

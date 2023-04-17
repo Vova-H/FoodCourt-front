@@ -12,13 +12,13 @@ const longPasswordError = i18n.t('registerScreen.longPasswordError')
 
 
 const RegistrationSchema = Yup.object().shape({
-    email: Yup.string().email(invalidEmailError).required(emailRequiredError),
-    username: Yup.string().required(usernameRequiredError)
-        .min(4, shortUsernameError)
-        .max(15, longUsernameError),
-    password: Yup.string().required(passwordRequiredError)
-        .min(4, shortPasswordError)
-        .max(15, longPasswordError),
+    email: Yup.string().email(`${invalidEmailError}`).required(`${emailRequiredError}`),
+    username: Yup.string().required(`${usernameRequiredError}`)
+        .min(4, `${shortUsernameError}`)
+        .max(15, `${longUsernameError}`),
+    password: Yup.string().required(`${passwordRequiredError}`)
+        .min(4, `${shortPasswordError}`)
+        .max(15, `${longPasswordError}`),
 });
 
 export default RegistrationSchema

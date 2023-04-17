@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {saveFavoritesDishes} from "../redux/features/DishesSlice";
 import FavoritesItem from "../components/UI/FavoritesItem";
 import theme from "../../theme";
+import {i18n} from "../redux/features/LangSlice";
 
 const FavoriteDishesScreen = () => {
 
@@ -12,6 +13,8 @@ const FavoriteDishesScreen = () => {
     const userAuth = useSelector(state => state.authReducer.userFromJWT)
     const {data, isLoading} = useGetAllFavoritesQuery(userAuth.id)
     const fav = useSelector(state => state.dishesReducer.favoriteDishes)
+    const lang = useSelector(state => state.langReducer.lang)
+    const locTitle = i18n.t("favoritesScreen.title")
 
     useEffect(() => {
         if (!isLoading) {
@@ -37,7 +40,7 @@ const FavoriteDishesScreen = () => {
                     </View>
                     :
                     <View>
-                        <Text style={styles.title}>You don't have any favorite dishes yet</Text>
+                        <Text style={styles.title}>{locTitle}</Text>
                     </View>
             }
         </View>

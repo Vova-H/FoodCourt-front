@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import CartScreen from "../screens/CartScreen";
 import FavoriteDishesScreen from "../screens/FavoriteDishesScreen";
 import MyProfileScreen from "../screens/MyProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
 
 const HomeTab = () => {
     const Tab = createBottomTabNavigator()

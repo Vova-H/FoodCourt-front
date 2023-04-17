@@ -7,9 +7,10 @@ import Menu from "../components/Menu";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetUserByIdQuery} from "../redux/services/UsersService";
 import {saveUser} from "../redux/features/UserSlice";
+import {i18n} from "../redux/features/LangSlice";
 
 const imageForDisc = require("../../assets/img/food1.png")
-const title = "Menu"
+
 
 const HomeScreen = () => {
 
@@ -18,13 +19,20 @@ const HomeScreen = () => {
     const user = useSelector(state => state.authReducer.userFromJWT)
     const [isDiscount, setIsDiscount] = useState(true)
     const {data, isLoading} = useGetUserByIdQuery(user.id)
+    const lang = useSelector(state => state.langReducer.lang)
+    const locDiscountTitle = i18n.t("homeScreen.discount.title")
+    const locDiscountOff = i18n.t("homeScreen.discount.off")
+    const locMenu = i18n.t("homeScreen.menu")
+
 
     useEffect(() => {
         if (!isLoading) {
             dispatch(saveUser(data))
         }
     }, [isLoading, favorites])
+    useEffect(() => {
 
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -35,9 +43,9 @@ const HomeScreen = () => {
                     }
                 </View>
                 {isDiscount && <View style={styles.discountWrapper}>
-                    <Discount image={imageForDisc} title="Get Special Discount" subtitle="80% OFF"/>
+                    <Discount image={imageForDisc} title={locDiscountTitle} subtitle={`80% ${locDiscountOff}`}/>
                 </View>}
-                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.title}>{locMenu}</Text>
                 <View style={{height: "63%", width: "100%"}}>
                     <Menu/>
                 </View>

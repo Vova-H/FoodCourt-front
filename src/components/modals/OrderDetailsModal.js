@@ -3,14 +3,18 @@ import {FlatList, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-n
 import {useDispatch, useSelector} from "react-redux";
 import {closeModal} from "../../redux/features/OrderModalSlice";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import OrderListDishes from "./OrderListDishes";
+import OrderListDishes from "../UI/OrderListDishes";
 import theme from "../../../theme";
+import {i18n} from "../../redux/features/LangSlice";
 
 const OrderDetailsModal = () => {
 
     const dispatch = useDispatch()
     const content = useSelector(state => state.orderModalReducer.content)
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
+    const lang = useSelector(state => state.langReducer.lang)
+    const locOrder = i18n.t("modals.order.order")
+    const locListOfDishes = i18n.t("modals.order.listOfDishes")
 
     const renderListOfDishes = useCallback(({item}) => (
         <OrderListDishes item={item}/>
@@ -28,8 +32,8 @@ const OrderDetailsModal = () => {
                     <Ionicons name={"close"} size={30}/>
                 </TouchableOpacity>
                 <View style={styles.modalContentWrapper}>
-                    <Text style={styles.order}>Order №{content.id}</Text>
-                    <Text style={styles.listOfDishesTitle}>List of dishes:</Text>
+                    <Text style={styles.order}>{locOrder} №{content.id}</Text>
+                    <Text style={styles.listOfDishesTitle}>{locListOfDishes}:</Text>
                     <View style={{height: "70%"}}>
                         <FlatList data={content.dishes}
                                   renderItem={renderListOfDishes}

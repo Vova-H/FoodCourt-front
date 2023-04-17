@@ -8,14 +8,18 @@ import CustomButton from "../components/UI/CustomButton";
 import {useCreateOrderMutation} from "../redux/services/OrdersService";
 import {useNavigation} from "@react-navigation/native";
 import {cleanCart} from "../redux/features/CartSlice";
+import {i18n} from "../redux/features/LangSlice";
 
 const CartScreen = () => {
 
     const user = useSelector(state => state.authReducer.userFromJWT)
     const cart = useSelector(state => state.cartReducer.cart)
+    const lang = useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()
     const [createOrder] = useCreateOrderMutation()
     const navigation = useNavigation()
+    const locTitle = i18n.t("cartScreen.title")
+    const locOrderBtn = i18n.t("cartScreen.orderBtn")
     const createOrderHandler = async (cart, userId) => {
         const body = []
         cart.map(product => {
@@ -47,13 +51,13 @@ const CartScreen = () => {
                         :
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Ionicons name={"cart-outline"} size={40} color={"#000000"}/>
-                            <Text style={styles.title}>Cart is empty</Text>
+                            <Text style={styles.title}>{locTitle}</Text>
                         </View>
                 }
             </View>
             {
                 cart.length !== 0 &&
-                <CustomButton title={"Confirm Order"} pressFunc={() => createOrderHandler(cart, user.id)}/>
+                <CustomButton title={locOrderBtn} pressFunc={() => createOrderHandler(cart, user.id)}/>
             }
         </View>
     );

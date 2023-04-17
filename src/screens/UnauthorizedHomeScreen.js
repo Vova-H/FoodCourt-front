@@ -5,11 +5,19 @@ import theme from "../../theme";
 import Discount from "../components/Discount";
 import imageForDisc from "../../assets/img/food1.png";
 import WelcomeInfo from "../components/WelcomeInfo";
+import {useSelector} from "react-redux";
+import {i18n} from "../redux/features/LangSlice";
 
-const title = "Menu"
+
 
 const UnauthorizedHomeScreen = () => {
     const [isDiscount, setIsDiscount] = useState(true)
+
+    const lang = useSelector(state => state.langReducer.lang)
+    const locDiscountTitle = i18n.t("homeScreen.discount.title")
+    const locDiscountOff = i18n.t("homeScreen.discount.off")
+    const locMenu = i18n.t("homeScreen.menu")
+
 
     return (
         <View style={styles.container}>
@@ -18,9 +26,9 @@ const UnauthorizedHomeScreen = () => {
                     <WelcomeInfo/>
                 </View>
                 {isDiscount && <View style={styles.discountWrapper}>
-                    <Discount image={imageForDisc} title="Get Special Discount" subtitle="80% OFF"/>
+                    <Discount image={imageForDisc} title={locDiscountTitle} subtitle={`80% ${locDiscountOff}`}/>
                 </View>}
-                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.title}>{locMenu}</Text>
                 <View style={{height: "62%", width: "100%"}}>
                     <Menu/>
                 </View>

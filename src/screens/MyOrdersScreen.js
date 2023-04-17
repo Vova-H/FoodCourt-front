@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useGetOrdersQuery} from "../redux/services/OrdersService";
 import {saveOrders} from "../redux/features/OrdersSlice";
 import OrdersItem from "../components/UI/OrdersItem";
-import OrderDetailsModal from "../components/UI/OrderDetailsModal";
+import OrderDetailsModal from "../components/modals/OrderDetailsModal";
+import {i18n} from "../redux/features/LangSlice";
 
 
 const MyOrdersScreen = () => {
@@ -14,8 +15,8 @@ const MyOrdersScreen = () => {
     const {data, isLoading, refetch} = useGetOrdersQuery(userAuth.id)
     const orders = useSelector(state => state.orderReducer.orders)
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
-
-
+    const lang = useSelector(state => state.langReducer.lang)
+    const locTitle = i18n.t("myOrdersScreen.title")
 
     useEffect(() => {
         if (!isLoading) {
@@ -23,7 +24,6 @@ const MyOrdersScreen = () => {
             dispatch(saveOrders(data))
         }
     }, [isLoading])
-
 
 
     const renderOrder = useCallback(({item}) => (
@@ -44,9 +44,9 @@ const MyOrdersScreen = () => {
                         />
                     </View>
                     :
-                    <View>
-                        <Text style={styles.title}>You don't have any orders yet</Text>
-                    </View>
+                <View>
+                    <Text style={styles.title}>{locTitle}</Text>
+                </View>
             }
 
             {isOpen && <OrderDetailsModal/>}
@@ -64,6 +64,11 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         position: "relative"
     },
+    title: {
+        fontFamily: theme.fonts.playfairDisplayBold,
+        fontSize: 30,
+        maxWidth: "60%"
+    }
 })
 
 export default MyOrdersScreen;

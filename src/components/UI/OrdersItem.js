@@ -2,12 +2,20 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
 import CustomButton from "./CustomButton";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loadContent, openModal} from "../../redux/features/OrderModalSlice";
+import {i18n} from "../../redux/features/LangSlice";
 
 const OrdersItem = ({order}) => {
     const [totalPrice, setTotalPrice] = useState(0)
     const dispatch = useDispatch()
+    const lang = useSelector(state => state.langReducer.lang)
+    const locStatus = i18n.t("myOrdersScreen.status")
+    const locStatusValue1 = i18n.t("myOrdersScreen.statusValue1")
+    const locStatusValue2 = i18n.t("myOrdersScreen.statusValue2")
+    const locDetailsBtn = i18n.t("myOrdersScreen.detailsBtn")
+    const locTotalPrice = i18n.t("myOrdersScreen.totalPrice")
+
     const calcTotalPrice = (order) => {
         order.dishes.map(dish => {
             setTotalPrice(prevState => prevState += dish.OrdersDishesModel.quantity * dish.price)
@@ -17,9 +25,9 @@ const OrdersItem = ({order}) => {
     const getStatus = (status) => {
         switch (status) {
             case true:
-                return "Completed"
+                return locStatusValue1
             case false:
-                return "in Process"
+                return locStatusValue2
         }
     }
 
@@ -45,10 +53,10 @@ const OrdersItem = ({order}) => {
             </View>
             <View style={{flexDirection: "row", alignItems: "center"}}>
                 <View style={{marginRight: "auto"}}>
-                    <Text style={styles.orderStatus}>Status: {getStatus(order.status)}</Text>
-                    <Text style={styles.totalPrice}>Total price for pay: {totalPrice}$</Text>
+                    <Text style={styles.orderStatus}>{locStatus}: {getStatus(order.status)}</Text>
+                    <Text style={styles.totalPrice}>{locTotalPrice}: {totalPrice}$</Text>
                 </View>
-                <CustomButton title={"Details"}
+                <CustomButton title={locDetailsBtn}
                               propsButtonStyles={{width: "30%", height: "70%"}}
                               propsTitleStyles={{fontSize: 16}}
                               pressFunc={() => detailHandler(order)}

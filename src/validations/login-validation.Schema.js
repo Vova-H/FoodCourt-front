@@ -6,8 +6,8 @@ const passwordRequiredError = i18n.t('loginScreen.passwordRequiredError')
 const emailRequiredError = i18n.t('loginScreen.emailRequiredError')
 
 const LoginSchema = Yup.object().shape({
-    email: Yup.string().email(invalidEmailError).required(emailRequiredError),
-    password: Yup.string().required(passwordRequiredError)
+    email: Yup.string().email(`${invalidEmailError}`).required(`${emailRequiredError}`),
+    password: Yup.string().required(`${passwordRequiredError}`)
 });
 
 export default LoginSchema

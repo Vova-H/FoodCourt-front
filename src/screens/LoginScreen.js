@@ -1,16 +1,16 @@
 import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import LoginForm from "../components/forms/LoginForm";
 import {i18n} from "../redux/features/LangSlice";
-import {useNavigation} from "@react-navigation/native";
+import {useSelector} from "react-redux";
 
 const LoginScreen = () => {
 
-    const navigation = useNavigation()
-    const title = i18n.t("loginScreen.title")
-    const subtitle = i18n.t("loginScreen.subtitle")
+    const lang = useSelector(state => state.langReducer.lang)
+    const locTitle = i18n.t("loginScreen.title")
+    const locSubtitle = i18n.t("loginScreen.subtitle")
     const mainImg = require("../../assets/img/login.png")
 
     return (
@@ -19,21 +19,23 @@ const LoginScreen = () => {
                 style={[styles.image]}
                 source={mainImg}
             />
+            <View style={styles.contentWrapper}>
+                <Text style={[styles.title, {fontFamily: theme.fonts.robotoBold, marginBottom: 0}]}>
+                    {locTitle}
+                </Text>
+                <Text style={[styles.subtitle]}>
+                    {locSubtitle}
+                </Text>
+            </View>
+
             <ScrollView>
-                <View style={styles.contentWrapper}>
-                    <Text style={[styles.title, {fontFamily: theme.fonts.robotoBold, marginBottom: 0}]}>
-                        {title}
-                    </Text>
-                    <Text style={[styles.subtitle]}>
-                        {subtitle}
-                    </Text>
-                </View>
                 <View>
                     <LoginForm/>
                 </View>
             </ScrollView>
         </View>
-    );
+    )
+        ;
 };
 
 

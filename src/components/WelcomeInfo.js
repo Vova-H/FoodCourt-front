@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
 import CustomButton from "./UI/CustomButton";
-import userReducer from "../redux/features/UserSlice";
+import {i18n} from "../redux/features/LangSlice";
 
 
 const WelcomeInfo = () => {
@@ -12,6 +12,9 @@ const WelcomeInfo = () => {
     const profileSmallBtn = require("../../assets/img/profileSmallBtn.png")
     const isAuthorized = useSelector(state => state.authReducer.isAuthorized)
     const user = useSelector(state => state.userReducer.user)
+    const lang = useSelector(state => state.langReducer.lang)
+    const locWelcome = i18n.t("homeScreen.welcome")
+    const loginBtn = i18n.t("welcomeScreen.btnLogin")
     const goMyProfileHandler = (isAuthorized) => {
         if (isAuthorized) {
             navigation.navigate("Profile")
@@ -28,7 +31,7 @@ const WelcomeInfo = () => {
                         />
                     </View> :
                     <View style={{width: "100%", marginLeft: 10}}>
-                        <CustomButton title="Login"
+                        <CustomButton title={loginBtn}
                                       pressFunc={() => navigation.navigate("LoginScreen")}
                                       propsButtonStyles={{
                                           width: "40%",
@@ -40,7 +43,7 @@ const WelcomeInfo = () => {
                 {
                     isAuthorized &&
                     <Text style={styles.title}>
-                        Welcome {"\n"}{user.username}
+                        {locWelcome} {"\n"}{user.username}
                     </Text>
                 }
             </View>

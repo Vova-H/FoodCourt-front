@@ -17,9 +17,11 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import HomeTab from "./src/navigation/HomeTab";
 import DishDetailScreen from "./src/screens/DishDetailScreen";
 import MyOrdersScreen from "./src/screens/MyOrdersScreen";
-import UnauthorizedHomeScreen from "./src/screens/UnauthorizedHomeScreen";
 import unauthorizedHomeScreen from "./src/screens/UnauthorizedHomeScreen";
 import UnauthorizedDishDetailScreen from "./src/screens/UnauthorizedDishDetailScreen";
+import MySettingsScreen from "./src/screens/MySettingsScreen";
+import MyProfileScreen from "./src/screens/MyProfileScreen";
+import ChangeLanguageScreen from "./src/screens/ChangeLanguageScreen";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -43,19 +45,24 @@ export default function App() {
                     loaded ?
                         <NavigationContainer>
                             <Stack.Navigator screenOptions={{headerShown: false}}
-                                             initialRouteName="WelcomeScreen">
-                                <Stack.Screen name="HomeScreen" component={HomeTab}/>
-                                <Stack.Screen name="UnauthorizedHomeScreen" component={unauthorizedHomeScreen}/>
+                                             initialRouteName="ChoosingLanguageScreen">
                                 <Stack.Screen name="ChoosingLanguageScreen" component={ChoosingLanguageScreen}/>
                                 <Stack.Screen name="PreviewScreen" component={PreviewScreen}/>
                                 <Stack.Screen name="GetStartedScreen" component={GetStartedScreen}/>
                                 <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>
                                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                                 <Stack.Screen name="RegisterScreen" component={RegisterScreen}/>
+                                <Stack.Screen name="HomeScreen" component={HomeTab}/>
+                                <Stack.Screen name="UnauthorizedHomeScreen" component={unauthorizedHomeScreen}/>
                                 <Stack.Screen name="DishDetailScreen" component={DishDetailScreen}/>
                                 <Stack.Screen name="UnauthorizedDishDetailScreen"
                                               component={UnauthorizedDishDetailScreen}/>
+                                <Stack.Screen name="MyProfileScreen" component={MyProfileScreen}/>
                                 <Stack.Screen name="MyOrdersScreen" component={MyOrdersScreen}/>
+                                <Stack.Screen name="MySettingsScreen" component={MySettingsScreen}/>
+                                <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen}/>
+
+
                             </Stack.Navigator>
                         </NavigationContainer>
                         :

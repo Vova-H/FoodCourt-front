@@ -13,6 +13,7 @@ import {
 import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice";
 import CustomButton from "../components/UI/CustomButton";
 import {addToCart} from "../redux/features/CartSlice";
+import {i18n} from "../redux/features/LangSlice";
 
 const headerImg = require("../../assets/img/MenuItemHeader.png")
 const flame = require("../../assets/img/Flame.png")
@@ -30,6 +31,8 @@ const DishDetailScreen = (props) => {
     const [quantity, setQuantity] = useState(1)
     const [isLiked, setIsLiked] = useState(false)
     const cart = useSelector(state => state.cartReducer.cart)
+    const lang = useSelector(state => state.langReducer.lang)
+    const locPlaceOrder = i18n.t("homeScreen.placeOrder")
 
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
@@ -114,7 +117,7 @@ const DishDetailScreen = (props) => {
                 </ImageBackground>
             </View>
             <View style={styles.orderBtnWrapper}>
-                <CustomButton title={"Place Order"}
+                <CustomButton title={locPlaceOrder}
                               propsButtonStyles={styles.orderBtn}
                               pressFunc={() => addToCartHelper(dish, quantity)}
                 />

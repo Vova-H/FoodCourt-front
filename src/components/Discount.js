@@ -2,23 +2,26 @@ import React from 'react';
 import {Image, ImageBackground, StyleSheet, Text, View} from "react-native";
 import CustomButton from "./UI/CustomButton";
 import theme from "../../theme";
+import {i18n} from "../redux/features/LangSlice";
+import {useSelector} from "react-redux";
 
 const Discount = ({title, subtitle, image}) => {
+    const lang = useSelector(state => state.langReducer.lang)
     const bgImage = require("../../assets/img/bgDiscount.png")
+    const locDiscountBtn = i18n.t("homeScreen.discount.btn")
     return (
         <View style={styles.container}>
             <ImageBackground source={bgImage} resizeMode="cover" style={styles.backgroundImage}>
                 <View style={styles.infoWrapper}>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subtitle}>{subtitle}</Text>
-                    <CustomButton title="Get Voucher"
+                    <CustomButton title={locDiscountBtn}
                                   propsButtonStyles={styles.getVoucherBtn}
                                   propsTitleStyles={styles.getVoucherBtnTitle}
                     />
                 </View>
                 <View style={styles.imageWrapper}>
                     <Image
-                        // source={{uri: `data:image/jpeg;base64,${image}`}}
                         source={image}
                         style={styles.image}
                         resizeMode={"cover"}
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     },
     getVoucherBtn: {
         marginBottom: 15,
-        maxWidth: "55%",
+        maxWidth: "60%",
         height: "23%",
         borderRadius: 5,
         paddingHorizontal: 10,

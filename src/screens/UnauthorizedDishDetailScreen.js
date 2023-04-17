@@ -6,19 +6,25 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import flame from "../../assets/img/Flame.png";
 import CustomButton from "../components/UI/CustomButton";
 import theme from "../../theme";
+import {useSelector} from "react-redux";
+import {i18n} from "../redux/features/LangSlice";
 
 const UnauthorizedDishDetailScreen = (props) => {
 
     const dish = props.route.params.dish
     const navigation = useNavigation()
+    const lang = useSelector(state => state.langReducer.lang)
+    const locModalTitle = i18n.t("modals.dishDetails.title")
+    const locMessageFavorite = i18n.t("modals.dishDetails.messageFavorite")
+    const locMessageOrder = i18n.t("modals.dishDetails.messageOrder")
+    const locPlaceOrder = i18n.t("homeScreen.placeOrder")
 
     const tryAddFavoriteHandler = () => {
-        Alert.alert("Login Message", "You need to log in to add this dish to your favorites")
+        Alert.alert(locModalTitle, locMessageFavorite)
     }
     const tryAddToCartHelper = () => {
-        Alert.alert("Login Message", "You need to log in to order dishes")
+        Alert.alert(locModalTitle, locMessageOrder)
     }
-
 
     return (
         <View style={styles.container}>
@@ -58,7 +64,7 @@ const UnauthorizedDishDetailScreen = (props) => {
                 </ImageBackground>
             </View>
             <View style={styles.orderBtnWrapper}>
-                <CustomButton title={"Place Order"}
+                <CustomButton title={locPlaceOrder}
                               propsButtonStyles={styles.orderBtn}
                               pressFunc={tryAddToCartHelper}
                 />

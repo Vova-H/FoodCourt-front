@@ -7,8 +7,8 @@ import {i18n} from "../redux/features/LangSlice";
 
 const GetStartedScreen = () => {
 
-    const title = i18n.t("getStartedScreen.title")
-    const subtitle = i18n.t("getStartedScreen.subtitle")
+    const locTitle = i18n.t("getStartedScreen.title")
+    const locSubtitle = i18n.t("getStartedScreen.subtitle")
     const mainImg = require("../../assets/img/preview3.png")
     const navigation = useNavigation()
     return (
@@ -20,10 +20,10 @@ const GetStartedScreen = () => {
             />
             <View style={styles.contentWrapper}>
                 <Text style={styles.title}>
-                    {title}
+                    {locTitle}
                 </Text>
                 <Text style={styles.subtitle}>
-                    {subtitle}
+                    {locSubtitle}
                 </Text>
                 <CustomButton
                     title={i18n.t("getStartedScreen.btn")}

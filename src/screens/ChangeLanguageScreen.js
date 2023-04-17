@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, TouchableOpacity, View, Text, BackHandler} from "react-native";
+import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {changeLanguage, i18n} from "../redux/features/LangSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
@@ -7,7 +7,7 @@ import theme from "../../theme";
 import CountryFlag from "react-native-country-flag";
 import CustomButton from "../components/UI/CustomButton";
 
-const ChoosingLanguageScreen = () => {
+const ChangeLanguageScreen = () => {
 
     const lang = useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()
@@ -16,14 +16,9 @@ const ChoosingLanguageScreen = () => {
         dispatch(changeLanguage(loc))
     }
 
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-        return () => backHandler.remove()
-    }, [])
-
     return (
         <View style={styles.container}>
-            <Text style={styles.title}> {i18n.t("choosingLanguage.titleFirstTime")}</Text>
+            <Text style={styles.title}> {i18n.t("choosingLanguage.title")}</Text>
             <TouchableOpacity onPress={() => changeLng("en")}>
                 <CountryFlag isoCode="us" size={85} style={styles.flag}/>
             </TouchableOpacity>
@@ -33,11 +28,11 @@ const ChoosingLanguageScreen = () => {
             <TouchableOpacity onPress={() => changeLng("pl")} style={{marginBottom: "20%"}}>
                 <CountryFlag isoCode="pl" size={85} style={styles.flag}/>
             </TouchableOpacity>
-
             <CustomButton
-                title={i18n.t("choosingLanguage.btnFirstTime")}
-                pressFunc={() => navigation.navigate("PreviewScreen")}
+                title={i18n.t("choosingLanguage.btn")}
+                pressFunc={() => navigation.pop()}
             />
+
         </View>
     );
 };
@@ -61,4 +56,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ChoosingLanguageScreen;
+export default ChangeLanguageScreen;

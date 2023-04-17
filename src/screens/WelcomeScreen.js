@@ -1,17 +1,19 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import CustomButton from "../components/UI/CustomButton";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {i18n} from "../redux/features/LangSlice";
+import {useSelector} from "react-redux";
 
 const WelcomeScreen = () => {
 
-    const title = i18n.t("welcomeScreen.title")
-    const subtitle = i18n.t("welcomeScreen.subtitle")
+    const lang = useSelector(state => state.langReducer.lang)
+    const locTitle = i18n.t("welcomeScreen.title")
+    const locSubtitle = i18n.t("welcomeScreen.subtitle")
     const mainImg = require("../../assets/img/welcome.png")
-    const policyLink = i18n.t("welcomeScreen.policy")
+    const locPolicyLink = i18n.t("welcomeScreen.policy")
     const navigation = useNavigation()
 
     return (
@@ -23,10 +25,10 @@ const WelcomeScreen = () => {
             />
             <View style={styles.contentWrapper}>
                 <Text style={styles.title}>
-                    {title}
+                    {locTitle}
                 </Text>
                 <Text style={[styles.subtitle]}>
-                    {subtitle}
+                    {locSubtitle}
                 </Text>
                 <CustomButton
                     title={i18n.t("welcomeScreen.btnView")}
@@ -39,9 +41,9 @@ const WelcomeScreen = () => {
                     propsButtonStyles={{marginBottom: "12%"}}
                     pressFunc={() => navigation.navigate("LoginScreen")}
                 />
-                <Text style={styles.policyLink}>
-                    {policyLink}
-                </Text>
+                <TouchableOpacity style={styles.policyLinkWrapper}>
+                    <Text style={styles.policyLink}>{locPolicyLink}</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -79,8 +81,10 @@ const styles = StyleSheet.create({
         height: "15%"
     },
 
-    policyLink: {
+    policyLinkWrapper: {
         width: "50%",
+    },
+    policyLink: {
         fontFamily: theme.fonts.robotoRegular,
         lineHeight: 12,
         textAlign: "center",
