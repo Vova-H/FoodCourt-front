@@ -14,6 +14,7 @@ import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice
 import CustomButton from "../components/UI/CustomButton";
 import {addToCart} from "../redux/features/CartSlice";
 import {i18n} from "../redux/features/LangSlice";
+import {useAddCartMutation, useAddDishToCartMutation, useGetCartQuery} from "../redux/services/CartsService";
 
 const headerImg = require("../../assets/img/MenuItemHeader.png")
 const flame = require("../../assets/img/Flame.png")
@@ -24,6 +25,7 @@ const DishDetailScreen = (props) => {
     const user = useSelector(state => state.authReducer.userFromJWT)
     const navigation = useNavigation()
     const [checkIsFavorites] = useCheckIsFavoritesMutation()
+    const [addCart] = useAddCartMutation()
     const [addToFavorites] = useAddToFavoritesMutation()
     const [removeFromFavorites] = useRemoveFromFavoritesMutation()
     const dispatch = useDispatch()
@@ -33,7 +35,7 @@ const DishDetailScreen = (props) => {
     const cart = useSelector(state => state.cartReducer.cart)
     const lang = useSelector(state => state.langReducer.lang)
     const locPlaceOrder = i18n.t("homeScreen.placeOrder")
-
+    const {data, isLoading, refetch} = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
     }
@@ -51,16 +53,20 @@ const DishDetailScreen = (props) => {
     const addToCartHelper = (dish, quantity) => {
         if (cart.length === 0) {
             dispatch(addToCart([dish, quantity]))
+            addCart({dishId: dish.id, userId: user.id, quantity: quantity})
+            // refetch()
             navigation.navigate("Cart")
         } else {
             let error = false
-            cart.map(product => {
-                if (product[0].id === dish.id) {
+            cart.map(cartItem => {
+                if (cartItem.id === dish.id) {
                     error = true
                 }
             })
             if (error === false) {
                 dispatch(addToCart([dish, quantity]))
+                addCart({dishId: dish.id, userId: user.id, quantity: quantity})
+                // refetch()
                 navigation.navigate("Cart")
             } else {
                 Alert.alert("Message", "This dish is already in your cart")

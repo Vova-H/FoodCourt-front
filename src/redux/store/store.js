@@ -10,6 +10,7 @@ import userReducer from "../features/UserSlice"
 import cartReducer from "../features/CartSlice"
 import orderReducer from "../features/OrdersSlice"
 import orderModalReducer from "../features/OrderModalSlice"
+import {cartsAPI} from "../services/CartsService";
 
 export const setupStore = () => {
     return configureStore({
@@ -18,6 +19,7 @@ export const setupStore = () => {
             [dishesAPI.reducerPath]: dishesAPI.reducer,
             [usersAPI.reducerPath]: usersAPI.reducer,
             [ordersAPI.reducerPath]: ordersAPI.reducer,
+            [cartsAPI.reducerPath]: cartsAPI.reducer,
             dishesReducer,
             authReducer,
             langReducer,
@@ -27,6 +29,9 @@ export const setupStore = () => {
             orderModalReducer
         },
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat([authAPI.middleware, dishesAPI.middleware, usersAPI.middleware, ordersAPI.middleware])
+            getDefaultMiddleware().concat([
+                authAPI.middleware, dishesAPI.middleware, usersAPI.middleware,
+                ordersAPI.middleware, cartsAPI.middleware
+            ])
     });
 };

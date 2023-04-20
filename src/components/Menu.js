@@ -4,7 +4,6 @@ import MenuItem from "./UI/MenuItem";
 import {useGetAllDishesQuery} from "../redux/services/DishesService";
 import {useDispatch} from "react-redux";
 import {saveDishes} from "../redux/features/DishesSlice";
-import {i18n} from "../redux/features/LangSlice";
 
 
 const Menu = () => {

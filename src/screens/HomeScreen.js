@@ -8,6 +8,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {useGetUserByIdQuery} from "../redux/services/UsersService";
 import {saveUser} from "../redux/features/UserSlice";
 import {i18n} from "../redux/features/LangSlice";
+import {useGetCartQuery} from "../redux/services/CartsService";
+import {saveCartFromServer} from "../redux/features/CartSlice";
+import {retry} from "@reduxjs/toolkit/query";
 
 const imageForDisc = require("../../assets/img/food1.png")
 
@@ -23,16 +26,18 @@ const HomeScreen = () => {
     const locDiscountTitle = i18n.t("homeScreen.discount.title")
     const locDiscountOff = i18n.t("homeScreen.discount.off")
     const locMenu = i18n.t("homeScreen.menu")
-
-
+    const cartFromServer = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
+    const formatterServerData = (data) => {
+        return data.map(product => [product[0].dish, product[1]])
+    }
     useEffect(() => {
         if (!isLoading) {
             dispatch(saveUser(data))
         }
-    }, [isLoading, favorites])
-    useEffect(() => {
-
-    }, [])
+        if (!cartFromServer.isLoading) {
+            dispatch(saveCartFromServer(formatterServerData(cartFromServer.currentData)))
+        }
+    }, [isLoading, favorites, cartFromServer.isLoading])
 
     return (
         <View style={styles.container}>

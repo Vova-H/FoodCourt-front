@@ -2,16 +2,18 @@ import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../../theme";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {changeQuantityProduct, removeFromCart} from "../../redux/features/CartSlice";
+import {useGetCartQuery, useRemoveOneFromCartMutation} from "../../redux/services/CartsService";
 
 const CartItem = ({product}) => {
     const dish = product[0]
     const quantity = product[1]
+    const user = useSelector(state => state.authReducer.userFromJWT)
     const dispatch = useDispatch()
-
+    const [removeOneFromCart] = useRemoveOneFromCartMutation()
     const [stateQuantity, setStateQuantity] = useState(quantity)
-
+    const {data, isLoading, refetch} = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
     const increaseQuantity = () => {
         setStateQuantity(stateQuantity + 1)
         dispatch(changeQuantityProduct({dishId: dish.id, quantity: stateQuantity + 1}))
@@ -23,8 +25,9 @@ const CartItem = ({product}) => {
         }
     }
 
-    const removeFromCartHandler = (dishId) => {
+    const removeFromCartHandler = (dishId, userId) => {
         dispatch(removeFromCart(dishId))
+        removeOneFromCart({cartItemId: dishId, userId: userId})
     }
 
     return (
@@ -47,7 +50,8 @@ const CartItem = ({product}) => {
             <TouchableOpacity onPress={() => increaseQuantity(quantity)}>
                 <Ionicons name={"add"} size={40} color={"#000000"}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => removeFromCartHandler(dish.id)} style={{marginLeft: 10}}>
+            <TouchableOpacity onPress={() => removeFromCartHandler(dish.id, user.id)}
+                              style={{marginLeft: 10}}>
                 <Ionicons name={"trash"} size={30} color={"#000000"}/>
             </TouchableOpacity>
         </View>

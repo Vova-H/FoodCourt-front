@@ -9,16 +9,10 @@ export const ordersAPI = createApi({
     tagTypes: ['Orders'],
     endpoints: (build) => ({
         createOrder: build.mutation({
-            query: (payload) =>
-                ({
-                    url: `create/?clientId=${payload.userId}`,
+            query: ({clientId, body}) => ({
+                    url: `create/?clientId=${clientId}`,
                     method: 'POST',
-                    body: [
-                        payload.body
-                    ],
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8'
-                    }
+                    body: body,
                 }),
         }),
         getOrders: build.query({

@@ -13,7 +13,9 @@ const cartSlice = createSlice({
             state.cart = [...state.cart, action.payload]
         },
         removeFromCart: (state, action) => {
-            state.cart = state.cart.filter(product => product[0].id !== action.payload);
+            state.cart = state.cart.filter(product => {
+                return product[0].id !== action.payload
+            });
         },
         changeQuantityProduct: (state, action) => {
             state.cart.map(product => {
@@ -25,12 +27,17 @@ const cartSlice = createSlice({
         cleanCart: (state) => {
             state.cart = []
         },
+
+        saveCartFromServer: (state, action) => {
+            state.cart = action.payload
+        },
     },
 });
 export const {
     addToCart,
     removeFromCart,
     changeQuantityProduct,
-    cleanCart
+    cleanCart,
+    saveCartFromServer
 } = cartSlice.actions
 export default cartSlice.reducer;

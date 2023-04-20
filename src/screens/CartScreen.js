@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Alert, FlatList, StyleSheet, Text, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import CartItem from "../components/UI/CartItem";
@@ -7,8 +7,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/UI/CustomButton";
 import {useCreateOrderMutation} from "../redux/services/OrdersService";
 import {useNavigation} from "@react-navigation/native";
-import {cleanCart} from "../redux/features/CartSlice";
+import {cleanCart, saveCartFromServer} from "../redux/features/CartSlice";
 import {i18n} from "../redux/features/LangSlice";
+import {saveOrders} from "../redux/features/OrdersSlice";
+import {useGetCartQuery, useRemoveCartMutation, useRemoveCartQuery} from "../redux/services/CartsService";
 
 const CartScreen = () => {
 
@@ -20,20 +22,32 @@ const CartScreen = () => {
     const navigation = useNavigation()
     const locTitle = i18n.t("cartScreen.title")
     const locOrderBtn = i18n.t("cartScreen.orderBtn")
-    const createOrderHandler = async (cart, userId) => {
+    const [removeCart] = useRemoveCartMutation()
+    const {data, isLoading, refetch} = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
+
+    useEffect(() => {
+        if (!isLoading) {
+            dispatch(saveOrders(data))
+            // refetch()
+        }
+    }, [isLoading, cart, data])
+
+    const createOrderHandler = async (cart, clientId) => {
         const body = []
         cart.map(product => {
-            body.push([{id: product[0].id}, product[1]])
+            body.push([{id: product.dish.id}, product.quantity])
         })
-        const result = await createOrder({body, userId})
-        dispatch(cleanCart())
+        const result = await createOrder({body, clientId})
         navigation.navigate("Home")
+        dispatch(cleanCart())
+        refetch()
         Alert.alert("Message", `${result.data.message}`)
+        await removeCart({userId: user.id})
     }
 
     const renderCartItem = useCallback(({item}) => (
         <CartItem product={item}/>
-    ), [cart])
+    ), [cart, data])
     return (
         <View style={styles.container}>
             <View style={styles.contentWrapper}>
@@ -42,8 +56,8 @@ const CartScreen = () => {
                         <View style={styles.itemsWrapper}>
                             <FlatList data={cart}
                                       renderItem={renderCartItem}
-                                      keyExtractor={item => {
-                                          return item[0].id
+                                      keyExtractor={product => {
+                                          return product[0].id
                                       }}
                                       numColumns={1}
                             />
@@ -57,7 +71,7 @@ const CartScreen = () => {
             </View>
             {
                 cart.length !== 0 &&
-                <CustomButton title={locOrderBtn} pressFunc={() => createOrderHandler(cart, user.id)}/>
+                <CustomButton title={locOrderBtn} pressFunc={() => createOrderHandler(data, user.id)}/>
             }
         </View>
     );
