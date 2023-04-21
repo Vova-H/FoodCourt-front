@@ -13,7 +13,7 @@ const CartItem = ({product}) => {
     const dispatch = useDispatch()
     const [removeOneFromCart] = useRemoveOneFromCartMutation()
     const [stateQuantity, setStateQuantity] = useState(quantity)
-    const {data, isLoading, refetch} = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
+    const {data, isLoading, refetch} = useGetCartQuery(user.id)
     const increaseQuantity = () => {
         setStateQuantity(stateQuantity + 1)
         dispatch(changeQuantityProduct({dishId: dish.id, quantity: stateQuantity + 1}))

@@ -7,10 +7,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/UI/CustomButton";
 import {useCreateOrderMutation} from "../redux/services/OrdersService";
 import {useNavigation} from "@react-navigation/native";
-import {cleanCart, saveCartFromServer} from "../redux/features/CartSlice";
+import {cleanCart} from "../redux/features/CartSlice";
 import {i18n} from "../redux/features/LangSlice";
 import {saveOrders} from "../redux/features/OrdersSlice";
-import {useGetCartQuery, useRemoveCartMutation, useRemoveCartQuery} from "../redux/services/CartsService";
+import {useGetCartQuery, useRemoveCartMutation} from "../redux/services/CartsService";
 
 const CartScreen = () => {
 
@@ -23,7 +23,7 @@ const CartScreen = () => {
     const locTitle = i18n.t("cartScreen.title")
     const locOrderBtn = i18n.t("cartScreen.orderBtn")
     const [removeCart] = useRemoveCartMutation()
-    const {data, isLoading, refetch} = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
+    const {data, isLoading, refetch} = useGetCartQuery(user.id)
 
     useEffect(() => {
         if (!isLoading) {

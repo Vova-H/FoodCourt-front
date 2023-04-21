@@ -26,7 +26,7 @@ const HomeScreen = () => {
     const locDiscountTitle = i18n.t("homeScreen.discount.title")
     const locDiscountOff = i18n.t("homeScreen.discount.off")
     const locMenu = i18n.t("homeScreen.menu")
-    const cartFromServer = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
+    const cartFromServer = useGetCartQuery(user.id)
     const formatterServerData = (data) => {
         return data.map(product => [product[0].dish, product[1]])
     }
