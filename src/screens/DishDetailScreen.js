@@ -14,7 +14,7 @@ import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice
 import CustomButton from "../components/UI/CustomButton";
 import {addToCart} from "../redux/features/CartSlice";
 import {i18n} from "../redux/features/LangSlice";
-import {useAddCartMutation, useAddDishToCartMutation, useGetCartQuery} from "../redux/services/CartsService";
+import {useAddCartMutation, useGetCartQuery} from "../redux/services/CartsService";
 
 const headerImg = require("../../assets/img/MenuItemHeader.png")
 const flame = require("../../assets/img/Flame.png")
@@ -35,6 +35,9 @@ const DishDetailScreen = (props) => {
     const cart = useSelector(state => state.cartReducer.cart)
     const lang = useSelector(state => state.langReducer.lang)
     const locPlaceOrder = i18n.t("homeScreen.placeOrder")
+    const locExistDishErrTitle = i18n.t("modals.dishDetails.existDishErr.title")
+    const locExistDishErrMessage = i18n.t("modals.dishDetails.existDishErr.message")
+    const locDishDetail= i18n.t("dishDetails.foodDetail")
     const {data, isLoading, refetch} = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
@@ -54,22 +57,20 @@ const DishDetailScreen = (props) => {
         if (cart.length === 0) {
             dispatch(addToCart([dish, quantity]))
             addCart({dishId: dish.id, userId: user.id, quantity: quantity})
-            // refetch()
             navigation.navigate("Cart")
         } else {
             let error = false
             cart.map(cartItem => {
-                if (cartItem.id === dish.id) {
+                if (cartItem[0].id === dish.id) {
                     error = true
                 }
             })
             if (error === false) {
                 dispatch(addToCart([dish, quantity]))
                 addCart({dishId: dish.id, userId: user.id, quantity: quantity})
-                // refetch()
                 navigation.navigate("Cart")
             } else {
-                Alert.alert("Message", "This dish is already in your cart")
+                Alert.alert(locExistDishErrTitle, locExistDishErrMessage)
             }
         }
 
@@ -117,7 +118,7 @@ const DishDetailScreen = (props) => {
                                  setQuantity={setQuantity}
                     />
                     <View>
-                        <Text style={styles.detailTitle}>Food Detail</Text>
+                        <Text style={styles.detailTitle}>{locDishDetail}</Text>
                         <Text style={styles.detailDescription}>{dish.description}</Text>
                     </View>
                 </ImageBackground>

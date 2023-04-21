@@ -64,6 +64,9 @@ export const localization = {
             menu: "Menu",
             placeOrder: "Place Order"
         },
+        dishDetails: {
+            foodDetail: "Food Detail"
+        },
         cartScreen: {
             title: "Cart is empty",
             orderBtn: "Confirm Order"
@@ -96,7 +99,13 @@ export const localization = {
                 title: "Login Message",
                 messageFavorite: "You need to log in to add this dish to your favorites",
                 messageOrder: "You need to log in to order dishes",
-            }
+                existDishErr: {
+                    title: "Message",
+                    message: "This dish is already in your cart"
+
+                }
+            },
+
         }
     },
 
@@ -166,6 +175,9 @@ export const localization = {
             menu: "Меню",
             placeOrder: "Зробити Замовлення"
         },
+        dishDetails: {
+            foodDetail: "Деталі Блюда"
+        },
         cartScreen: {
             title: "Корзина порожня",
             orderBtn: "Підтвердити замовлення"
@@ -198,6 +210,10 @@ export const localization = {
                 title: "Повідомлення",
                 messageFavorite: "Вам необхідно авторизуватися, щоб додати цю страву в обране",
                 messageOrder: "Ви повинні увійти, щоб замовити цю страву",
+                existDishErr: {
+                    title: "Повідомлення",
+                    message: "Ця страва вже додана до вашого кошику"
+                }
             }
         }
     },
@@ -269,6 +285,9 @@ export const localization = {
             menu: "Menu",
             placeOrder: "Złóż Zamówienie"
         },
+        dishDetails: {
+            foodDetail: "Szczegóły potrawy"
+        },
         cartScreen: {
             title: "Koszyk jest pusty",
             orderBtn: "Potwierdzić zamówienie"
@@ -301,6 +320,10 @@ export const localization = {
                 title: "Wiadomość",
                 messageFavorite: "Musisz być zalogowany, aby dodać to danie do ulubionych",
                 messageOrder: "Musisz być zalogowany, aby aby zamówić to danie",
+                existDishErr: {
+                    title: "Wiadomość",
+                    message: "To danie zostało już dodane do Twojego koszyka"
+                }
             }
         }
     }

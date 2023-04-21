@@ -28,14 +28,13 @@ const CartScreen = () => {
     useEffect(() => {
         if (!isLoading) {
             dispatch(saveOrders(data))
-            // refetch()
         }
     }, [isLoading, cart, data])
 
     const createOrderHandler = async (cart, clientId) => {
         const body = []
         cart.map(product => {
-            body.push([{id: product.dish.id}, product.quantity])
+            body.push([{id: product[0].id}, product[1]])
         })
         const result = await createOrder({body, clientId})
         navigation.navigate("Home")
@@ -71,7 +70,7 @@ const CartScreen = () => {
             </View>
             {
                 cart.length !== 0 &&
-                <CustomButton title={locOrderBtn} pressFunc={() => createOrderHandler(data, user.id)}/>
+                <CustomButton title={locOrderBtn} pressFunc={() => createOrderHandler(cart, user.id)}/>
             }
         </View>
     );
