@@ -1,10 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {IP_ADDRESS} from "../../../myConfig";
+
 
 export const authAPI = createApi({
     reducerPath: 'authAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${IP_ADDRESS}/auth/`
+        baseUrl: `https://foodcourt-deploy.onrender.com/auth/`
     }),
     tagTypes: ['Auth'],
     endpoints: (builder) => ({

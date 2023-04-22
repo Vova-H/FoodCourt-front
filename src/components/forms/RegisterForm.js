@@ -1,6 +1,5 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {useRegistrationMutation} from "../../redux/services/AuthService";
 import {Formik} from 'formik';
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
