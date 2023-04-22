@@ -8,7 +8,6 @@ import {i18n} from "../../redux/features/LangSlice";
 import registrationValidationSchema from "../../validations/registration-validation.Schema";
 import {useNavigation} from "@react-navigation/native";
 import {Asset} from "expo-asset";
-import {IP_ADDRESS} from "../../../myConfig";
 
 
 const RegisterForm = () => {
@@ -26,7 +25,7 @@ const RegisterForm = () => {
             formData.append('username', values.username);
             formData.append("email", values.email)
             formData.append("password", values.password)
-            const response = await fetch(`${IP_ADDRESS}/auth/registration`, {
+            const response = await fetch(`https://foodcourt-deploy.onrender.com/auth/registration`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -49,7 +48,7 @@ const RegisterForm = () => {
 
     return (
         <Formik
-            initialValues={{username: "test", email: "test@gmail.com", password: "12345678"}}
+            initialValues={{username: "", email: "", password: ""}}
             validationSchema={registrationValidationSchema}
             onSubmit={values => registerHandler(values)}
         >
