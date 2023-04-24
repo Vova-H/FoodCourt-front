@@ -10,7 +10,7 @@ import {saveUser} from "../redux/features/UserSlice";
 import {i18n} from "../redux/features/LangSlice";
 import {useGetCartQuery} from "../redux/services/CartsService";
 import {saveCartFromServer} from "../redux/features/CartSlice";
-import {retry} from "@reduxjs/toolkit/query";
+
 
 const imageForDisc = require("../../assets/img/food1.png")
 

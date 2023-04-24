@@ -8,12 +8,13 @@ import {i18n} from "../../redux/features/LangSlice";
 import registrationValidationSchema from "../../validations/registration-validation.Schema";
 import {useNavigation} from "@react-navigation/native";
 import {Asset} from "expo-asset";
+import {useRegisterMutation} from "../../redux/services/AuthService";
 
 
 const RegisterForm = () => {
     const avatarImg = require("../../../assets/img/emptyAvatar.png")
     const navigation = useNavigation()
-
+    const [register] = useRegisterMutation();
     const registerHandler = async (values) => {
         try {
             const formData = new FormData();
@@ -23,25 +24,15 @@ const RegisterForm = () => {
                 type: 'image/png',
             });
             formData.append('username', values.username);
-            formData.append("email", values.email)
-            formData.append("password", values.password)
-            const response = await fetch(`https://foodcourt-deploy.onrender.com/auth/registration`, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            const jsonResponse = await response.json();
-            if (jsonResponse.message !== "The user has been created successfully") {
-                Alert.alert("Registration Error", jsonResponse.message)
-            } else {
-                Alert.alert("Message", jsonResponse.message)
-                navigation.navigate("LoginScreen")
-            }
+            formData.append('email', values.email);
+            formData.append('password', values.password);
+            const result = await register(formData).unwrap()
+            Alert.alert("Message", result.message)
+            navigation.navigate("LoginScreen")
 
         } catch (e) {
             console.log(e);
+            Alert.alert("Registration Error", e.data.message)
         }
     };
 

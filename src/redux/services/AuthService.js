@@ -8,21 +8,15 @@ export const authAPI = createApi({
     }),
     tagTypes: ['Auth'],
     endpoints: (builder) => ({
-        registration: builder.mutation({
-            query: (payload) => ({
-                url: '/registration',
+        register: builder.mutation({
+            query: (formData) => ({
+                url: 'registration',
                 method: 'POST',
-                body: {
-                    username: payload.username,
-                    email: payload.email,
-                    password: payload.password,
-                    avatar: payload.avatar
-                },
+                body: formData,
                 headers: {
-                    'Content-Type': `multipart/form-data`,
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             }),
-            invalidatesTags: ['Auth']
         }),
 
         login: builder.mutation({
@@ -42,4 +36,4 @@ export const authAPI = createApi({
     })
 });
 
-export const {useRegistrationMutation, useLoginMutation} = authAPI;
+export const {useRegisterMutation , useLoginMutation} = authAPI;
