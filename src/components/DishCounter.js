@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     bg: {
         height: 40,
-        width: "85%",
+        width: "90%",
         alignSelf: "center",
         flexDirection: "row",
         alignItems: "center",
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         borderRadius: 40
     },
     price: {
-        width: "60%",
+        width: "55%",
         textAlign: "center",
     },
     countWrapper: {
@@ -57,21 +57,20 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 40,
         borderLeftWidth: 6,
         borderColor: "#fff",
-        height: "100%"
+        height: "100%",
+        // paddingLeft:"8%"
     },
 
     minusBtn: {
         fontSize: 30,
-        marginLeft: 20,
         lineHeight: 35
     },
     plusBtn: {
         fontSize: 25,
     },
     count: {
-        marginHorizontal: 20,
+        marginHorizontal: "17%",
         fontSize: 20
-
     }
 })
 

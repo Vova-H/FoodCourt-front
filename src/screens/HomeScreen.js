@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {PermissionsAndroid, StyleSheet, Text, View} from "react-native";
 import theme from "../../theme";
 import WelcomeInfo from "../components/WelcomeInfo";
 import Discount from "../components/Discount";
@@ -51,7 +51,7 @@ const HomeScreen = () => {
                     <Discount image={imageForDisc} title={locDiscountTitle} subtitle={`80% ${locDiscountOff}`}/>
                 </View>}
                 <Text style={styles.title}>{locMenu}</Text>
-                <View style={{height: "63%", width: "100%"}}>
+                <View style={{height: "61%", width: "100%"}}>
                     <Menu/>
                 </View>
             </View>
@@ -61,12 +61,13 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%",
+        flex: 1,
         backgroundColor: theme.colors.gray
     },
     contentWrapper: {
         paddingHorizontal: 20,
-        paddingTop: 30
+        paddingTop: 30,
+        flex: 1
     },
 
     welcomeInfoWrapper: {

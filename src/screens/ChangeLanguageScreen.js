@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     },
     flag: {
         marginBottom: 40,
-
     }
 });
 

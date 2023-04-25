@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {FlatList, View} from "react-native";
+import {FlatList} from "react-native";
 import MenuItem from "./UI/MenuItem";
 import {useGetAllDishesQuery} from "../redux/services/DishesService";
 import {useDispatch} from "react-redux";
@@ -20,7 +20,6 @@ const Menu = () => {
     ), [])
 
     return (
-        <View>
             <FlatList data={data}
                       renderItem={renderDishes}
                       keyExtractor={item => {
@@ -28,7 +27,6 @@ const Menu = () => {
                       }}
                       numColumns={2}
             />
-        </View>
     );
 };
 

@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
     title: {
         paddingHorizontal: 10,
         fontFamily: theme.fonts.robotoRegular,
-        fontSize: 14
+        fontSize: 14,
+        textTransform:"capitalize"
     },
     price: {
         paddingHorizontal: 10,

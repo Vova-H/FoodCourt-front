@@ -85,14 +85,13 @@ const styles = StyleSheet.create({
     contentWrapper: {
         height: "80%",
         marginBottom: 30,
-        justifyContent: "center"
+        justifyContent: "center",
     },
     title: {
         fontFamily: theme.fonts.playfairDisplayBold,
         fontSize: 30,
-        paddingHorizontal: 30
+        paddingHorizontal: "5%"
     }
-
 })
 
 export default CartScreen;

@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: theme.fonts.playfairDisplayBold,
         fontSize: 30,
-        maxWidth: "60%"
+        maxWidth: "90%"
     }
 })
 

@@ -12,14 +12,15 @@ import {useRegisterMutation} from "../../redux/services/AuthService";
 
 
 const RegisterForm = () => {
-    const avatarImg = require("../../../assets/img/emptyAvatar.png")
+
+    const avatarImg = Asset.fromModule(require('../../../assets/img/emptyAvatar.png'));
     const navigation = useNavigation()
     const [register] = useRegisterMutation();
     const registerHandler = async (values) => {
         try {
             const formData = new FormData();
             formData.append('avatar', {
-                uri: Asset.fromModule(avatarImg).uri,
+                uri: avatarImg.uri,
                 name: 'emptyAvatar.png',
                 type: 'image/png',
             });

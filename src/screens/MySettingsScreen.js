@@ -31,15 +31,13 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.yellow,
     },
     linkWrapper: {
-        width: "80%",
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 20
+        marginBottom: 20,
     },
     link: {
         fontFamily: theme.fonts.robotoMedium,
         fontSize: 25,
-        letterSpacing: 1,
         marginLeft: 10,
     }
 })

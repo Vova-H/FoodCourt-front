@@ -21,7 +21,6 @@ const PreviewComponent = ({backgroundColor, mainImg, sideNextAriaImg, title, sub
                 />
             </View>
 
-
             <Image
                 style={styles.image}
                 source={mainImg}

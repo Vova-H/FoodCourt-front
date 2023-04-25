@@ -10,8 +10,7 @@ export const mainStyles = {
     },
 
     image: {
-        marginTop: 60,
-        marginBottom: 42,
+        marginTop: "10%",
     },
     contentWrapper: {
         width: "100%",
@@ -29,7 +28,7 @@ export const mainStyles = {
         justifyContent: "center",
     },
     subtitle: {
-        width: "75%",
+        minWidth:"80%",
         height: "30%",
         fontFamily: theme.fonts.latoRegular,
         lineHeight: 20,

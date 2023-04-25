@@ -41,9 +41,6 @@ const WelcomeScreen = () => {
                     propsButtonStyles={{marginBottom: "12%"}}
                     pressFunc={() => navigation.navigate("LoginScreen")}
                 />
-                <TouchableOpacity style={styles.policyLinkWrapper}>
-                    <Text style={styles.policyLink}>{locPolicyLink}</Text>
-                </TouchableOpacity>
             </View>
         </View>
     );
@@ -67,6 +64,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         textAlign: "center",
         justifyContent: "center",
+        marginTop:10
     },
 
     subtitle: {
@@ -78,18 +76,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         alignItems: "center",
         justifyContent: "center",
-        height: "15%"
-    },
-
-    policyLinkWrapper: {
-        width: "50%",
-    },
-    policyLink: {
-        fontFamily: theme.fonts.robotoRegular,
-        lineHeight: 12,
-        textAlign: "center",
-        fontSize: 12,
-        letterSpacing: .5
+        height: "15%",
+        marginBottom:"10%"
     }
 });
 

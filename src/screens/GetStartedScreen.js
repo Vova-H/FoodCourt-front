@@ -4,6 +4,7 @@ import CustomButton from "../components/UI/CustomButton";
 import {mainStyles} from "../styles/global.styles";
 import {useNavigation} from "@react-navigation/native";
 import {i18n} from "../redux/features/LangSlice";
+import theme from "../../theme";
 
 const GetStartedScreen = () => {
 
@@ -37,7 +38,18 @@ const GetStartedScreen = () => {
 
 
 const styles = StyleSheet.create({
-    ...mainStyles
+    ...mainStyles,
+    title:{
+        width: "65%",
+        fontFamily: theme.fonts.playfairDisplayBlack,
+        color: theme.colors.black,
+        textTransform: "capitalize",
+        fontSize: 30,
+        lineHeight: 40,
+        marginBottom: 20,
+        textAlign: "center",
+        justifyContent: "center",
+    }
 });
 
 export default GetStartedScreen;

@@ -29,15 +29,13 @@ const LoginScreen = () => {
                     {locSubtitle}
                 </Text>
             </View>
-
             <ScrollView>
                 <View>
                     <LoginForm/>
                 </View>
             </ScrollView>
         </View>
-    )
-        ;
+    );
 };
 
 
@@ -53,12 +51,10 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     title: {
-        width: "60%",
         fontFamily: theme.fonts.robotoBold,
         color: theme.colors.black,
         textTransform: "capitalize",
         fontSize: 32,
-        lineHeight: 40,
         marginBottom: 20,
         textAlign: "center",
         justifyContent: "center",
