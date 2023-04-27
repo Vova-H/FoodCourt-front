@@ -13,8 +13,15 @@ export const userSlice = createSlice({
         },
         removeUser(state) {
             state.user = {}
+        },
+        changeAvatarInSlice(state, action) {
+            state.user.avatar = action.payload
         }
     }
 });
-export const {saveUser, removeUser} = userSlice.actions
+export const {
+    saveUser,
+    removeUser,
+    changeAvatarInSlice
+} = userSlice.actions
 export default userSlice.reducer;

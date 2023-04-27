@@ -1,10 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-
+import {URL} from "./config";
 
 export const authAPI = createApi({
     reducerPath: 'authAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `https://foodcourt-deploy.onrender.com/auth/`
+        baseUrl: `${URL}/auth/`
     }),
     tagTypes: ['Auth'],
     endpoints: (builder) => ({
@@ -36,4 +36,4 @@ export const authAPI = createApi({
     })
 });
 
-export const {useRegisterMutation , useLoginMutation} = authAPI;
+export const {useRegisterMutation, useLoginMutation} = authAPI;

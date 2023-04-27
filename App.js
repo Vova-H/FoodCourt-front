@@ -22,6 +22,7 @@ import UnauthorizedDishDetailScreen from "./src/screens/UnauthorizedDishDetailSc
 import MySettingsScreen from "./src/screens/MySettingsScreen";
 import MyProfileScreen from "./src/screens/MyProfileScreen";
 import ChangeLanguageScreen from "./src/screens/ChangeLanguageScreen";
+import AvatarChangeScreen from "./src/screens/AvatarChangeScreen";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -45,7 +46,7 @@ export default function App() {
                     loaded ?
                         <NavigationContainer>
                             <Stack.Navigator screenOptions={{headerShown: false}}
-                                             initialRouteName="ChoosingLanguageScreen">
+                                             initialRouteName="LoginScreen">
                                 <Stack.Screen name="ChoosingLanguageScreen" component={ChoosingLanguageScreen}/>
                                 <Stack.Screen name="PreviewScreen" component={PreviewScreen}/>
                                 <Stack.Screen name="GetStartedScreen" component={GetStartedScreen}/>
@@ -61,6 +62,7 @@ export default function App() {
                                 <Stack.Screen name="MyOrdersScreen" component={MyOrdersScreen}/>
                                 <Stack.Screen name="MySettingsScreen" component={MySettingsScreen}/>
                                 <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen}/>
+                                <Stack.Screen name="AvatarChangeScreen" component={AvatarChangeScreen}/>
 
 
                             </Stack.Navigator>

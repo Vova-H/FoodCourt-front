@@ -1,10 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-
+import {URL} from "./config";
 
 export const cartsAPI = createApi({
     reducerPath: 'cartsAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `https://foodcourt-deploy.onrender.com/carts`
+        baseUrl: `${URL}/carts`
     }),
     tagTypes: ['Carts'],
     endpoints: (build) => ({

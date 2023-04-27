@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
@@ -12,8 +12,6 @@ const LoginScreen = () => {
     const locTitle = i18n.t("loginScreen.title")
     const locSubtitle = i18n.t("loginScreen.subtitle")
     const mainImg = require("../../assets/img/login.png")
-
-
 
     return (
         <View style={styles.container}>

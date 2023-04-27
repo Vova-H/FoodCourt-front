@@ -1,10 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-
+import {URL} from "./config";
 
 export const usersAPI = createApi({
     reducerPath: 'usersAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `https://foodcourt-deploy.onrender.com/users`
+        baseUrl: `${URL}/users`
     }),
     tagTypes: ['Users'],
     endpoints: (builder) => ({
