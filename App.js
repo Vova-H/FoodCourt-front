@@ -63,8 +63,6 @@ export default function App() {
                                 <Stack.Screen name="MySettingsScreen" component={MySettingsScreen}/>
                                 <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen}/>
                                 <Stack.Screen name="AvatarChangeScreen" component={AvatarChangeScreen}/>
-
-
                             </Stack.Navigator>
                         </NavigationContainer>
                         :

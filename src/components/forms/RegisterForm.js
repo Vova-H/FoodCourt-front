@@ -7,26 +7,22 @@ import theme from "../../../theme";
 import {i18n} from "../../redux/features/LangSlice";
 import registrationValidationSchema from "../../validations/registration-validation.Schema";
 import {useNavigation} from "@react-navigation/native";
-import {Asset} from "expo-asset";
 import {useRegisterMutation} from "../../redux/services/AuthService";
+import {useSelector} from "react-redux";
 
 
 const RegisterForm = () => {
 
-    const avatarImg = Asset.fromModule(require('../../../assets/img/emptyAvatar.png'));
+    const lang = useSelector(state => state.langReducer.lang)
     const navigation = useNavigation()
     const [register] = useRegisterMutation();
     const registerHandler = async (values) => {
         try {
-            const formData = new FormData();
-            formData.append('avatar', {
-                uri: avatarImg.uri,
-                name: 'emptyAvatar.png',
-                type: 'image/png',
-            });
-            formData.append('username', values.username);
-            formData.append('email', values.email);
-            formData.append('password', values.password);
+            const formData = {
+                'username': values.username,
+                'email': values.email,
+                'password': values.password
+            }
             const result = await register(formData).unwrap()
             Alert.alert("Message", result.message)
             navigation.navigate("LoginScreen")
@@ -40,7 +36,7 @@ const RegisterForm = () => {
 
     return (
         <Formik
-            initialValues={{username: "", email: "", password: ""}}
+            initialValues={{username: "test", email: "test@gmail.com", password: "12345678"}}
             validationSchema={registrationValidationSchema}
             onSubmit={values => registerHandler(values)}
         >
