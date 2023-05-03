@@ -4,7 +4,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const avatarAPI = createApi({
     reducerPath: 'avatarAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `http://192.168.0.191:3000/avatars/`
+        baseUrl: `https://foodcourt-deploy.onrender.com/avatars/`
     }),
     tagTypes: ['Avatar'],
     endpoints: (builder) => ({

@@ -4,7 +4,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const ordersAPI = createApi({
     reducerPath: 'ordersAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `http://192.168.0.191:3000/orders/`
+        baseUrl: `https://foodcourt-deploy.onrender.com/orders/`
     }),
     tagTypes: ['Orders'],
     endpoints: (build) => ({
