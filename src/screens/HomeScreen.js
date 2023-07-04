@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid, StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import theme from "../../theme";
 import WelcomeInfo from "../components/WelcomeInfo";
 import Discount from "../components/Discount";
@@ -10,13 +10,11 @@ import {saveUser} from "../redux/features/UserSlice";
 import {i18n} from "../redux/features/LangSlice";
 import {useGetCartQuery} from "../redux/services/CartsService";
 import {saveCartFromServer} from "../redux/features/CartSlice";
-
+import {formatterServerData} from "../helpers/formaterServerData";
 
 const imageForDisc = require("../../assets/img/food1.png")
 
-
 const HomeScreen = () => {
-
     const dispatch = useDispatch()
     const favorites = useSelector(state => state.dishesReducer.favoriteDishes)
     const user = useSelector(state => state.authReducer.userFromJWT)
@@ -27,17 +25,18 @@ const HomeScreen = () => {
     const locDiscountOff = i18n.t("homeScreen.discount.off")
     const locMenu = i18n.t("homeScreen.menu")
     const cartFromServer = useGetCartQuery(user.id)
-    const formatterServerData = (data) => {
-        return data.map(product => [product[0].dish, product[1]])
-    }
+
     useEffect(() => {
         if (!isLoading) {
             dispatch(saveUser(data))
         }
         if (!cartFromServer.isLoading) {
-            dispatch(saveCartFromServer(formatterServerData(cartFromServer.currentData)))
+            const formattedData = formatterServerData(cartFromServer.currentData);
+            dispatch(saveCartFromServer(formattedData));
         }
+
     }, [isLoading, favorites, cartFromServer.isLoading])
+
 
     return (
         <View style={styles.container}>

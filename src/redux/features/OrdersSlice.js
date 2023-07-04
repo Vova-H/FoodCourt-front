@@ -10,6 +10,7 @@ const ordersSlice = createSlice({
     initialState: initialState,
     reducers: {
         saveOrders: (state, action) => {
+            console.log(state.orders)
             state.orders = action.payload;
         },
     },

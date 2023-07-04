@@ -7,6 +7,7 @@ import * as ImagePicker from "expo-image-picker"
 import CustomButton from "../components/UI/CustomButton";
 import {useChangeAvatarMutation} from "../redux/services/AvatarService";
 import {changeAvatarInSlice} from "../redux/features/UserSlice";
+import {i18n} from "../redux/features/LangSlice";
 
 
 const AvatarChangeScreen = () => {
@@ -19,6 +20,8 @@ const AvatarChangeScreen = () => {
     const currentAvatar = useSelector(state => state.userReducer.user.avatar)
     const userId = useSelector(state => state.authReducer.userFromJWT.id)
     const [changeAvatar] = useChangeAvatarMutation();
+    const locChangeBtn = i18n.t('avatarChangeScreen.changeAvatarButton')
+    const locSaveBtn = i18n.t('global.saveBtn')
 
 
     const galleryStatusHandler = async () => {
@@ -79,19 +82,19 @@ const AvatarChangeScreen = () => {
                         </View>
                 }
                 <CustomButton
-                    title="Change Your Avatar"
+                    title={locChangeBtn}
                     pressFunc={pickImage}
                 />
             </View>
             {
                 !image ?
                     <CustomButton
-                        title="Save"
+                        title={locSaveBtn}
                         inActive={true}
                     />
                     :
                     <CustomButton
-                        title="Save"
+                        title={locSaveBtn}
                         pressFunc={updateAvatarHandler}
                     />
             }

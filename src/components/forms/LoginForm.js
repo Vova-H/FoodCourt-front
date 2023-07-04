@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useLoginMutation} from "../../redux/services/AuthService";
 import * as SecureStore from 'expo-secure-store';
@@ -12,6 +12,11 @@ import ParseJWTHelper from "../../helpers/parseJWTHelper";
 import {useDispatch, useSelector} from "react-redux";
 import {authorizeUser, saveJWT, saveUserFromJWT} from "../../redux/features/AuthSlice";
 import {useNavigation} from "@react-navigation/native";
+import {ActivityIndicator} from 'react-native';
+import Spiner from "../UI/MySpiner";
+import MySpinner from "../UI/MySpiner";
+import MySpiner from "../UI/MySpiner";
+import {cleanCart} from "../../redux/features/CartSlice";
 
 
 const LoginForm = () => {
@@ -20,8 +25,16 @@ const LoginForm = () => {
     const [login] = useLoginMutation()
     const dispatch = useDispatch()
     const navigation = useNavigation()
+    const [isLoading, setIsLoading] = useState(false);
 
+
+    useEffect(() => {
+        return () => {
+            dispatch(cleanCart());
+        };
+    }, []);
     const loginHandler = async (values) => {
+        setIsLoading(true);
         try {
             const response = await login(values);
             if (response?.error?.data) {
@@ -37,11 +50,9 @@ const LoginForm = () => {
                         }
                         break
                 }
-            }
-
-            if (response.data.token) {
+            } else if (response?.data?.token) {
                 const userFromJWT = ParseJWTHelper(response.data.token)
-                const token = response?.data?.token
+                const token = response.data.token
                 if (token?.length) {
                     await SecureStore.setItemAsync("token", token)
                     dispatch(authorizeUser())
@@ -50,15 +61,17 @@ const LoginForm = () => {
                     navigation.navigate("HomeScreen")
                 }
             }
+            setIsLoading(false);
         } catch (e) {
             console.log(e);
+            setIsLoading(false);
         }
     };
 
     return (
         <Formik
             initialValues={{email: "vova@gmail.com", password: "12345678"}}
-            validationSchema={LoginSchema}
+            validationSchema={LoginSchema(lang)}
             onSubmit={values => loginHandler(values)}
         >
             {(props) => (
@@ -89,11 +102,18 @@ const LoginForm = () => {
                             <Text style={styles.validationErrorText}>{props.errors.password}</Text>
                         ) : <View style={{height: 20}}></View>
                     }
-                    <CustomButton
-                        propsButtonStyles={{marginBottom: 20}}
-                        title={i18n.t("loginScreen.btnLogin")}
-                        pressFunc={props.handleSubmit}
-                    />
+                    {isLoading ? <CustomButton
+                            propsIsLoading={true}
+                            propsButtonStyles={{marginBottom: 20}}
+                            title={i18n.t("loginScreen.btnLogin")}
+                            pressFunc={props.handleSubmit}
+                        /> :
+                        <CustomButton
+                            propsButtonStyles={{marginBottom: 20}}
+                            title={i18n.t("loginScreen.btnLogin")}
+                            pressFunc={props.handleSubmit}
+                        />}
+
                     <TouchableOpacity
                         onPress={() => navigation.navigate("RegisterScreen")}
                         style={{alignItems: "center"}}

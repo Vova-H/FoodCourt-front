@@ -16,17 +16,17 @@ const Menu = () => {
     }, [isLoading])
 
     const renderDishes = useCallback(({item}) => (
-        <MenuItem dish={item}/>
-    ), [])
+        <MenuItem dish={item} isLoading={isLoading}/>
+    ), [isLoading])
 
     return (
-            <FlatList data={data}
-                      renderItem={renderDishes}
-                      keyExtractor={item => {
-                          return item.id
-                      }}
-                      numColumns={2}
-            />
+        <FlatList data={data}
+                  renderItem={renderDishes}
+                  keyExtractor={item => {
+                      return item.id
+                  }}
+                  numColumns={2}
+        />
     );
 };
 

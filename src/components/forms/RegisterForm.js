@@ -36,8 +36,8 @@ const RegisterForm = () => {
 
     return (
         <Formik
-            initialValues={{username: "test", email: "test@gmail.com", password: "12345678"}}
-            validationSchema={registrationValidationSchema}
+            initialValues={{username: "", email: "", password: ""}}
+            validationSchema={registrationValidationSchema(lang)}
             onSubmit={values => registerHandler(values)}
         >
             {(props) => (

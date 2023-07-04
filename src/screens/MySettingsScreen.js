@@ -10,7 +10,8 @@ const MySettingsScreen = () => {
     const navigation = useNavigation()
     const lang = useSelector(state => state.langReducer.lang)
     const locChangeLang = i18n.t("mySettingsScreen.changeLanguage")
-    const changeAvatar = "Change Avatar"
+    const locChangeAvatar = i18n.t("mySettingsScreen.changeAvatar")
+
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.linkWrapper}
@@ -20,11 +21,11 @@ const MySettingsScreen = () => {
                 <Text style={styles.link}>{locChangeLang}</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={()=>navigation.navigate("AvatarChangeScreen")}
+                onPress={() => navigation.navigate("AvatarChangeScreen")}
                 style={styles.linkWrapper}
             >
                 <Ionicons name={"person-outline"} size={40} color={"#000000"}/>
-                <Text style={styles.link}>{changeAvatar}</Text>
+                <Text style={styles.link}>{locChangeAvatar}</Text>
             </TouchableOpacity>
         </View>
     );

@@ -5,7 +5,8 @@ import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {i18n} from "../redux/features/LangSlice";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logoutUser} from "../redux/features/AuthSlice";
 
 const WelcomeScreen = () => {
 
@@ -13,9 +14,16 @@ const WelcomeScreen = () => {
     const locTitle = i18n.t("welcomeScreen.title")
     const locSubtitle = i18n.t("welcomeScreen.subtitle")
     const mainImg = require("../../assets/img/welcome.png")
-    const locPolicyLink = i18n.t("welcomeScreen.policy")
     const navigation = useNavigation()
-
+    const dispatch = useDispatch()
+    const enterWithoutAuthHandler = () => {
+        dispatch(logoutUser())
+        navigation.navigate("UnauthorizedHomeScreen")
+    }
+    const enterWithAuthHandler = () => {
+        dispatch(logoutUser())
+        navigation.navigate("LoginScreen")
+    }
     return (
         <View style={styles.container}>
 
@@ -33,13 +41,13 @@ const WelcomeScreen = () => {
                 <CustomButton
                     title={i18n.t("welcomeScreen.btnView")}
                     propsButtonStyles={{marginBottom: 10}}
-                    pressFunc={() => navigation.navigate("UnauthorizedHomeScreen")}
+                    pressFunc={enterWithoutAuthHandler}
                     inActive={true}
                 />
                 <CustomButton
                     title={i18n.t("welcomeScreen.btnLogin")}
                     propsButtonStyles={{marginBottom: "12%"}}
-                    pressFunc={() => navigation.navigate("LoginScreen")}
+                    pressFunc={enterWithAuthHandler}
                 />
             </View>
         </View>
@@ -64,7 +72,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         textAlign: "center",
         justifyContent: "center",
-        marginTop:10
+        marginTop: 10
     },
 
     subtitle: {
@@ -77,7 +85,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         height: "15%",
-        marginBottom:"10%"
+        marginBottom: "10%"
     }
 });
 

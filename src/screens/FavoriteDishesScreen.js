@@ -15,6 +15,7 @@ const FavoriteDishesScreen = () => {
     const fav = useSelector(state => state.dishesReducer.favoriteDishes)
     const lang = useSelector(state => state.langReducer.lang)
     const locTitle = i18n.t("favoritesScreen.title")
+    const locLoading = i18n.t("global.loading")
 
     useEffect(() => {
         if (!isLoading) {
@@ -28,20 +29,26 @@ const FavoriteDishesScreen = () => {
     return (
         <View style={styles.container}>
             {
-                fav.length ?
+                isLoading ?
                     <View style={styles.itemsWrapper}>
-                        <FlatList data={fav}
-                                  renderItem={renderFavoritesDishes}
-                                  keyExtractor={item => {
-                                      return item.id
-                                  }}
-                                  numColumns={1}
-                        />
+                        <Text style={styles.title}>{locLoading}</Text>
                     </View>
                     :
-                    <View>
-                        <Text style={styles.title}>{locTitle}</Text>
-                    </View>
+                    fav.length ?
+                        <View style={styles.itemsWrapper}>
+                            <FlatList data={fav}
+                                      renderItem={renderFavoritesDishes}
+                                      keyExtractor={item => {
+                                          return item.id
+                                      }}
+                                      numColumns={1}
+                            />
+                        </View>
+                        :
+                        <View>
+                            <Text style={styles.title}>{locTitle}</Text>
+                        </View>
+
             }
         </View>
     );
@@ -52,6 +59,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: theme.colors.yellow
     },
     itemsWrapper: {
         paddingTop: 50

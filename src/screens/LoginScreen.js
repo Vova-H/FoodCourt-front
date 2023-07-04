@@ -4,7 +4,10 @@ import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
 import LoginForm from "../components/forms/LoginForm";
 import {i18n} from "../redux/features/LangSlice";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {cleanCart} from "../redux/features/CartSlice";
+import {useNavigation} from "@react-navigation/native";
+
 
 const LoginScreen = () => {
 
@@ -12,6 +15,8 @@ const LoginScreen = () => {
     const locTitle = i18n.t("loginScreen.title")
     const locSubtitle = i18n.t("loginScreen.subtitle")
     const mainImg = require("../../assets/img/login.png")
+    const dispatch = useDispatch()
+
 
     return (
         <View style={styles.container}>

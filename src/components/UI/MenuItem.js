@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
+import MySpinner from "./MySpiner";
 
 
-const MenuItem = ({dish}) => {
+const MenuItem = ({dish, isLoading}) => {
     const navigation = useNavigation()
     const isAuth = useSelector(state => state.authReducer.isAuthorized)
 
@@ -22,19 +23,23 @@ const MenuItem = ({dish}) => {
     }
 
     return (
-        <Pressable onPress={() => dishDetailHandler(isAuth)}
-                   style={styles.itemContainer}
-        >
-            <View style={styles.imageWrapper}>
-                <Image
-                    source={{uri: `data:image/jpeg;base64,${dish.image}`}}
-                    resizeMode={"cover"}
-                    style={styles.image}
-                />
-            </View>
-            <Text style={styles.title}>{dish.name}</Text>
-            <Text style={styles.price}>{dish.price}$</Text>
-        </Pressable>
+        isLoading ?
+            <View style={styles.itemContainer}>
+                <MySpinner colorProps={'black'}/>
+            </View> :
+            <Pressable onPress={() => dishDetailHandler(isAuth)}
+                       style={styles.itemContainer}
+            >
+                <View style={styles.imageWrapper}>
+                    <Image
+                        source={{uri: `data:image/jpeg;base64,${dish.image}`}}
+                        resizeMode={"cover"}
+                        style={styles.image}
+                    />
+                </View>
+                <Text style={styles.title}>{dish.name}</Text>
+                <Text style={styles.price}>{dish.price}$</Text>
+            </Pressable>
     );
 };
 
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         fontFamily: theme.fonts.robotoRegular,
         fontSize: 14,
-        textTransform:"capitalize"
+        textTransform: "capitalize"
     },
     price: {
         paddingHorizontal: 10,

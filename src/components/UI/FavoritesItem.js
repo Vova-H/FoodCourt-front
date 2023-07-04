@@ -49,13 +49,15 @@ const FavoritesItem = ({dish}) => {
 
 const styles = StyleSheet.create({
     itemContainer: {
-        backgroundColor: "white",
+        backgroundColor: theme.colors.yellow,
         minWidth: "90%",
         flexDirection: "row",
         marginBottom: 20,
         alignItems: "center",
         paddingHorizontal: 10,
-        paddingVertical: 10
+        paddingVertical: 10,
+        borderStyle:"solid",
+        borderWidth:2
     },
     imageWrapper: {
         width: 100,

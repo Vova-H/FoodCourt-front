@@ -1,5 +1,9 @@
 export const localization = {
     en: {
+        global: {
+            loading: "Loading...",
+            saveBtn: "Save"
+        },
         choosingLanguage: {
             titleFirstTime: "Choose language",
             title: "English",
@@ -80,7 +84,8 @@ export const localization = {
             logout: "Log Out"
         },
         mySettingsScreen: {
-            changeLanguage: "Change interface language"
+            changeLanguage: "Change interface language",
+            changeAvatar: "Change Avatar"
         },
         myOrdersScreen: {
             title: "You don't have any orders yet",
@@ -89,6 +94,10 @@ export const localization = {
             statusValue2: "In Process",
             detailsBtn: "Details",
             totalPrice: "Total price for pay"
+        },
+        avatarChangeScreen: {
+            changeAvatarButton: "Change your avatar",
+            updateAvatarMessage: "Your avatar was been updated"
         },
         modals: {
             order: {
@@ -109,8 +118,11 @@ export const localization = {
         }
     },
 
-
     ua: {
+        global: {
+            loading: "Завантаження...",
+            saveBtn: "Зберегти"
+        },
         choosingLanguage: {
             titleFirstTime: "Вибери мову",
             title: "Українська",
@@ -191,7 +203,8 @@ export const localization = {
             logout: "Вийти"
         },
         mySettingsScreen: {
-            changeLanguage: "Змінити мову інтерфейсу"
+            changeLanguage: "Змінити мову інтерфейсу",
+            changeAvatar: "Змінити аватар"
         },
         myOrdersScreen: {
             title: "У вас ще немає замовлень",
@@ -200,6 +213,10 @@ export const localization = {
             statusValue2: "В процесі",
             detailsBtn: "Деталі",
             totalPrice: "Загальна ціна до сплати"
+        },
+        avatarChangeScreen: {
+            changeAvatarButton: "Змiни свiй аватар",
+            updateAvatarMessage: "Ваш аватар оновлено"
         },
         modals: {
             order: {
@@ -220,6 +237,10 @@ export const localization = {
 
 
     pl: {
+        global: {
+            loading: "Ładowanie...",
+            saveBtn: "Zapisz"
+        },
         choosingLanguage: {
             titleFirstTime: "Wybierz język",
             title: "Polska",
@@ -301,7 +322,8 @@ export const localization = {
             logout: "Wyloguj Się"
         },
         mySettingsScreen: {
-            changeLanguage: "Zmień język interfejsu"
+            changeLanguage: "Zmień język interfejsu",
+            changeAvatar: "Zmień avatar"
         },
         myOrdersScreen: {
             title: "Nie masz jeszcze żadnych zamówień",
@@ -310,6 +332,10 @@ export const localization = {
             statusValue2: "W toku",
             detailsBtn: "Szczegóły",
             totalPrice: "Razem do oplaty"
+        },
+        avatarChangeScreen: {
+            changeAvatarButton: "Zmień swój awatar",
+            updateAvatarMessage: "Twój awatar został zaktualizowany"
         },
         modals: {
             order: {

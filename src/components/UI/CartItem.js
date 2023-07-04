@@ -13,7 +13,6 @@ const CartItem = ({product}) => {
     const dispatch = useDispatch()
     const [removeOneFromCart] = useRemoveOneFromCartMutation()
     const [stateQuantity, setStateQuantity] = useState(quantity)
-    const {data, isLoading, refetch} = useGetCartQuery(user.id)
     const increaseQuantity = () => {
         setStateQuantity(stateQuantity + 1)
         dispatch(changeQuantityProduct({dishId: dish.id, quantity: stateQuantity + 1}))
@@ -62,14 +61,15 @@ const styles = StyleSheet.create({
     itemContainer: {
         flex: 1,
         justifyContent: "center",
-        paddingTop: 40,
-        backgroundColor: "white",
+        backgroundColor: theme.colors.yellow,
         minWidth: "90%",
         flexDirection: "row",
         marginBottom: 20,
         alignItems: "center",
         paddingHorizontal: 10,
-        paddingVertical: 10
+        paddingVertical: 20,
+        borderStyle: "solid",
+        borderWidth: 2
     },
     imageWrapper: {
         width: 50,
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textTransform: "capitalize",
         marginBottom: 5,
-        maxWidth: 130
+        width: 130,
+        flexWrap:"wrap"
     },
     price: {
         paddingHorizontal: 10,

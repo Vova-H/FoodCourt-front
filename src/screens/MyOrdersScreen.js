@@ -17,6 +17,7 @@ const MyOrdersScreen = () => {
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
     const lang = useSelector(state => state.langReducer.lang)
     const locTitle = i18n.t("myOrdersScreen.title")
+    const locLoading = i18n.t("global.loading")
 
     useEffect(() => {
         if (!isLoading) {
@@ -33,20 +34,26 @@ const MyOrdersScreen = () => {
     return (
         <View style={styles.container}>
             {
-                orders && orders.length ?
-                    <View style={styles.itemsWrapper}>
-                        <FlatList data={data}
-                                  renderItem={renderOrder}
-                                  keyExtractor={item => {
-                                      return item.id
-                                  }}
-                                  numColumns={1}
-                        />
+                isLoading ?
+                    <View>
+                        <Text style={styles.title}>{locLoading}</Text>
                     </View>
                     :
-                <View>
-                    <Text style={styles.title}>{locTitle}</Text>
-                </View>
+
+                    orders && orders.length ?
+                        <View style={styles.itemsWrapper}>
+                            <FlatList data={data}
+                                      renderItem={renderOrder}
+                                      keyExtractor={item => {
+                                          return item.id
+                                      }}
+                                      numColumns={1}
+                            />
+                        </View>
+                        :
+                        <View>
+                            <Text style={styles.title}>{locTitle}</Text>
+                        </View>
             }
 
             {isOpen && <OrderDetailsModal/>}

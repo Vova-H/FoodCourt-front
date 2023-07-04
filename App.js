@@ -53,7 +53,12 @@ export default function App() {
                                 <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>
                                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                                 <Stack.Screen name="RegisterScreen" component={RegisterScreen}/>
-                                <Stack.Screen name="HomeScreen" component={HomeTab}/>
+                                <Stack.Screen name="HomeScreen" component={HomeTab}
+                                              options={{
+                                                  headerShown: false,
+                                                  gestureEnabled: false,
+                                              }}
+                                />
                                 <Stack.Screen name="UnauthorizedHomeScreen" component={unauthorizedHomeScreen}/>
                                 <Stack.Screen name="DishDetailScreen" component={DishDetailScreen}/>
                                 <Stack.Screen name="UnauthorizedDishDetailScreen"
