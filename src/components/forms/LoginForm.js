@@ -12,10 +12,6 @@ import ParseJWTHelper from "../../helpers/parseJWTHelper";
 import {useDispatch, useSelector} from "react-redux";
 import {authorizeUser, saveJWT, saveUserFromJWT} from "../../redux/features/AuthSlice";
 import {useNavigation} from "@react-navigation/native";
-import {ActivityIndicator} from 'react-native';
-import Spiner from "../UI/MySpiner";
-import MySpinner from "../UI/MySpiner";
-import MySpiner from "../UI/MySpiner";
 import {cleanCart} from "../../redux/features/CartSlice";
 
 
@@ -70,7 +66,7 @@ const LoginForm = () => {
 
     return (
         <Formik
-            initialValues={{email: "vova@gmail.com", password: "12345678"}}
+            initialValues={{email: "", password: ""}}
             validationSchema={LoginSchema(lang)}
             onSubmit={values => loginHandler(values)}
         >

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, TouchableOpacity, View, Text, BackHandler} from "react-native";
+import React, {useEffect} from 'react';
+import {BackHandler, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {changeLanguage, i18n} from "../redux/features/LangSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
@@ -14,6 +14,10 @@ const ChoosingLanguageScreen = () => {
     const navigation = useNavigation()
     const changeLng = (loc) => {
         dispatch(changeLanguage(loc))
+    }
+
+    const nextScreenHandler = async () => {
+        navigation.navigate("PreviewScreen")
     }
 
     useEffect(() => {
@@ -36,7 +40,7 @@ const ChoosingLanguageScreen = () => {
 
             <CustomButton
                 title={i18n.t("choosingLanguage.btnFirstTime")}
-                pressFunc={() => navigation.navigate("PreviewScreen")}
+                pressFunc={nextScreenHandler}
             />
         </View>
     );

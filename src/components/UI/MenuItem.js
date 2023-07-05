@@ -1,15 +1,19 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
 import MySpinner from "./MySpiner";
+import {i18n} from "../../redux/features/LangSlice";
+import defineCurrency from "../../helpers/defineCurrency";
 
 
 const MenuItem = ({dish, isLoading}) => {
+    const currencies = useSelector(state => state.currencyReducer.currencies)
+    const lang = i18n.locale
+    const price = defineCurrency(lang, currencies, dish.price)
     const navigation = useNavigation()
     const isAuth = useSelector(state => state.authReducer.isAuthorized)
-
     const dishDetailHandler = (isAuth) => {
         if (isAuth) {
             navigation.navigate('DishDetailScreen', {
@@ -38,7 +42,7 @@ const MenuItem = ({dish, isLoading}) => {
                     />
                 </View>
                 <Text style={styles.title}>{dish.name}</Text>
-                <Text style={styles.price}>{dish.price}$</Text>
+                <Text style={styles.price}>{price.price} {price.sign}</Text>
             </Pressable>
     );
 };

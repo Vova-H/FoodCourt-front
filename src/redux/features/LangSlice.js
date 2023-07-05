@@ -6,7 +6,7 @@ import * as Localization from "expo-localization";
 export const i18n = new I18n(localization)
 
 const initialState = {
-    lang: "en"
+    lang: "en",
 }
 
 i18n.locale = Localization.locale;

@@ -1,8 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
+import {useSelector} from "react-redux";
+import defineCurrency from "../../helpers/defineCurrency";
 
 const OrderListDishes = ({item}) => {
+    const lang = useSelector(state => state.langReducer.lang)
+    const currencies = useSelector(state => state.currencyReducer.currencies)
+    const price = defineCurrency(lang, currencies, item.price)
+
     return (
         <View style={styles.dishesListContainer}>
             <View style={styles.dishWrapper}>
@@ -12,7 +18,8 @@ const OrderListDishes = ({item}) => {
                 <Text>x</Text>
                 <Text style={{fontSize: 18}}>{item.OrdersDishesModel.quantity}</Text>
             </View>
-            <Text style={styles.price}>( {item.price} ) {item.price * item.OrdersDishesModel.quantity} $</Text>
+            <Text
+                style={styles.price}>( {price.price} ) {price.price * item.OrdersDishesModel.quantity} {price.sign}</Text>
         </View>
     );
 };
@@ -38,7 +45,7 @@ const styles = StyleSheet.create({
     },
     price: {
         fontFamily: theme.fonts.robotoRegular,
-        fontSize:16
+        fontSize: 16
     }
 })
 

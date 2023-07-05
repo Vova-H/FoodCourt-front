@@ -20,13 +20,13 @@ const Menu = () => {
     ), [isLoading])
 
     return (
-        <FlatList data={data}
-                  renderItem={renderDishes}
-                  keyExtractor={item => {
-                      return item.id
-                  }}
-                  numColumns={2}
-        />
+            <FlatList data={data}
+                      renderItem={renderDishes}
+                      keyExtractor={item => {
+                          return item.id
+                      }}
+                      numColumns={2}
+            />
     );
 };
 

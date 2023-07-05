@@ -11,21 +11,23 @@ import {i18n} from "../redux/features/LangSlice";
 import {useGetCartQuery} from "../redux/services/CartsService";
 import {saveCartFromServer} from "../redux/features/CartSlice";
 import {formatterServerData} from "../helpers/formaterServerData";
+import {useGetCurrenciesQuery} from "../redux/services/CurrenciesService";
+import {saveCurrencies} from "../redux/features/CurrenciesSlice";
 
 const imageForDisc = require("../../assets/img/food1.png")
 
 const HomeScreen = () => {
+    const lang = useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()
     const favorites = useSelector(state => state.dishesReducer.favoriteDishes)
     const user = useSelector(state => state.authReducer.userFromJWT)
     const [isDiscount, setIsDiscount] = useState(true)
     const {data, isLoading} = useGetUserByIdQuery(user.id)
-    const lang = useSelector(state => state.langReducer.lang)
     const locDiscountTitle = i18n.t("homeScreen.discount.title")
     const locDiscountOff = i18n.t("homeScreen.discount.off")
     const locMenu = i18n.t("homeScreen.menu")
     const cartFromServer = useGetCartQuery(user.id)
-
+    const currencies = useGetCurrenciesQuery()
     useEffect(() => {
         if (!isLoading) {
             dispatch(saveUser(data))
@@ -34,8 +36,11 @@ const HomeScreen = () => {
             const formattedData = formatterServerData(cartFromServer.currentData);
             dispatch(saveCartFromServer(formattedData));
         }
+        if (!currencies.isLoading && currencies.isSuccess) {
+            dispatch(saveCurrencies(currencies.data))
+        }
 
-    }, [isLoading, favorites, cartFromServer.isLoading])
+    }, [isLoading, favorites, cartFromServer.isLoading, currencies.isLoading])
 
 
     return (

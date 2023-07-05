@@ -8,6 +8,7 @@ import CustomButton from "../components/UI/CustomButton";
 import theme from "../../theme";
 import {useSelector} from "react-redux";
 import {i18n} from "../redux/features/LangSlice";
+import defineCurrency from "../helpers/defineCurrency";
 
 const UnauthorizedDishDetailScreen = (props) => {
 
@@ -18,6 +19,10 @@ const UnauthorizedDishDetailScreen = (props) => {
     const locMessageFavorite = i18n.t("modals.dishDetails.messageFavorite")
     const locMessageOrder = i18n.t("modals.dishDetails.messageOrder")
     const locPlaceOrder = i18n.t("homeScreen.placeOrder")
+
+
+    const currencies = useSelector(state => state.currencyReducer.currencies)
+    const price = defineCurrency(lang, currencies, dish.price)
 
     const tryAddFavoriteHandler = () => {
         Alert.alert(locModalTitle, locMessageFavorite)
@@ -54,7 +59,7 @@ const UnauthorizedDishDetailScreen = (props) => {
                     </View>
                     <View style={styles.containerPriceInfo}>
                         <View style={styles.bg}>
-                            <Text style={styles.price}>{dish.price} $</Text>
+                            <Text style={styles.price}>{price.price} {price.sign}</Text>
                         </View>
                     </View>
                     <View>

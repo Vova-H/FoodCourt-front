@@ -7,18 +7,18 @@ const DishCounter = ({price, quantity, setTotalPrice, setQuantity}) => {
     const minusHandler = () => {
         if (quantity > 1) {
             setQuantity(quantity => quantity - 1)
-            setTotalPrice(price * quantity)
+            setTotalPrice(price.price * quantity)
         }
     }
     const plusHandler = () => {
         setQuantity(quantity => quantity + 1)
-        setTotalPrice(price * quantity)
+        setTotalPrice(price.price * quantity)
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.bg}>
-                <Text style={styles.price}>{price * quantity} $</Text>
+                <Text style={styles.price}>{price.price * quantity}{price.sign}</Text>
                 <View style={styles.countWrapper}>
                     <TouchableOpacity onPress={minusHandler}><Text
                         style={styles.minusBtn}>-</Text></TouchableOpacity>

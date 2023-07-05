@@ -5,20 +5,23 @@ import CustomButton from "./CustomButton";
 import {useDispatch, useSelector} from "react-redux";
 import {loadContent, openModal} from "../../redux/features/OrderModalSlice";
 import {i18n} from "../../redux/features/LangSlice";
+import defineCurrency from "../../helpers/defineCurrency";
 
 const OrdersItem = ({order}) => {
     const [totalPrice, setTotalPrice] = useState(0)
     const dispatch = useDispatch()
     const lang = useSelector(state => state.langReducer.lang)
+    const currencies = useSelector(state => state.currencyReducer.currencies)
     const locStatus = i18n.t("myOrdersScreen.status")
     const locStatusValue1 = i18n.t("myOrdersScreen.statusValue1")
     const locStatusValue2 = i18n.t("myOrdersScreen.statusValue2")
     const locDetailsBtn = i18n.t("myOrdersScreen.detailsBtn")
     const locTotalPrice = i18n.t("myOrdersScreen.totalPrice")
-
+    const price = defineCurrency(lang, currencies)
     const calcTotalPrice = (order) => {
         order.dishes.map(dish => {
-            setTotalPrice(prevState => prevState += dish.OrdersDishesModel.quantity * dish.price)
+            const price = defineCurrency(lang, currencies, dish.price)
+            setTotalPrice(prevState => prevState += dish.OrdersDishesModel.quantity * price.price)
         })
     }
 
@@ -54,7 +57,7 @@ const OrdersItem = ({order}) => {
             <View style={{flexDirection: "row", alignItems: "center"}}>
                 <View style={{marginRight: "auto"}}>
                     <Text style={styles.orderStatus}>{locStatus}: {getStatus(order.status)}</Text>
-                    <Text style={styles.totalPrice}>{locTotalPrice}: {totalPrice}$</Text>
+                    <Text style={styles.totalPrice}>{locTotalPrice}: {totalPrice} {price.sign}</Text>
                 </View>
                 <CustomButton title={locDetailsBtn}
                               propsButtonStyles={{width: "30%", height: "70%"}}

@@ -14,7 +14,8 @@ import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice
 import CustomButton from "../components/UI/CustomButton";
 import {addToCart} from "../redux/features/CartSlice";
 import {i18n} from "../redux/features/LangSlice";
-import {useAddCartMutation, useGetCartQuery} from "../redux/services/CartsService";
+import {useAddCartMutation} from "../redux/services/CartsService";
+import defineCurrency from "../helpers/defineCurrency";
 
 const headerImg = require("../../assets/img/MenuItemHeader.png")
 const flame = require("../../assets/img/Flame.png")
@@ -23,22 +24,23 @@ const flame = require("../../assets/img/Flame.png")
 const DishDetailScreen = (props) => {
     const dish = props.route.params.dish
     const user = useSelector(state => state.authReducer.userFromJWT)
+    const lang = useSelector(state => state.langReducer.lang)
+    const currencies = useSelector(state => state.currencyReducer.currencies)
+    const price = defineCurrency(lang, currencies, dish.price)
     const navigation = useNavigation()
     const [checkIsFavorites] = useCheckIsFavoritesMutation()
     const [addCart] = useAddCartMutation()
     const [addToFavorites] = useAddToFavoritesMutation()
     const [removeFromFavorites] = useRemoveFromFavoritesMutation()
     const dispatch = useDispatch()
-    const [, setTotalPrice] = useState(dish.price)
+    const [, setTotalPrice] = useState(price.price)
     const [quantity, setQuantity] = useState(1)
     const [isLiked, setIsLiked] = useState(false)
     const cart = useSelector(state => state.cartReducer.cart)
-    const lang = useSelector(state => state.langReducer.lang)
     const locPlaceOrder = i18n.t("homeScreen.placeOrder")
     const locExistDishErrTitle = i18n.t("modals.dishDetails.existDishErr.title")
     const locExistDishErrMessage = i18n.t("modals.dishDetails.existDishErr.message")
     const locDishDetail= i18n.t("dishDetails.foodDetail")
-    const {data, isLoading, refetch} = useGetCartQuery(user.id) // cartFromServer.currentData = cart[{dish}, quantity]
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
     }
@@ -112,7 +114,7 @@ const DishDetailScreen = (props) => {
                             style={styles.dishImage}
                         />
                     </View>
-                    <DishCounter price={dish.price}
+                    <DishCounter price={price}
                                  quantity={quantity}
                                  setTotalPrice={setTotalPrice}
                                  setQuantity={setQuantity}

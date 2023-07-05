@@ -4,11 +4,16 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {changeQuantityProduct, removeFromCart} from "../../redux/features/CartSlice";
-import {useGetCartQuery, useRemoveOneFromCartMutation} from "../../redux/services/CartsService";
+import {useRemoveOneFromCartMutation} from "../../redux/services/CartsService";
+import {i18n} from "../../redux/features/LangSlice";
+import defineCurrency from "../../helpers/defineCurrency";
 
 const CartItem = ({product}) => {
     const dish = product[0]
     const quantity = product[1]
+    const currencies = useSelector(state => state.currencyReducer.currencies)
+    const lang = i18n.locale
+    const price = defineCurrency(lang, currencies, dish.price)
     const user = useSelector(state => state.authReducer.userFromJWT)
     const dispatch = useDispatch()
     const [removeOneFromCart] = useRemoveOneFromCartMutation()
@@ -40,7 +45,7 @@ const CartItem = ({product}) => {
             </View>
             <View style={{marginRight: "auto"}}>
                 <Text style={styles.title}>{dish.name}</Text>
-                <Text style={styles.price}>{dish.price * stateQuantity}$</Text>
+                <Text style={styles.price}>{price.price * stateQuantity} {price.sign}</Text>
             </View>
             <TouchableOpacity onPress={() => decreaseQuantity(quantity)}>
                 <Ionicons name={"remove"} size={40} color={"#000000"}/>

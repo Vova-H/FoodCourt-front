@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useRef} from 'react';
-import {Animated, FlatList, StyleSheet, Text, View} from "react-native";
+import React, {useCallback, useEffect} from 'react';
+import {FlatList, StyleSheet, Text, View} from "react-native";
 import theme from "../../theme";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetOrdersQuery} from "../redux/services/OrdersService";

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useNavigation} from "@react-navigation/native";
 import {Image, Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import theme from "../../../theme";
@@ -6,6 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {useDispatch, useSelector} from "react-redux";
 import {removeFavoriteDish} from "../../redux/features/DishesSlice";
 import {useRemoveFromFavoritesMutation} from "../../redux/services/DishesService";
+import defineCurrency from "../../helpers/defineCurrency";
 
 
 const FavoritesItem = ({dish}) => {
@@ -13,6 +14,9 @@ const FavoritesItem = ({dish}) => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.authReducer.userFromJWT)
     const [removeFromFavorites] = useRemoveFromFavoritesMutation()
+    const lang = useSelector(state => state.langReducer.lang)
+    const currencies = useSelector(state => state.currencyReducer.currencies)
+    const price = defineCurrency(lang, currencies, dish.price)
 
 
     const removeFromFavoriteHandler = async (userId, dishId) => {
@@ -36,7 +40,7 @@ const FavoritesItem = ({dish}) => {
             </View>
             <View style={{marginRight: "auto"}}>
                 <Text style={styles.title}>{dish.name}</Text>
-                <Text style={styles.price}>{dish.price}$</Text>
+                <Text style={styles.price}>{price.price} {price.sign}</Text>
             </View>
             <TouchableOpacity
                 onPress={() => removeFromFavoriteHandler(user.id, dish.id)}
@@ -56,8 +60,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 10,
         paddingVertical: 10,
-        borderStyle:"solid",
-        borderWidth:2
+        borderStyle: "solid",
+        borderWidth: 2
     },
     imageWrapper: {
         width: 100,
