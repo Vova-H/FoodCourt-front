@@ -29,7 +29,7 @@ const LoginForm = () => {
             dispatch(cleanCart());
         };
     }, []);
-    const loginHandler = async (values) => {
+    const loginHandler = async (values, resetForm) => {
         setIsLoading(true);
         try {
             const response = await login(values);
@@ -55,6 +55,7 @@ const LoginForm = () => {
                     dispatch(saveUserFromJWT(userFromJWT))
                     dispatch(saveJWT(token))
                     navigation.navigate("HomeScreen")
+                    resetForm();
                 }
             }
             setIsLoading(false);
@@ -68,7 +69,9 @@ const LoginForm = () => {
         <Formik
             initialValues={{email: "", password: ""}}
             validationSchema={LoginSchema(lang)}
-            onSubmit={values => loginHandler(values)}
+            onSubmit={(values, {resetForm}) => {
+                loginHandler(values, resetForm);
+            }}
         >
             {(props) => (
                 <View>
