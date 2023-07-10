@@ -8,7 +8,7 @@ import {i18n} from "../../redux/features/LangSlice";
 import defineCurrency from "../../helpers/defineCurrency";
 
 
-const MenuItem = ({dish, isLoading}) => {
+const MenuItem = ({dish}) => {
     const currencies = useSelector(state => state.currencyReducer.currencies)
     const lang = i18n.locale
     const price = defineCurrency(lang, currencies, dish.price)
@@ -26,24 +26,21 @@ const MenuItem = ({dish, isLoading}) => {
         }
     }
 
+
     return (
-        isLoading ?
-            <View style={styles.itemContainer}>
-                <MySpinner colorProps={'black'}/>
-            </View> :
-            <Pressable onPress={() => dishDetailHandler(isAuth)}
-                       style={styles.itemContainer}
-            >
-                <View style={styles.imageWrapper}>
-                    <Image
-                        source={{uri: `data:image/jpeg;base64,${dish.image}`}}
-                        resizeMode={"cover"}
-                        style={styles.image}
-                    />
-                </View>
-                <Text style={styles.title}>{dish.name}</Text>
-                <Text style={styles.price}>{price.price} {price.sign}</Text>
-            </Pressable>
+        <Pressable onPress={() => dishDetailHandler(isAuth)}
+                   style={styles.itemContainer}
+        >
+            <View style={styles.imageWrapper}>
+                <Image
+                    source={{uri: `data:image/jpeg;base64,${dish.image}`}}
+                    resizeMode={"cover"}
+                    style={styles.image}
+                />
+            </View>
+            <Text style={styles.title}>{dish.name}</Text>
+            <Text style={styles.price}>{price.price} {price.sign}</Text>
+        </Pressable>
     );
 };
 

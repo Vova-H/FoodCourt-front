@@ -13,6 +13,7 @@ import {saveCartFromServer} from "../redux/features/CartSlice";
 import {formatterServerData} from "../helpers/formaterServerData";
 import {useGetCurrenciesQuery} from "../redux/services/CurrenciesService";
 import {saveCurrencies} from "../redux/features/CurrenciesSlice";
+import MySpinner from "../components/UI/MySpiner";
 
 const imageForDisc = require("../../assets/img/food1.png")
 
@@ -47,8 +48,10 @@ const HomeScreen = () => {
         <View style={styles.container}>
             <View style={styles.contentWrapper}>
                 <View style={styles.welcomeInfoWrapper}>
-                    {data &&
+                    {data ?
                         <WelcomeInfo/>
+                        :
+                        <MySpinner colorProps={"#000"}/>
                     }
                 </View>
                 {isDiscount && <View style={styles.discountWrapper}>
