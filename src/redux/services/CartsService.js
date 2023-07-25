@@ -1,12 +1,21 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import URL_path from "../../../config";
+import * as SecureStore from "expo-secure-store";
 
 
 
 export const cartsAPI = createApi({
     reducerPath: 'cartsAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${URL_path}/carts`
+        baseUrl: `${URL_path}/carts`,
+        prepareHeaders: async (headers) => {
+            const token = await SecureStore.getItemAsync("token")
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+
+            return headers;
+        },
     }),
     tagTypes: ['Carts'],
     endpoints: (build) => ({

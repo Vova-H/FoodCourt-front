@@ -1,20 +1,30 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import URL_path from "../../../config";
+import * as SecureStore from "expo-secure-store";
+import {logoutUser} from "../features/AuthSlice";
 
 
 export const dishesAPI = createApi({
     reducerPath: 'dishesAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${URL_path}/dishes/`
+        baseUrl: `${URL_path}/dishes`,
+        prepareHeaders: async (headers) => {
+            const token = await SecureStore.getItemAsync("token")
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
     }),
+
     tagTypes: ['Dishes'],
     endpoints: (build) => ({
         getAllDishes: build.query({
-            query: () => ({
-                url: "/",
+            query: (lang) => ({
+                url: `/?lang=${lang}`,
                 method: "GET",
                 headers: {
-                    'Content-type': 'application/json; charset=UTF-8'
+                    'Content-type': 'application/json; charset=UTF-8',
                 }
             }),
         }),
@@ -24,7 +34,7 @@ export const dishesAPI = createApi({
                 url: `favorites/getAll/?userId=${id}`,
                 method: 'GET',
                 headers: {
-                    'Content-type': 'application/json; charset=UTF-8'
+                    'Content-type': 'application/json; charset=UTF-8',
                 }
             }),
         }),

@@ -9,10 +9,10 @@ export const authAPI = createApi({
     tagTypes: ['Auth'],
     endpoints: (builder) => ({
         register: builder.mutation({
-            query: (formData) => ({
-                url: 'registration',
+            query: (data) => ({
+                url: `registration/?lang=${data.lang}`,
                 method: 'POST',
-                body: formData,
+                body: data,
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
                 },
@@ -21,7 +21,7 @@ export const authAPI = createApi({
 
         login: builder.mutation({
             query: (payload) => ({
-                url: 'login',
+                url: `login/?lang=${payload.lang}`,
                 method: 'POST',
                 body: {
                     email: payload.email,

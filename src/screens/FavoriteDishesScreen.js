@@ -25,7 +25,7 @@ const FavoriteDishesScreen = () => {
 
     const renderFavoritesDishes = useCallback(({item}) => (
         <FavoritesItem dish={item}/>
-    ), [fav])
+    ), [fav, data])
     return (
         <View style={styles.container}>
             {
@@ -34,7 +34,7 @@ const FavoriteDishesScreen = () => {
                         <Text style={styles.title}>{locLoading}</Text>
                     </View>
                     :
-                    fav.length ?
+                    fav && fav.length ?
                         <View style={styles.itemsWrapper}>
                             <FlatList data={fav}
                                       renderItem={renderFavoritesDishes}

@@ -2,7 +2,8 @@ export const localization = {
     en: {
         global: {
             loading: "Loading...",
-            saveBtn: "Save"
+            saveBtn: "Save",
+            message: "message"
         },
         choosingLanguage: {
             titleFirstTime: "Choose language",
@@ -114,14 +115,19 @@ export const localization = {
 
                 }
             },
-
+            loginScreen: {
+                loginError: "Login Error"
+            },
+            registerScreen: {
+                registerError: "Registration Error"
+            }
         }
     },
-
     ua: {
         global: {
             loading: "Завантаження...",
-            saveBtn: "Зберегти"
+            saveBtn: "Зберегти",
+            message: "Повідомлення"
         },
         choosingLanguage: {
             titleFirstTime: "Вибери мову",
@@ -231,15 +237,20 @@ export const localization = {
                     title: "Повідомлення",
                     message: "Ця страва вже додана до вашого кошику"
                 }
+            },
+            loginScreen: {
+                loginError: "Помилка входу"
+            },
+            registerScreen: {
+                registerError: "Помилка реєстрації"
             }
         }
     },
-
-
     pl: {
         global: {
             loading: "Ładowanie...",
-            saveBtn: "Zapisz"
+            saveBtn: "Zapisz",
+            message: "Wiadomość"
         },
         choosingLanguage: {
             titleFirstTime: "Wybierz język",
@@ -350,6 +361,12 @@ export const localization = {
                     title: "Wiadomość",
                     message: "To danie zostało już dodane do Twojego koszyka"
                 }
+            },
+            loginScreen: {
+                loginError: "Błąd logowania"
+            },
+            registerScreen: {
+                registerError: "Błąd rejestracji"
             }
         }
     }

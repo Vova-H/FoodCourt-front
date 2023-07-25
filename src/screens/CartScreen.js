@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Alert, FlatList, StyleSheet, Text, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import CartItem from "../components/UI/CartItem";
@@ -23,19 +23,25 @@ const CartScreen = () => {
     const locTitle = i18n.t("cartScreen.title")
     const locOrderBtn = i18n.t("cartScreen.orderBtn")
     const locLoading = i18n.t("global.loading")
+    const locMessage = i18n.t("global.message")
     const [removeCart] = useRemoveCartMutation()
     const {data: cartFromServer, isLoading, refetch} = useGetCartQuery(user.id)
 
+    useEffect(() => {
+        if (!isLoading) {
+            refetch()
+        }
+    }, [isLoading, cart, cartFromServer])
     const createOrderHandler = async (cart, clientId) => {
         const body = []
         cart.map(product => {
             body.push([{id: product[0].id}, product[1]])
         })
-        const result = await createOrder({body, clientId})
+        const result = await createOrder({body, clientId, lang})
         navigation.navigate("Home")
-        dispatch(cleanCart())
+        await dispatch(cleanCart())
         refetch()
-        Alert.alert("Message", `${result.data.message}`)
+        Alert.alert(`${locMessage}`, `${result.data.message}`)
         await removeCart({userId: user.id})
     }
 

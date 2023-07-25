@@ -16,20 +16,22 @@ const RegisterForm = () => {
     const lang = useSelector(state => state.langReducer.lang)
     const navigation = useNavigation()
     const [register] = useRegisterMutation();
+    const locRegisterError = i18n.t("modals.registerScreen.registerError")
     const registerHandler = async (values) => {
         try {
-            const formData = {
+            const data = {
                 'username': values.username,
                 'email': values.email,
-                'password': values.password
+                'password': values.password,
+                "lang": lang
             }
-            const result = await register(formData).unwrap()
+            const result = await register(data).unwrap()
             Alert.alert("Message", result.message)
             navigation.navigate("LoginScreen")
 
         } catch (e) {
             console.log(e);
-            Alert.alert("Registration Error", e.data.message)
+            Alert.alert(`${locRegisterError}`, e.data.message)
         }
     };
 

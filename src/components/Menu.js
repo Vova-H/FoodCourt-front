@@ -2,14 +2,15 @@ import React, {useCallback, useEffect} from 'react';
 import {FlatList, View} from "react-native";
 import MenuItem from "./UI/MenuItem";
 import {useGetAllDishesQuery} from "../redux/services/DishesService";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {saveDishes} from "../redux/features/DishesSlice";
 import MySpinner from "./UI/MySpiner";
 
 
 const Menu = () => {
     const dispatch = useDispatch();
-    const {data, isLoading} = useGetAllDishesQuery()
+    const lang = useSelector(state => state.langReducer.lang)
+    const {data, isLoading} = useGetAllDishesQuery(lang)
     useEffect(() => {
         if (!isLoading) {
             dispatch(saveDishes(data))

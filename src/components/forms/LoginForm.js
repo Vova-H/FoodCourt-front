@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useLoginMutation} from "../../redux/services/AuthService";
 import * as SecureStore from 'expo-secure-store';
@@ -12,7 +12,6 @@ import ParseJWTHelper from "../../helpers/parseJWTHelper";
 import {useDispatch, useSelector} from "react-redux";
 import {authorizeUser, saveJWT, saveUserFromJWT} from "../../redux/features/AuthSlice";
 import {useNavigation} from "@react-navigation/native";
-import {cleanCart} from "../../redux/features/CartSlice";
 
 
 const LoginForm = () => {
@@ -22,14 +21,10 @@ const LoginForm = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation()
     const [isLoading, setIsLoading] = useState(false);
+    const locLoginError = i18n.t("modals.loginScreen.loginError")
 
-
-    useEffect(() => {
-        return () => {
-            dispatch(cleanCart());
-        };
-    }, []);
     const loginHandler = async (values, resetForm) => {
+        values.lang = lang
         setIsLoading(true);
         try {
             const response = await login(values);
@@ -37,12 +32,12 @@ const LoginForm = () => {
                 switch (typeof response.error.data === "object" && !Array.isArray(response.error.data)) {
                     case true :
                         if (response.error.data) {
-                            Alert.alert("Login Error", response.error.data.message)
+                            Alert.alert(`${locLoginError}`, response.error.data.message)
                         }
                         break
                     case false:
                         if (response?.error?.data) {
-                            Alert.alert("Login Error", response.error.data[0].split("-")[1])
+                            Alert.alert(`${locLoginError}`, response.error.data[0].split("-")[1])
                         }
                         break
                 }
