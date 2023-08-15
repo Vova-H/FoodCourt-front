@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import theme from "../../theme";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,8 +16,8 @@ const MyOrdersScreen = () => {
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
     const lang = useSelector(state => state.langReducer.lang)
     const {data, isLoading, refetch} = useGetOrdersQuery({"clientId": userAuth.id, lang})
-    const locTitle = i18n.t("myOrdersScreen.title")
-    const locLoading = i18n.t("global.loading")
+    const locTitle = useMemo(() => i18n.t("myOrdersScreen.title"), [])
+    const locLoading = useMemo(() => i18n.t("global.loading"), [])
 
     useEffect(() => {
         if (!isLoading) {
@@ -26,7 +26,7 @@ const MyOrdersScreen = () => {
         }
     }, [isLoading])
 
-    const renderOrder = ({ item }) => <OrdersItem order={item} />;
+    const renderOrder = ({item}) => <OrdersItem order={item}/>;
 
     return (
         <View style={styles.container}>
