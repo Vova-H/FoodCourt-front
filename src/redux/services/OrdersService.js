@@ -18,8 +18,8 @@ export const ordersAPI = createApi({
     tagTypes: ['Orders'],
     endpoints: (build) => ({
         createOrder: build.mutation({
-            query: ({clientId, body, lang}) => ({
-                url: `create/?clientId=${clientId}&lang=${lang}`,
+            query: ({clientId, body, lang, discount}) => ({
+                url: `create/?clientId=${clientId}&lang=${lang}&discount=${discount}`,
                 method: 'POST',
                 body: body,
             })

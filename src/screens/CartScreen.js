@@ -10,6 +10,7 @@ import {useNavigation} from "@react-navigation/native";
 import {cleanCart} from "../redux/features/CartSlice";
 import {i18n} from "../redux/features/LangSlice";
 import {useGetCartQuery, useRemoveCartMutation} from "../redux/services/CartsService";
+import {cancelDiscount} from "../redux/features/DishesSlice";
 
 const CartScreen = () => {
 
@@ -26,6 +27,7 @@ const CartScreen = () => {
     const locMessage = i18n.t("global.message")
     const [removeCart] = useRemoveCartMutation()
     const {data: cartFromServer, isLoading, refetch} = useGetCartQuery(user.id)
+    const discount = useSelector(state => state.dishesReducer.discount)
 
     useEffect(() => {
         if (!isLoading) {
@@ -37,7 +39,8 @@ const CartScreen = () => {
         cart.map(product => {
             body.push([{id: product[0].id}, product[1]])
         })
-        const result = await createOrder({body, clientId, lang})
+        const result = await createOrder({body, clientId, lang, discount})
+        await dispatch(cancelDiscount())
         navigation.navigate("Home")
         await dispatch(cleanCart())
         refetch()

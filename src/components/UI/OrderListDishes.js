@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
 import {useSelector} from "react-redux";
 import defineCurrency from "../../helpers/defineCurrency";
 
-const OrderListDishes = ({item}) => {
+const OrderListDishes = ({item, discount}) => {
     const lang = useSelector(state => state.langReducer.lang)
     const currencies = useSelector(state => state.currencyReducer.currencies)
-    const price = defineCurrency(lang, currencies, item.price)
+    const price = useMemo(() => {
+        if (discount) {
+            return defineCurrency(lang, currencies, item.price / 2)
+        }
+        return defineCurrency(lang, currencies, item.price)
+    }, [lang, currencies, item.price])
 
     return (
         <View style={styles.dishesListContainer}>
@@ -18,8 +23,18 @@ const OrderListDishes = ({item}) => {
                 <Text>x</Text>
                 <Text style={{fontSize: 18}}>{item.OrdersDishesModel.quantity}</Text>
             </View>
-            <Text
-                style={styles.price}>( {price.price} ) {price.price * item.OrdersDishesModel.quantity} {price.sign}</Text>
+            {discount ?
+                <Text style={styles.price}>
+                    (<Text style={{textDecorationLine: "line-through"}}>{price.price * 2}</Text>
+                    <Text style={{color: "red"}}>  {price.price}</Text>)
+                    <Text>  {price.price * item.OrdersDishesModel.quantity} {price.sign}</Text>
+                </Text>
+                :
+                <Text style={styles.price}>
+                    <Text>({price.price}) {price.price * item.OrdersDishesModel.quantity} {price.sign}</Text>
+                </Text>
+            }
+
         </View>
     );
 };

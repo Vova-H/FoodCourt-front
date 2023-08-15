@@ -13,7 +13,15 @@ const CartItem = ({product}) => {
     const quantity = product[1]
     const currencies = useSelector(state => state.currencyReducer.currencies)
     const lang = i18n.locale
-    const price = defineCurrency(lang, currencies, dish.price)
+    const discount = useSelector(state => state.dishesReducer.discount)
+
+    const price = () => {
+        if (discount) {
+            return defineCurrency(lang, currencies, dish.price / 2)
+
+        }
+        return defineCurrency(lang, currencies, dish.price)
+    }
     const user = useSelector(state => state.authReducer.userFromJWT)
     const dispatch = useDispatch()
     const [removeOneFromCart] = useRemoveOneFromCartMutation()
@@ -45,7 +53,7 @@ const CartItem = ({product}) => {
             </View>
             <View style={{marginRight: "auto"}}>
                 <Text style={styles.title}>{dish.name}</Text>
-                <Text style={styles.price}>{price.price * stateQuantity} {price.sign}</Text>
+                <Text style={styles.price}>{price().price * stateQuantity} {price().sign}</Text>
             </View>
             <TouchableOpacity onPress={() => decreaseQuantity(quantity)}>
                 <Ionicons name={"remove"} size={40} color={"#000000"}/>

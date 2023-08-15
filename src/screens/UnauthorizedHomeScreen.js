@@ -10,7 +10,6 @@ import {i18n} from "../redux/features/LangSlice";
 import {useGetCurrenciesQuery} from "../redux/services/CurrenciesService";
 import {saveCurrencies} from "../redux/features/CurrenciesSlice";
 
-
 const UnauthorizedHomeScreen = () => {
     const [isDiscount, setIsDiscount] = useState(true)
     const dispatch = useDispatch()
@@ -33,13 +32,26 @@ const UnauthorizedHomeScreen = () => {
                 <View style={styles.welcomeInfoWrapper}>
                     <WelcomeInfo/>
                 </View>
-                {isDiscount && <View style={styles.discountWrapper}>
-                    <Discount image={imageForDisc} title={locDiscountTitle} subtitle={`80% ${locDiscountOff}`}/>
-                </View>}
-                <Text style={styles.title}>{locMenu}</Text>
-                <View style={{height: "62%", width: "100%"}}>
-                    <Menu/>
-                </View>
+                {isDiscount && (
+                    <View style={styles.discountWrapper}>
+                        <Discount image={imageForDisc} title={locDiscountTitle} subtitle={`50% ${locDiscountOff}`}/>
+                    </View>
+                )}
+                {isDiscount ?
+                    <View>
+                        <Text style={styles.title}>{locMenu}</Text>
+                        <View style={{height: "70%", width: "100%"}}>
+                            <Menu/>
+                        </View>
+                    </View>
+                    :
+                    <View>
+                        <Text style={styles.title}>{locMenu}</Text>
+                        <View style={{height: "85%", width: "100%"}}>
+                            <Menu/>
+                        </View>
+                    </View>
+                }
             </View>
         </View>
     );

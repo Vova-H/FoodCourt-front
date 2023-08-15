@@ -26,10 +26,7 @@ const MyOrdersScreen = () => {
         }
     }, [isLoading])
 
-
-    const renderOrder = useCallback(({item}) => (
-        <OrdersItem order={item}/>
-    ), [orders])
+    const renderOrder = ({ item }) => <OrdersItem order={item} />;
 
     return (
         <View style={styles.container}>

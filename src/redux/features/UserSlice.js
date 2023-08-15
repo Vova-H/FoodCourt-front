@@ -16,12 +16,12 @@ export const userSlice = createSlice({
         },
         changeAvatarInSlice(state, action) {
             state.user.avatar = action.payload
-        }
+        },
     }
 });
 export const {
     saveUser,
     removeUser,
-    changeAvatarInSlice
+    changeAvatarInSlice,
 } = userSlice.actions
 export default userSlice.reducer;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Alert, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../theme";
@@ -26,21 +26,28 @@ const DishDetailScreen = (props) => {
     const user = useSelector(state => state.authReducer.userFromJWT)
     const lang = useSelector(state => state.langReducer.lang)
     const currencies = useSelector(state => state.currencyReducer.currencies)
-    const price = defineCurrency(lang, currencies, dish.price)
+    const discount = useSelector(state => state.dishesReducer.discount)
+    const price = () => {
+        if (discount) {
+            return defineCurrency(lang, currencies, dish.price / 2)
+
+        }
+        return defineCurrency(lang, currencies, dish.price)
+    }
     const navigation = useNavigation()
     const [checkIsFavorites] = useCheckIsFavoritesMutation()
     const [addCart] = useAddCartMutation()
     const [addToFavorites] = useAddToFavoritesMutation()
     const [removeFromFavorites] = useRemoveFromFavoritesMutation()
     const dispatch = useDispatch()
-    const [, setTotalPrice] = useState(price.price)
+    const [, setTotalPrice] = useState(price())
     const [quantity, setQuantity] = useState(1)
     const [isLiked, setIsLiked] = useState(false)
     const cart = useSelector(state => state.cartReducer.cart)
     const locPlaceOrder = i18n.t("homeScreen.placeOrder")
     const locExistDishErrTitle = i18n.t("modals.dishDetails.existDishErr.title")
     const locExistDishErrMessage = i18n.t("modals.dishDetails.existDishErr.message")
-    const locDishDetail= i18n.t("dishDetails.foodDetail")
+    const locDishDetail = i18n.t("dishDetails.foodDetail")
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
     }
@@ -114,7 +121,7 @@ const DishDetailScreen = (props) => {
                             style={styles.dishImage}
                         />
                     </View>
-                    <DishCounter price={price}
+                    <DishCounter price={price()}
                                  quantity={quantity}
                                  setTotalPrice={setTotalPrice}
                                  setQuantity={setQuantity}

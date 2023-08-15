@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
 import CustomButton from "./CustomButton";
@@ -6,43 +6,43 @@ import {useDispatch, useSelector} from "react-redux";
 import {loadContent, openModal} from "../../redux/features/OrderModalSlice";
 import {i18n} from "../../redux/features/LangSlice";
 import defineCurrency from "../../helpers/defineCurrency";
+import discount from "../Discount";
 
 const OrdersItem = ({order}) => {
     const [totalPrice, setTotalPrice] = useState(0)
     const dispatch = useDispatch()
     const lang = useSelector(state => state.langReducer.lang)
     const currencies = useSelector(state => state.currencyReducer.currencies)
-    const locStatus = i18n.t("myOrdersScreen.status")
-    const locStatusValue1 = i18n.t("myOrdersScreen.statusValue1")
-    const locStatusValue2 = i18n.t("myOrdersScreen.statusValue2")
-    const locDetailsBtn = i18n.t("myOrdersScreen.detailsBtn")
-    const locTotalPrice = i18n.t("myOrdersScreen.totalPrice")
+    const locStatus = useMemo(() => i18n.t("myOrdersScreen.status"), []);
+    const locStatusValue1 = useMemo(() => i18n.t("myOrdersScreen.statusValue1"), []);
+    const locStatusValue2 = useMemo(() => i18n.t("myOrdersScreen.statusValue2"), []);
+    const locDetailsBtn = useMemo(() => i18n.t("myOrdersScreen.detailsBtn"), []);
+    const locTotalPrice = useMemo(() => i18n.t("myOrdersScreen.totalPrice"), []);
     const price = defineCurrency(lang, currencies)
     const calcTotalPrice = (order) => {
-        order.dishes.map(dish => {
-            const price = defineCurrency(lang, currencies, dish.price)
-            setTotalPrice(prevState => prevState += dish.OrdersDishesModel.quantity * price.price)
-        })
-    }
+        const total = order.dishes.reduce((accumulator, dish) => {
+            if (order.discount) {
+                const dishPrice = defineCurrency(lang, currencies, dish.price);
+                return accumulator + dish.OrdersDishesModel.quantity * (dishPrice.price / 2);
+            } else {
+                const dishPrice = defineCurrency(lang, currencies, dish.price);
+                return accumulator + dish.OrdersDishesModel.quantity * dishPrice.price;
+            }
+        }, 0);
+        setTotalPrice(total);
+    };
 
-    const getStatus = (status) => {
-        switch (status) {
-            case true:
-                return locStatusValue1
-            case false:
-                return locStatusValue2
-        }
-    }
+    const getStatus = (status) => status ? locStatusValue1 : locStatusValue2;
 
     useEffect(() => {
         setTotalPrice(0)
         calcTotalPrice(order)
     }, [])
 
-    const detailHandler = (order) => {
-        dispatch(loadContent(order))
-        dispatch(openModal())
-    }
+    const detailHandler = useCallback(() => {
+        dispatch(loadContent(order));
+        dispatch(openModal());
+    }, [dispatch]);
 
     return (
         order &&
@@ -62,7 +62,7 @@ const OrdersItem = ({order}) => {
                 <CustomButton title={locDetailsBtn}
                               propsButtonStyles={{width: "30%", height: "70%"}}
                               propsTitleStyles={{fontSize: 16}}
-                              pressFunc={() => detailHandler(order)}
+                              pressFunc={() => detailHandler()}
                 />
             </View>
         </View>

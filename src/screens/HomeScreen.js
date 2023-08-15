@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import theme from "../../theme";
 import WelcomeInfo from "../components/WelcomeInfo";
@@ -22,7 +22,7 @@ const HomeScreen = () => {
     const dispatch = useDispatch()
     const favorites = useSelector(state => state.dishesReducer.favoriteDishes)
     const user = useSelector(state => state.authReducer.userFromJWT)
-    const [isDiscount, setIsDiscount] = useState(true)
+    const discount = useSelector(state => state.dishesReducer.discount)
     const {data, isLoading} = useGetUserByIdQuery(user.id)
     const locDiscountTitle = i18n.t("homeScreen.discount.title")
     const locDiscountOff = i18n.t("homeScreen.discount.off")
@@ -48,19 +48,36 @@ const HomeScreen = () => {
         <View style={styles.container}>
             <View style={styles.contentWrapper}>
                 <View style={styles.welcomeInfoWrapper}>
-                    {data ?
+                    {data ? (
                         <WelcomeInfo/>
-                        :
+                    ) : (
                         <MySpinner colorProps={"#000"}/>
-                    }
+                    )}
                 </View>
-                {isDiscount && <View style={styles.discountWrapper}>
-                    <Discount image={imageForDisc} title={locDiscountTitle} subtitle={`80% ${locDiscountOff}`}/>
-                </View>}
-                <Text style={styles.title}>{locMenu}</Text>
-                <View style={{height: "61%", width: "100%"}}>
-                    <Menu/>
-                </View>
+                {!user.discount_is_using && !discount && (
+                    <View style={styles.discountWrapper}>
+                        <Discount
+                            image={imageForDisc}
+                            title={locDiscountTitle}
+                            subtitle={`50% ${locDiscountOff}`}
+                        />
+                    </View>
+                )}
+                {!user.discount_is_using ? (
+                    <View>
+                        <Text style={styles.title}>{locMenu}</Text>
+                        <View style={{height: "75%", width: "100%"}}>
+                            <Menu/>
+                        </View>
+                    </View>
+                ) : (
+                    <View>
+                        <Text style={styles.title}>{locMenu}</Text>
+                        <View style={{height: "85%", width: "100%"}}>
+                            <Menu/>
+                        </View>
+                    </View>
+                )}
             </View>
         </View>
     );

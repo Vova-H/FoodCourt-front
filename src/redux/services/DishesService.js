@@ -1,7 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import URL_path from "../../../config";
 import * as SecureStore from "expo-secure-store";
-import {logoutUser} from "../features/AuthSlice";
 
 
 export const dishesAPI = createApi({

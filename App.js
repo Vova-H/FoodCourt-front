@@ -46,7 +46,7 @@ export default function App() {
                     loaded ?
                         <NavigationContainer>
                             <Stack.Navigator screenOptions={{headerShown: false}}
-                                             initialRouteName="ChoosingLanguageScreen">
+                                             initialRouteName="LoginScreen">
                                 <Stack.Screen name="ChoosingLanguageScreen" component={ChoosingLanguageScreen}/>
                                 <Stack.Screen name="PreviewScreen" component={PreviewScreen}/>
                                 <Stack.Screen name="GetStartedScreen" component={GetStartedScreen}/>

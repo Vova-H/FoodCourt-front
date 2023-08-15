@@ -12,7 +12,6 @@ export const usersAPI = createApi({
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`);
             }
-
             return headers;
         },
     }),
@@ -31,7 +30,19 @@ export const usersAPI = createApi({
             },
             invalidatesTags: ['Users']
         }),
+        changeDiscountStatus: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `/use_discount/${id}`,
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                };
+            },
+            invalidatesTags: ['Users']
+        }),
     })
 });
 
-export const {useGetUserByIdQuery} = usersAPI;
+export const {useGetUserByIdQuery, useChangeDiscountStatusMutation} = usersAPI;

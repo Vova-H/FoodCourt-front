@@ -14,6 +14,8 @@ const MenuItem = ({dish}) => {
     const price = defineCurrency(lang, currencies, dish.price)
     const navigation = useNavigation()
     const isAuth = useSelector(state => state.authReducer.isAuthorized)
+    const discount = useSelector(state => state.dishesReducer.discount)
+
     const dishDetailHandler = (isAuth) => {
         if (isAuth) {
             navigation.navigate('DishDetailScreen', {
@@ -25,7 +27,6 @@ const MenuItem = ({dish}) => {
             })
         }
     }
-
 
     return (
         <Pressable onPress={() => dishDetailHandler(isAuth)}
@@ -39,7 +40,14 @@ const MenuItem = ({dish}) => {
                 />
             </View>
             <Text style={styles.title}>{dish.name}</Text>
-            <Text style={styles.price}>{price.price} {price.sign}</Text>
+            {discount ?
+                <View style={{flexDirection: "row"}}>
+                    <Text style={styles.oldPrice}>{price.price}</Text>
+                    <Text style={styles.newPrice}>{price.price / 2} {price.sign}</Text>
+                </View> :
+                <Text style={styles.price}>{price.price} {price.sign}</Text>
+
+            }
         </Pressable>
     );
 };
@@ -77,6 +85,17 @@ const styles = StyleSheet.create({
     price: {
         paddingHorizontal: 10,
         fontFamily: theme.fonts.robotoBold,
+    },
+    oldPrice: {
+        textDecorationLine: 'line-through',
+        fontFamily: theme.fonts.robotoBold,
+        color: "#bbbbbb",
+        paddingHorizontal: 10,
+        fontSize: 14
+    },
+    newPrice: {
+        fontFamily: theme.fonts.robotoBold,
+        color: "#f86767",
     }
 })
 

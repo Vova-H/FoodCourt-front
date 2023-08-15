@@ -10,7 +10,8 @@ module.exports = {
             "**/*"
         ],
         ios: {
-            supportsTablet: true
+            supportsTablet: true,
+            bundleIdentifier: "FoodCourt"
         },
         android: {
             adaptiveIcon: {

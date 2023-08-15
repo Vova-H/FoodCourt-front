@@ -29,7 +29,19 @@ export const authSlice = createSlice({
             }
             removeToken()
         },
+        changeDiscountStatus(state, action) {
+            state.userFromJWT = {
+                ...state.userFromJWT,
+                discount_is_using: true
+            }
+        }
     }
 });
-export const {saveUserFromJWT, saveJWT, authorizeUser, logoutUser} = authSlice.actions
+export const {
+    saveUserFromJWT,
+    saveJWT,
+    authorizeUser,
+    logoutUser,
+    changeDiscountStatus
+} = authSlice.actions
 export default authSlice.reducer;

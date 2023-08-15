@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {FlatList, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {closeModal} from "../../redux/features/OrderModalSlice";
@@ -13,11 +13,10 @@ const OrderDetailsModal = () => {
     const content = useSelector(state => state.orderModalReducer.content)
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
     const lang = useSelector(state => state.langReducer.lang)
-    const locOrder = i18n.t("modals.order.order")
-    const locListOfDishes = i18n.t("modals.order.listOfDishes")
-
+    const locOrder = useMemo(() => i18n.t("modals.order.order"), []);
+    const locListOfDishes = useMemo(() => i18n.t("modals.order.listOfDishes"), []);
     const renderListOfDishes = useCallback(({item}) => (
-        <OrderListDishes item={item}/>
+        <OrderListDishes item={item} discount={content.discount}/>
     ), [content])
 
     return (

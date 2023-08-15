@@ -3,12 +3,24 @@ import {Image, ImageBackground, StyleSheet, Text, View} from "react-native";
 import CustomButton from "./UI/CustomButton";
 import theme from "../../theme";
 import {i18n} from "../redux/features/LangSlice";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {changeDiscountStatus} from "../redux/features/AuthSlice";
+import {hideDiscount} from "../redux/features/DishesSlice";
+import {useChangeDiscountStatusMutation} from "../redux/services/UsersService";
 
 const Discount = ({title, subtitle, image}) => {
     const lang = useSelector(state => state.langReducer.lang)
     const bgImage = require("../../assets/img/bgDiscount.png")
     const locDiscountBtn = i18n.t("homeScreen.discount.btn")
+    const dispatch = useDispatch()
+    const [data] = useChangeDiscountStatusMutation()
+    const user = useSelector(state => state.authReducer.userFromJWT)
+
+    const changeDiscountStatusHandler = async () => {
+        dispatch(changeDiscountStatus())
+        dispatch(hideDiscount())
+        await data(user.id)
+    }
     return (
         <View style={styles.container}>
             <ImageBackground source={bgImage} resizeMode="cover" style={styles.backgroundImage}>
@@ -18,6 +30,7 @@ const Discount = ({title, subtitle, image}) => {
                     <CustomButton title={locDiscountBtn}
                                   propsButtonStyles={styles.getVoucherBtn}
                                   propsTitleStyles={styles.getVoucherBtnTitle}
+                                  pressFunc={changeDiscountStatusHandler}
                     />
                 </View>
                 <View style={styles.imageWrapper}>
