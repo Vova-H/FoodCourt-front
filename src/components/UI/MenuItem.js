@@ -3,7 +3,6 @@ import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import theme from "../../../theme";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
-import MySpinner from "./MySpiner";
 import {i18n} from "../../redux/features/LangSlice";
 import defineCurrency from "../../helpers/defineCurrency";
 
@@ -46,7 +45,6 @@ const MenuItem = ({dish}) => {
                     <Text style={styles.newPrice}>{price.price / 2} {price.sign}</Text>
                 </View> :
                 <Text style={styles.price}>{price.price} {price.sign}</Text>
-
             }
         </Pressable>
     );

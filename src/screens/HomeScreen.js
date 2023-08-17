@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {ScrollView, StyleSheet, Text, View} from "react-native";
 import theme from "../../theme";
 import WelcomeInfo from "../components/WelcomeInfo";
 import Discount from "../components/Discount";
@@ -54,16 +54,16 @@ const HomeScreen = () => {
                         <MySpinner colorProps={"#000"}/>
                     )}
                 </View>
-                {!user.discount_is_using && !discount && (
-                    <View style={styles.discountWrapper}>
+                {user.discount_is_using && !discount && ( // TODO {!user.discount_is_using && !discount && (
+                    <ScrollView style={styles.discountWrapper}>
                         <Discount
                             image={imageForDisc}
                             title={locDiscountTitle}
                             subtitle={`50% ${locDiscountOff}`}
                         />
-                    </View>
+                    </ScrollView>
                 )}
-                {!user.discount_is_using ? (
+                {user.discount_is_using && !discount ? (// TODO {!user.discount_is_using && !discount && (
                     <View>
                         <Text style={styles.title}>{locMenu}</Text>
                         <View style={{height: "75%", width: "100%"}}>
@@ -73,7 +73,7 @@ const HomeScreen = () => {
                 ) : (
                     <View>
                         <Text style={styles.title}>{locMenu}</Text>
-                        <View style={{height: "85%", width: "100%"}}>
+                        <View style={{height: "83%", width: "100%"}}>
                             <Menu/>
                         </View>
                     </View>
@@ -86,7 +86,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.gray
+        backgroundColor: theme.colors.gray,
     },
     contentWrapper: {
         paddingHorizontal: 20,
@@ -100,13 +100,13 @@ const styles = StyleSheet.create({
 
     discountWrapper: {
         height: "20%",
-        maxHeight: "20%",
+        minHeight:"20%",
     },
 
     title: {
         fontFamily: theme.fonts.robotoMedium,
         fontSize: 20,
-        marginBottom: 30
+        marginBottom: 10
     }
 })
 

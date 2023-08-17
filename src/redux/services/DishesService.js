@@ -27,6 +27,15 @@ export const dishesAPI = createApi({
                 }
             }),
         }),
+        getDishesByKeywords: build.mutation({
+            query: ({lang, words}) => ({
+                url: `/search/?lang=${lang}&words=${words}`,
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            }),
+        }),
 
         getAllFavorites: build.query({
             query: (id) => ({
@@ -85,5 +94,6 @@ export const {
     useCheckIsFavoritesMutation,
     useAddToFavoritesMutation,
     useRemoveFromFavoritesMutation,
-    useGetAllFavoritesQuery
+    useGetAllFavoritesQuery,
+    useGetDishesByKeywordsMutation
 } = dishesAPI;

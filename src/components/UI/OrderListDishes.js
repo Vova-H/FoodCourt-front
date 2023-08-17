@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         flexDirection: "row",
         alignItems: "center",
-        width: "70%",
+        width: "50%",
     },
     dish: {
         fontSize: 20,
