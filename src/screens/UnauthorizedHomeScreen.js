@@ -40,7 +40,7 @@ const UnauthorizedHomeScreen = () => {
                 {isDiscount ?
                     <View>
                         <Text style={styles.title}>{locMenu}</Text>
-                        <View style={{height: "70%", width: "100%"}}>
+                        <View style={{height: "75%", width: "100%"}}>
                             <Menu/>
                         </View>
                     </View>
