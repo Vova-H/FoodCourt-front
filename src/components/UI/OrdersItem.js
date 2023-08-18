@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {loadContent, openModal} from "../../redux/features/OrderModalSlice";
 import {i18n} from "../../redux/features/LangSlice";
 import defineCurrency from "../../helpers/defineCurrency";
-import discount from "../Discount";
 
 const OrdersItem = ({order}) => {
     const [totalPrice, setTotalPrice] = useState(0)

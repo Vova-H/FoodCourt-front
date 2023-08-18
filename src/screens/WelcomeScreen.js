@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import CustomButton from "../components/UI/CustomButton";
 import {mainStyles} from "../styles/global.styles";
 import theme from "../../theme";
