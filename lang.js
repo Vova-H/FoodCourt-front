@@ -3,7 +3,7 @@ export const localization = {
         global: {
             loading: "Loading...",
             saveBtn: "Save",
-            message: "message"
+            message: "Message",
         },
         choosingLanguage: {
             titleFirstTime: "Choose language",
@@ -64,7 +64,8 @@ export const localization = {
             discount: {
                 title: "Get Special Discount",
                 off: "OFF",
-                btn: "Get Voucher"
+                btn: "Get Voucher",
+                authMessage: "You need to log in for use this discount",
             },
             menu: "Menu",
             placeOrder: "Place Order"
@@ -127,7 +128,7 @@ export const localization = {
         global: {
             loading: "Завантаження...",
             saveBtn: "Зберегти",
-            message: "Повідомлення"
+            message: "Повідомлення",
         },
         choosingLanguage: {
             titleFirstTime: "Вибери мову",
@@ -188,7 +189,8 @@ export const localization = {
             discount: {
                 title: "Отримайте спеціальну знижку",
                 off: "Знижка",
-                btn: "Отримати ваучер"
+                btn: "Отримати ваучер",
+                authMessage: "Ви повинні увійти в систему, щоб скористатися цією знижкою",
             },
             menu: "Меню",
             placeOrder: "Зробити Замовлення"
@@ -250,7 +252,7 @@ export const localization = {
         global: {
             loading: "Ładowanie...",
             saveBtn: "Zapisz",
-            message: "Wiadomość"
+            message: "Wiadomość",
         },
         choosingLanguage: {
             titleFirstTime: "Wybierz język",
@@ -312,7 +314,8 @@ export const localization = {
             discount: {
                 title: "Uzyskaj specjalną zniżkę",
                 off: "Rabat",
-                btn: "Zdobądź kupon"
+                btn: "Zdobądź kupon",
+                authMessage: "Aby skorzystać z tej zniżki, musisz się zalogować",
             },
             menu: "Menu",
             placeOrder: "Złóż Zamówienie"

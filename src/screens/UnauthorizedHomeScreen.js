@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {ScrollView, StyleSheet, Text, View} from "react-native";
 import Menu from "../components/Menu";
 import theme from "../../theme";
 import Discount from "../components/Discount";
@@ -33,21 +33,21 @@ const UnauthorizedHomeScreen = () => {
                     <WelcomeInfo/>
                 </View>
                 {isDiscount && (
-                    <View style={styles.discountWrapper}>
+                    <ScrollView style={styles.discountWrapper}>
                         <Discount image={imageForDisc} title={locDiscountTitle} subtitle={`50% ${locDiscountOff}`}/>
-                    </View>
+                    </ScrollView>
                 )}
                 {isDiscount ?
                     <View>
                         <Text style={styles.title}>{locMenu}</Text>
-                        <View style={{height: "75%", width: "100%"}}>
+                        <View style={{height: "70%", width: "100%"}}>
                             <Menu/>
                         </View>
                     </View>
                     :
                     <View>
                         <Text style={styles.title}>{locMenu}</Text>
-                        <View style={{height: "85%", width: "100%"}}>
+                        <View style={{height: "83%", width: "100%"}}>
                             <Menu/>
                         </View>
                     </View>

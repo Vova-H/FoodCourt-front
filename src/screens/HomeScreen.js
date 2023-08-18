@@ -8,9 +8,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {useGetUserByIdQuery} from "../redux/services/UsersService";
 import {saveUser} from "../redux/features/UserSlice";
 import {i18n} from "../redux/features/LangSlice";
-import {useGetCartQuery} from "../redux/services/CartsService";
-import {saveCartFromServer} from "../redux/features/CartSlice";
-import {formatterServerData} from "../helpers/formaterServerData";
 import {useGetCurrenciesQuery} from "../redux/services/CurrenciesService";
 import {saveCurrencies} from "../redux/features/CurrenciesSlice";
 import MySpinner from "../components/UI/MySpiner";
@@ -20,28 +17,23 @@ const imageForDisc = require("../../assets/img/food1.png")
 const HomeScreen = () => {
     const lang = useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()
-    const favorites = useSelector(state => state.dishesReducer.favoriteDishes)
     const user = useSelector(state => state.authReducer.userFromJWT)
     const discount = useSelector(state => state.dishesReducer.discount)
     const {data, isLoading} = useGetUserByIdQuery(user.id)
     const locDiscountTitle = i18n.t("homeScreen.discount.title")
     const locDiscountOff = i18n.t("homeScreen.discount.off")
     const locMenu = i18n.t("homeScreen.menu")
-    const cartFromServer = useGetCartQuery(user.id)
+
     const currencies = useGetCurrenciesQuery()
     useEffect(() => {
         if (!isLoading) {
             dispatch(saveUser(data))
         }
-        if (!cartFromServer.isLoading) {
-            const formattedData = formatterServerData(cartFromServer.currentData);
-            dispatch(saveCartFromServer(formattedData));
-        }
         if (!currencies.isLoading && currencies.isSuccess) {
             dispatch(saveCurrencies(currencies.data))
         }
 
-    }, [isLoading, favorites, cartFromServer.isLoading, currencies.isLoading])
+    }, [isLoading, currencies.isLoading])
 
 
     return (
@@ -100,7 +92,7 @@ const styles = StyleSheet.create({
 
     discountWrapper: {
         height: "20%",
-        minHeight:"20%",
+        minHeight: "20%",
     },
 
     title: {

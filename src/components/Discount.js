@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, Text, View} from "react-native";
+import {Alert, Image, ImageBackground, StyleSheet, Text, View} from "react-native";
 import CustomButton from "./UI/CustomButton";
 import theme from "../../theme";
 import {i18n} from "../redux/features/LangSlice";
@@ -12,14 +12,22 @@ const Discount = ({title, subtitle, image}) => {
     const lang = useSelector(state => state.langReducer.lang)
     const bgImage = require("../../assets/img/bgDiscount.png")
     const locDiscountBtn = i18n.t("homeScreen.discount.btn")
+    const locMassageTitle = i18n.t("global.message")
+    const locMassageAuthDiscount = i18n.t("homeScreen.discount.authMessage")
     const dispatch = useDispatch()
     const [data] = useChangeDiscountStatusMutation()
     const user = useSelector(state => state.authReducer.userFromJWT)
+    const isAuth = useSelector(state => state.authReducer.isAuthorized)
 
     const changeDiscountStatusHandler = async () => {
-        dispatch(changeDiscountStatus())
-        dispatch(hideDiscount())
-        await data(user.id)
+        if (isAuth) {
+            dispatch(changeDiscountStatus())
+            dispatch(hideDiscount())
+            await data(user.id)
+        } else {
+            Alert.alert(locMassageTitle, locMassageAuthDiscount)
+        }
+
     }
     return (
         <View style={styles.container}>
