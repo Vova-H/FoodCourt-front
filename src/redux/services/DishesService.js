@@ -38,8 +38,8 @@ export const dishesAPI = createApi({
         }),
 
         getAllFavorites: build.query({
-            query: (id) => ({
-                url: `favorites/getAll/?userId=${id}`,
+            query: ({id, lang}) => ({
+                url: `favorites/getAll/?userId=${id}&lang=${lang}`,
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',

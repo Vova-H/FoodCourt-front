@@ -11,9 +11,9 @@ const FavoriteDishesScreen = () => {
 
     const dispatch = useDispatch()
     const userAuth = useSelector(state => state.authReducer.userFromJWT)
-    const {data, isLoading} = useGetAllFavoritesQuery(userAuth.id)
-    const fav = useSelector(state => state.dishesReducer.favoriteDishes)
     const lang = useSelector(state => state.langReducer.lang)
+    const {data, isLoading} = useGetAllFavoritesQuery({"id": userAuth.id, lang})
+    const fav = useSelector(state => state.dishesReducer.favoriteDishes)
     const locTitle = i18n.t("favoritesScreen.title")
     const locLoading = i18n.t("global.loading")
 

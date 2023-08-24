@@ -87,7 +87,7 @@ export const localization = {
         },
         mySettingsScreen: {
             changeLanguage: "Change interface language",
-            changeAvatar: "Change Avatar"
+            changeAvatarTitle: "Change Avatar"
         },
         myOrdersScreen: {
             title: "You don't have any orders yet",
@@ -99,7 +99,8 @@ export const localization = {
         },
         avatarChangeScreen: {
             changeAvatarButton: "Change your avatar",
-            updateAvatarMessage: "Your avatar was been updated"
+            successUpdateAvatarMessage: "Your avatar was been updated",
+            failedUpdateAvatarMessage: "Update avatar error, please try again "
         },
         modals: {
             order: {
@@ -212,7 +213,7 @@ export const localization = {
         },
         mySettingsScreen: {
             changeLanguage: "Змінити мову інтерфейсу",
-            changeAvatar: "Змінити аватар"
+            changeAvatarTitle: "Змінити аватар",
         },
         myOrdersScreen: {
             title: "У вас ще немає замовлень",
@@ -224,7 +225,8 @@ export const localization = {
         },
         avatarChangeScreen: {
             changeAvatarButton: "Змiни свiй аватар",
-            updateAvatarMessage: "Ваш аватар оновлено"
+            successUpdateAvatarMessage: "Ваш аватар оновлено",
+            failedUpdateAvatarMessage: "Помилка оновлення аватара, повторіть спробу"
         },
         modals: {
             order: {
@@ -337,7 +339,7 @@ export const localization = {
         },
         mySettingsScreen: {
             changeLanguage: "Zmień język interfejsu",
-            changeAvatar: "Zmień avatar"
+            changeAvatarTitle: "Zmień avatar"
         },
         myOrdersScreen: {
             title: "Nie masz jeszcze żadnych zamówień",
@@ -349,7 +351,8 @@ export const localization = {
         },
         avatarChangeScreen: {
             changeAvatarButton: "Zmień swój awatar",
-            updateAvatarMessage: "Twój awatar został zaktualizowany"
+            successUpdateAvatarMessage: "Twój awatar został zaktualizowany",
+            failedUpdateAvatarMessage: "Nie udało się zaktualizować awatara, spróbuj ponownie"
         },
         modals: {
             order: {

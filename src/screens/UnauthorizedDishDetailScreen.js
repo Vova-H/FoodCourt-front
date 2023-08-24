@@ -19,7 +19,7 @@ const UnauthorizedDishDetailScreen = (props) => {
     const locMessageFavorite = i18n.t("modals.dishDetails.messageFavorite")
     const locMessageOrder = i18n.t("modals.dishDetails.messageOrder")
     const locPlaceOrder = i18n.t("homeScreen.placeOrder")
-
+    const locDishDetail = i18n.t("dishDetails.foodDetail")
 
     const currencies = useSelector(state => state.currencyReducer.currencies)
     const price = defineCurrency(lang, currencies, dish.price)
@@ -63,7 +63,7 @@ const UnauthorizedDishDetailScreen = (props) => {
                         </View>
                     </View>
                     <View>
-                        <Text style={styles.detailTitle}>Food Detail</Text>
+                        <Text style={styles.detailTitle}>{locDishDetail}</Text>
                         <Text style={styles.detailDescription}>{dish.description}</Text>
                     </View>
                 </ImageBackground>

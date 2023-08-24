@@ -27,14 +27,13 @@ const DishDetailScreen = (props) => {
     const lang = useSelector(state => state.langReducer.lang)
     const currencies = useSelector(state => state.currencyReducer.currencies)
     const discount = useSelector(state => state.dishesReducer.discount)
+    const navigation = useNavigation()
     const price = () => {
         if (discount) {
             return defineCurrency(lang, currencies, dish.price / 2)
-
         }
         return defineCurrency(lang, currencies, dish.price)
     }
-    const navigation = useNavigation()
     const [checkIsFavorites] = useCheckIsFavoritesMutation()
     const [addCart] = useAddCartMutation()
     const [addToFavorites] = useAddToFavoritesMutation()

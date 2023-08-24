@@ -10,7 +10,7 @@ const MySettingsScreen = () => {
     const navigation = useNavigation()
     const lang = useSelector(state => state.langReducer.lang)
     const locChangeLang = i18n.t("mySettingsScreen.changeLanguage")
-    const locChangeAvatar = i18n.t("mySettingsScreen.changeAvatar")
+    const locChangeAvatar = i18n.t("mySettingsScreen.changeAvatarTitle")
 
     return (
         <View style={styles.container}>

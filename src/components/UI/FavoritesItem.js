@@ -18,7 +18,6 @@ const FavoritesItem = ({dish}) => {
     const currencies = useSelector(state => state.currencyReducer.currencies)
     const price = defineCurrency(lang, currencies, dish.price)
 
-
     const removeFromFavoriteHandler = async (userId, dishId) => {
         await removeFromFavorites({userId, dishId})
         await dispatch(removeFavoriteDish(dishId))
