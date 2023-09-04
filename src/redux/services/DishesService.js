@@ -19,8 +19,8 @@ export const dishesAPI = createApi({
     tagTypes: ['Dishes'],
     endpoints: (build) => ({
         getAllDishes: build.query({
-            query: (lang) => ({
-                url: `/?lang=${lang}`,
+            query: (queries) => ({
+                url: `/?lang=${queries.lang}&userId=${queries.userId}`,
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -28,8 +28,8 @@ export const dishesAPI = createApi({
             }),
         }),
         getDishesByKeywords: build.mutation({
-            query: ({lang, words}) => ({
-                url: `/search/?lang=${lang}&words=${words}`,
+            query: (queries) => ({
+                url: `/search/?lang=${queries.lang}&words=${queries.words}&userId=${queries.userId}`,
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',

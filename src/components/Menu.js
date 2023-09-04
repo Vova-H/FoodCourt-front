@@ -10,12 +10,13 @@ import MySpinner from "./UI/MySpiner";
 const Menu = () => {
     const dispatch = useDispatch();
     const lang = useSelector(state => state.langReducer.lang)
+    const user = useSelector(state => state.authReducer.userFromJWT)
     const [getDishesByKeywords] = useGetDishesByKeywordsMutation()
     const [searchQuery, setSearchQuery] = useState('');
     const dishesFromSlice = useSelector(state => state.dishesReducer.dishes)
-    const {data, isLoading} = useGetAllDishesQuery(lang)
+    const {isLoading} = useGetAllDishesQuery({lang: lang, userId: user.id ? user.id : 0})
     const searchDishesHandler = async () => {
-        return getDishesByKeywords({lang, words: searchQuery})
+        return getDishesByKeywords({lang, words: searchQuery, userId: user.id ? user.id : 0})
     }
     useEffect(() => {
         const delayTimer = setTimeout(() => {

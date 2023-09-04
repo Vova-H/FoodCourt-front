@@ -24,7 +24,7 @@ const MyOrdersScreen = () => {
             refetch()
             dispatch(saveOrders(data))
         }
-    }, [isLoading])
+    }, [isLoading, data])
 
     const renderOrder = ({item}) => <OrdersItem order={item}/>;
 
