@@ -97,8 +97,7 @@ const styles = StyleSheet.create({
     title: {
         paddingHorizontal: 10,
         fontFamily: theme.fonts.robotoRegular,
-        fontSize: 24,
-        textTransform: "capitalize",
+        fontSize: 22,
         marginBottom: 5,
         width: 130,
         flexWrap:"wrap"

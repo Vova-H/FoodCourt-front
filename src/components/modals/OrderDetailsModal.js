@@ -12,7 +12,7 @@ const OrderDetailsModal = () => {
     const dispatch = useDispatch()
     const content = useSelector(state => state.orderModalReducer.content)
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const locOrder = useMemo(() => i18n.t("modals.order.order"), []);
     const locListOfDishes = useMemo(() => i18n.t("modals.order.listOfDishes"), []);
     const renderListOfDishes = useCallback(({item}) => (
@@ -33,7 +33,7 @@ const OrderDetailsModal = () => {
                 <View style={styles.modalContentWrapper}>
                     <Text style={styles.order}>{locOrder} №{content.id}</Text>
                     <Text style={styles.listOfDishesTitle}>{locListOfDishes}:</Text>
-                    <View style={{height: "70%"}}>
+                    <View style={{height: "60%"}}>
                         <FlatList data={content.dishes}
                                   renderItem={renderListOfDishes}
                                   keyExtractor={item => {
@@ -67,12 +67,11 @@ const styles = StyleSheet.create({
     modalContentWrapper: {},
     order: {
         alignSelf: "center",
-        marginVertical: 20,
         fontFamily: theme.fonts.latoRegular,
-        fontSize: 30
+        fontSize: 28
     },
     listOfDishesTitle: {
-        marginBottom: 10,
+        marginVertical: 20,
         fontFamily: theme.fonts.robotoRegular,
         fontSize: 20,
         textTransform: "capitalize"
