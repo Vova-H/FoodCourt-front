@@ -3,10 +3,11 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../../theme";
 import {useDispatch, useSelector} from "react-redux";
-import {changeQuantityProduct, removeFromCart} from "../../redux/features/CartSlice";
+import {changeQuantityProduct, saveCartFromServer} from "../../redux/features/CartSlice";
 import {useRemoveOneFromCartMutation} from "../../redux/services/CartsService";
 import {i18n} from "../../redux/features/LangSlice";
 import defineCurrency from "../../helpers/defineCurrency";
+import {formatterServerData} from "../../helpers/formaterServerData";
 
 const CartItem = ({product}) => {
     const dish = product[0]
@@ -18,7 +19,6 @@ const CartItem = ({product}) => {
     const price = () => {
         if (discount) {
             return defineCurrency(lang, currencies, dish.price / 2)
-
         }
         return defineCurrency(lang, currencies, dish.price)
     }
@@ -37,9 +37,10 @@ const CartItem = ({product}) => {
         }
     }
 
-    const removeFromCartHandler = (dishId, userId) => {
-        dispatch(removeFromCart(dishId))
-        removeOneFromCart({cartItemId: dishId, userId: userId})
+    const removeFromCartHandler = async (dishId, userId) => {
+        const updatedCart = await removeOneFromCart({cartItemId: dishId, userId: userId})
+        const formattedUpdatedCart = await formatterServerData(updatedCart.data)
+        await dispatch(saveCartFromServer(formattedUpdatedCart))
     }
 
     return (
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginBottom: 5,
         width: 130,
-        flexWrap:"wrap"
+        flexWrap: "wrap"
     },
     price: {
         paddingHorizontal: 10,

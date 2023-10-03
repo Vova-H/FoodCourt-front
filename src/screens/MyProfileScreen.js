@@ -13,17 +13,17 @@ const MyProfileScreen = () => {
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const locMySettings = i18n.t("myProfileScreen.mySettings")
     const locMyOrders = i18n.t("myProfileScreen.myOrders")
     const locLogout = i18n.t("myProfileScreen.logout")
 
     const logOutHandler = () => {
-        dispatch(logoutUser())
-        dispatch(removeUser())
-        dispatch(cleanCart())
-        navigation.pop()
-    }
+        dispatch(logoutUser());
+        dispatch(removeUser());
+        dispatch(cleanCart());
+        navigation.pop();
+    };
 
     return (
 

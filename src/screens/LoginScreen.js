@@ -9,11 +9,10 @@ import {useSelector} from "react-redux";
 
 const LoginScreen = () => {
 
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const locTitle = i18n.t("loginScreen.title")
     const locSubtitle = i18n.t("loginScreen.subtitle")
     const mainImg = require("../../assets/img/login.png")
-
 
     return (
         <View style={styles.container}>

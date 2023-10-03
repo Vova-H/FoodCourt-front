@@ -12,10 +12,11 @@ import {
 } from "../redux/services/DishesService";
 import {addFavoriteDish, removeFavoriteDish} from "../redux/features/DishesSlice";
 import CustomButton from "../components/UI/CustomButton";
-import {addToCart} from "../redux/features/CartSlice";
 import {i18n} from "../redux/features/LangSlice";
 import {useAddCartMutation} from "../redux/services/CartsService";
 import defineCurrency from "../helpers/defineCurrency";
+import {formatterServerData} from "../helpers/formaterServerData";
+import {saveCartFromServer} from "../redux/features/CartSlice";
 
 const headerImg = require("../../assets/img/MenuItemHeader.png")
 const flame = require("../../assets/img/Flame.png")
@@ -47,6 +48,7 @@ const DishDetailScreen = (props) => {
     const locExistDishErrTitle = i18n.t("modals.dishDetails.existDishErr.title")
     const locExistDishErrMessage = i18n.t("modals.dishDetails.existDishErr.message")
     const locDishDetail = i18n.t("dishDetails.foodDetail")
+
     const checkingIsFavorites = async (userId, dishId) => {
         return await checkIsFavorites(userId, dishId)
     }
@@ -61,26 +63,22 @@ const DishDetailScreen = (props) => {
         setIsLiked(result.data)
     }
 
-    const addToCartHelper = (dish, quantity) => {
-        if (cart.length === 0) {
-            dispatch(addToCart([dish, quantity]))
-            addCart({dishId: dish.id, userId: user.id, quantity: quantity})
+    const addToCartHelper = async (dish, quantity) => {
+        let error = false
+        cart.map(cartItem => {
+            if (cartItem[0].id === dish.id) {
+                error = true
+            }
+        })
+        if (error === false) {
+            const updatedCart = await addCart({dishId: dish.id, userId: user.id, quantity: quantity})
+            const formattedUpdatedCart = await formatterServerData(updatedCart.data)
+            await dispatch(saveCartFromServer(formattedUpdatedCart))
             navigation.navigate("Cart")
         } else {
-            let error = false
-            cart.map(cartItem => {
-                if (cartItem[0].id === dish.id) {
-                    error = true
-                }
-            })
-            if (error === false) {
-                dispatch(addToCart([dish, quantity]))
-                addCart({dishId: dish.id, userId: user.id, quantity: quantity})
-                navigation.navigate("Cart")
-            } else {
-                Alert.alert(locExistDishErrTitle, locExistDishErrMessage)
-            }
+            Alert.alert(locExistDishErrTitle, locExistDishErrMessage)
         }
+
 
     }
 

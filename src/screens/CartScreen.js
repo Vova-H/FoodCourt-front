@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Alert, FlatList, StyleSheet, Text, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import CartItem from "../components/UI/CartItem";
@@ -26,15 +26,25 @@ const CartScreen = () => {
     const locMessage = i18n.t("global.message")
     const [removeCart] = useRemoveCartMutation()
     const discount = useSelector(state => state.dishesReducer.discount)
-    const cartFromServer = useGetCartQuery(user.id)
+    const cartFromServer = useGetCartQuery(user.id, {forceRefetch: true})
 
     useEffect(() => {
-        if (!cartFromServer.isLoading) {
-            const formattedData = formatterServerData(cartFromServer.currentData);
-            dispatch(saveCartFromServer(formattedData));
-        }
+        cartHandler()
     }, [cartFromServer]);
-    const createOrderHandler = async (cart, clientId) => {
+
+    useEffect(() => {
+        cartFromServer.refetch()
+    }, [cart.length]);
+
+    const cartHandler = async () => {
+        if (!cartFromServer.isLoading) {
+            const formattedData = await formatterServerData(cartFromServer.currentData);
+            await dispatch(saveCartFromServer(formattedData));
+        }
+    }
+
+
+    const createOrderHandler = useCallback(async (cart, clientId) => {
         const body = []
         cart.map(product => {
             body.push([{id: product[0].id}, product[1]])
@@ -45,11 +55,12 @@ const CartScreen = () => {
             dispatch(cleanCart())
             await dispatch(cancelDiscount())
             navigation.navigate("Home")
+            cartFromServer.refetch()
             Alert.alert(`${locMessage}`, `${result.data.message}`)
         } catch (error) {
             console.error("Error creating order:", error)
         }
-    }
+    }, [cartFromServer, dispatch, user.id, lang, discount]);
 
     const renderCartItem = ({item}) => (
         <CartItem product={item}/>

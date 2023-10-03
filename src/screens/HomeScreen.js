@@ -11,11 +11,13 @@ import {i18n} from "../redux/features/LangSlice";
 import {useGetCurrenciesQuery} from "../redux/services/CurrenciesService";
 import {saveCurrencies} from "../redux/features/CurrenciesSlice";
 import MySpinner from "../components/UI/MySpiner";
+import {cleanCart} from "../redux/features/CartSlice";
+import {logoutUser} from "../redux/features/AuthSlice";
 
 const imageForDisc = require("../../assets/img/food1.png")
 
 const HomeScreen = () => {
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const dispatch = useDispatch()
     const user = useSelector(state => state.authReducer.userFromJWT)
     const discount = useSelector(state => state.dishesReducer.discount)
@@ -25,17 +27,23 @@ const HomeScreen = () => {
     const locMenu = i18n.t("homeScreen.menu")
 
     const currencies = useGetCurrenciesQuery()
+
     useEffect(() => {
         if (!isLoading) {
-            dispatch(saveUser(data))
+            dispatch(saveUser(data));
         }
         if (!currencies.isLoading && currencies.isSuccess) {
-            dispatch(saveCurrencies(currencies.data))
+            dispatch(saveCurrencies(currencies.data));
         }
+    }, [isLoading, currencies.isLoading]);
 
-    }, [isLoading, currencies.isLoading])
 
-
+    useEffect(() => {
+        return () => {
+            dispatch(cleanCart());
+            dispatch(logoutUser())
+        };
+    }, []);
     return (
         <View style={styles.container}>
             <View style={styles.contentWrapper}>
@@ -46,7 +54,7 @@ const HomeScreen = () => {
                         <MySpinner colorProps={"#000"}/>
                     )}
                 </View>
-                {user.discount_is_using && !discount && ( // TODO {!user.discount_is_using && !discount && (
+                {!user.discount_is_using && !discount && (
                     <ScrollView style={styles.discountWrapper}>
                         <Discount
                             image={imageForDisc}
@@ -55,7 +63,7 @@ const HomeScreen = () => {
                         />
                     </ScrollView>
                 )}
-                {user.discount_is_using && !discount ? (// TODO {!user.discount_is_using && !discount && (
+                {!user.discount_is_using && !discount ? (
                     <View>
                         <Text style={styles.title}>{locMenu}</Text>
                         <View style={{height: "75%", width: "100%"}}>
@@ -85,16 +93,13 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         flex: 1
     },
-
     welcomeInfoWrapper: {
         marginBottom: 10
     },
-
     discountWrapper: {
         height: "20%",
         minHeight: "20%",
     },
-
     title: {
         fontFamily: theme.fonts.robotoMedium,
         fontSize: 20,
