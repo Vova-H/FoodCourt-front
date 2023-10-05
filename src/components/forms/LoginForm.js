@@ -32,7 +32,7 @@ const LoginForm = () => {
                 switch (typeof response.error.data === "object" && !Array.isArray(response.error.data)) {
                     case true :
                         if (response.error.data) {
-                            Alert.alert(`${locLoginError}`, response.error.data.message)
+                            Alert.alert(`${locLoginError}`, response.error.data.message.toString())
                         }
                         break
                     case false:
@@ -62,7 +62,7 @@ const LoginForm = () => {
 
     return (
         <Formik
-            initialValues={{email: "test@gmail.com", password: "12345678"}}
+            initialValues={{email: "", password: ""}}
             validationSchema={LoginSchema(lang)}
             onSubmit={(values, {resetForm}) => {
                 loginHandler(values, resetForm);
