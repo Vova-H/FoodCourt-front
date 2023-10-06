@@ -3,7 +3,6 @@ import URL_path from "../../../config";
 import * as SecureStore from "expo-secure-store";
 
 
-
 export const cartsAPI = createApi({
     reducerPath: 'cartsAPI',
     baseQuery: fetchBaseQuery({
@@ -20,8 +19,8 @@ export const cartsAPI = createApi({
     tagTypes: ['Carts'],
     endpoints: (build) => ({
         getCart: build.query({
-            query: (userId) => ({
-                url: `/get/?userId=${userId}`,
+            query: (data) => ({
+                url: `/get/?userId=${data.userId}&lang=${data.lang}`,
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
@@ -31,7 +30,7 @@ export const cartsAPI = createApi({
 
         addCart: build.mutation({
             query: (payload) => ({
-                url: '/add',
+                url: `/add?lang=${payload.lang}`,
                 method: 'POST',
                 body: {
                     userId: payload.userId,
@@ -59,7 +58,7 @@ export const cartsAPI = createApi({
 
         removeOneFromCart: build.mutation({
             query: (payload) => ({
-                url: `/removeOne`,
+                url: `/removeOne?lang=${payload.lang}`,
                 method: 'POST',
                 body: {
                     userId: payload.userId,

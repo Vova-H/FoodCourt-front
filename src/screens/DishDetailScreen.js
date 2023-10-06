@@ -71,7 +71,7 @@ const DishDetailScreen = (props) => {
             }
         })
         if (error === false) {
-            const updatedCart = await addCart({dishId: dish.id, userId: user.id, quantity: quantity})
+            const updatedCart = await addCart({dishId: dish.id, userId: user.id, quantity: quantity, lang: lang})
             const formattedUpdatedCart = await formatterServerData(updatedCart.data)
             await dispatch(saveCartFromServer(formattedUpdatedCart))
             navigation.navigate("Cart")

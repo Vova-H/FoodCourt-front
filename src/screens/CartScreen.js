@@ -26,7 +26,7 @@ const CartScreen = () => {
     const locMessage = i18n.t("global.message")
     const [removeCart] = useRemoveCartMutation()
     const discount = useSelector(state => state.dishesReducer.discount)
-    const cartFromServer = useGetCartQuery(user.id, {forceRefetch: true})
+    const cartFromServer = useGetCartQuery({userId: user.id, lang: lang}, {forceRefetch: true})
 
     useEffect(() => {
         cartHandler()
@@ -34,10 +34,10 @@ const CartScreen = () => {
 
     useEffect(() => {
         cartFromServer.refetch()
-    }, [cart.length]);
+    }, [cart?.length]);
 
     const cartHandler = async () => {
-        if (!cartFromServer.isLoading) {
+        if (!cartFromServer.isLoading && cartFromServer.isSuccess) {
             const formattedData = await formatterServerData(cartFromServer.currentData);
             await dispatch(saveCartFromServer(formattedData));
         }
@@ -69,7 +69,7 @@ const CartScreen = () => {
         <View style={styles.container}>
             <View style={styles.contentWrapper}>
                 {
-                    cart.length ?
+                    cart?.length ?
                         <View style={styles.itemsWrapper}>
                             <FlatList data={cart}
                                       renderItem={renderCartItem}
@@ -87,7 +87,7 @@ const CartScreen = () => {
                 }
             </View>
             {
-                cart.length !== 0 &&
+                cart?.length !== 0 &&
                 <CustomButton title={locOrderBtn} pressFunc={() => createOrderHandler(cart, user.id)}/>
             }
         </View>

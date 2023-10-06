@@ -38,7 +38,7 @@ const CartItem = ({product}) => {
     }
 
     const removeFromCartHandler = async (dishId, userId) => {
-        const updatedCart = await removeOneFromCart({cartItemId: dishId, userId: userId})
+        const updatedCart = await removeOneFromCart({cartItemId: dishId, userId: userId, lang: lang})
         const formattedUpdatedCart = await formatterServerData(updatedCart.data)
         await dispatch(saveCartFromServer(formattedUpdatedCart))
     }
@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginBottom: 5,
         width: 130,
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        textTransform: "capitalize"
     },
     price: {
         paddingHorizontal: 10,
