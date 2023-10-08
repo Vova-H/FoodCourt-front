@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {removeUser} from "../redux/features/UserSlice";
 import {logoutUser} from "../redux/features/AuthSlice";
 import {i18n} from "../redux/features/LangSlice";
-import {cleanCart} from "../redux/features/CartSlice";
 
 const MyProfileScreen = () => {
 
@@ -19,10 +18,9 @@ const MyProfileScreen = () => {
     const locLogout = i18n.t("myProfileScreen.logout")
 
     const logOutHandler = () => {
+        navigation.pop();
         dispatch(logoutUser());
         dispatch(removeUser());
-        dispatch(cleanCart());
-        navigation.pop();
     };
 
     return (

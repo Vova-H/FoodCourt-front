@@ -23,7 +23,7 @@ const Discount = ({title, subtitle, image}) => {
         if (isAuth) {
             dispatch(changeDiscountStatus())
             dispatch(hideDiscount())
-            await data(user.id)
+            await data({id: user.id, lang: lang})
         } else {
             Alert.alert(locMassageTitle, locMassageAuthDiscount)
         }

@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
         fontFamily: theme.fonts.robotoRegular,
         fontSize: 22,
         marginBottom: 5,
-        maxWidth: 130
+        maxWidth: 130,
+        textTransform: "capitalize"
     },
     price: {
         paddingHorizontal: 10,

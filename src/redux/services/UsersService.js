@@ -31,9 +31,9 @@ export const usersAPI = createApi({
             invalidatesTags: ['Users']
         }),
         changeDiscountStatus: builder.mutation({
-            query: (id) => {
+            query: (data) => {
                 return {
-                    url: `/use_discount/${id}`,
+                    url: `/use_discount/?${data.id}&lang=${data.lang}`,
                     method: "POST",
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'

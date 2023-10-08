@@ -17,6 +17,7 @@ const RegisterForm = () => {
     const navigation = useNavigation()
     const [register] = useRegisterMutation();
     const locRegisterError = i18n.t("modals.registerScreen.registerError")
+    const message = i18n.t("global.message")
     const registerHandler = async (values) => {
         try {
             const data = {
@@ -26,7 +27,7 @@ const RegisterForm = () => {
                 "lang": lang
             }
             const result = await register(data).unwrap()
-            Alert.alert("Message", result.message)
+            Alert.alert(message, result?.message)
             navigation.navigate("LoginScreen")
 
         } catch (e) {

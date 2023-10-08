@@ -21,7 +21,7 @@ const FavoriteDishesScreen = () => {
         if (!isLoading) {
             dispatch(saveFavoritesDishes(data))
         }
-    }, [isLoading])
+    }, [isLoading, lang])
 
     const renderFavoritesDishes = useCallback(({item}) => (
         <FavoritesItem dish={item}/>
