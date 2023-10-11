@@ -12,7 +12,7 @@ const WelcomeInfo = () => {
     const profileSmallBtn = require("../../assets/img/profileSmallBtn.png")
     const isAuthorized = useSelector(state => state.authReducer.isAuthorized)
     const user = useSelector(state => state.userReducer.user)
-    const lang = useSelector(state => state.langReducer.lang)
+    useSelector(state => state.langReducer.lang)
     const locWelcome = i18n.t("homeScreen.welcome")
     const loginBtn = i18n.t("welcomeScreen.btnLogin")
     const goMyProfileHandler = (isAuthorized) => {

@@ -51,7 +51,7 @@ const CartScreen = () => {
         })
         try {
             const result = await createOrder({body, clientId, lang, discount})
-            await removeCart({userId: user.id})
+            await removeCart({userId: clientId})
             dispatch(cleanCart())
             await dispatch(cancelDiscount())
             navigation.navigate("Home")

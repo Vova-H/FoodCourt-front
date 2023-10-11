@@ -20,10 +20,15 @@ const cartSlice = createSlice({
         saveCartFromServer: (state, action) => {
             state.cart = action.payload
         },
+
+        cleanCart: (state) => {
+            state.cart = []
+        },
     },
 });
 export const {
     changeQuantityProduct,
-    saveCartFromServer
+    saveCartFromServer,
+    cleanCart
 } = cartSlice.actions
 export default cartSlice.reducer;

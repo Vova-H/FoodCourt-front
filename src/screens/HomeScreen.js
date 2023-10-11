@@ -11,8 +11,6 @@ import {i18n} from "../redux/features/LangSlice";
 import {useGetCurrenciesQuery} from "../redux/services/CurrenciesService";
 import {saveCurrencies} from "../redux/features/CurrenciesSlice";
 import MySpinner from "../components/UI/MySpiner";
-import {cleanCart} from "../redux/features/CartSlice";
-import {logoutUser} from "../redux/features/AuthSlice";
 
 const imageForDisc = require("../../assets/img/food1.png")
 
@@ -37,13 +35,6 @@ const HomeScreen = () => {
         }
     }, [isLoading, currencies.isLoading]);
 
-
-    useEffect(() => {
-        return () => {
-            dispatch(cleanCart());
-            dispatch(logoutUser())
-        };
-    }, []);
     return (
         <View style={styles.container}>
             <View style={styles.contentWrapper}>
