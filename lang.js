@@ -68,6 +68,7 @@ export const localization = {
                 authMessage: "You need to log in for use this discount",
             },
             menu: "Menu",
+            placeholderSearchDish: "Enter text for searching",
             placeOrder: "Place Order"
         },
         dishDetails: {
@@ -194,7 +195,8 @@ export const localization = {
                 authMessage: "Ви повинні увійти в систему, щоб скористатися цією знижкою",
             },
             menu: "Меню",
-            placeOrder: "Зробити Замовлення"
+            placeholderSearchDish: "Введіть текст для пошуку",
+            placeOrder: "Зробити Замовлення",
         },
         dishDetails: {
             foodDetail: "Деталі Блюда"
@@ -320,6 +322,7 @@ export const localization = {
                 authMessage: "Aby skorzystać z tej zniżki, musisz się zalogować",
             },
             menu: "Menu",
+            placeholderSearchDish: "Wpisz tekst do wyszukiwania",
             placeOrder: "Złóż Zamówienie"
         },
         dishDetails: {

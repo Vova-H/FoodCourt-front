@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import theme from "../../theme";
 
 const DishCounter = ({price, quantity, setTotalPrice, setQuantity}) => {
@@ -34,7 +34,8 @@ const DishCounter = ({price, quantity, setTotalPrice, setQuantity}) => {
 const styles = StyleSheet.create({
     container: {
         alignItems: "flex-end",
-        marginBottom: 30
+        marginBottom: Platform.OS === 'ios' ? 10 : 30,
+
     },
     bg: {
         height: 40,
@@ -58,7 +59,6 @@ const styles = StyleSheet.create({
         borderLeftWidth: 6,
         borderColor: "#fff",
         height: "100%",
-        // paddingLeft:"8%"
     },
 
     minusBtn: {

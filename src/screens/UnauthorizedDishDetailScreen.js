@@ -46,7 +46,7 @@ const UnauthorizedDishDetailScreen = (props) => {
                         </TouchableOpacity>
                     </View>
                     <View><Text style={styles.headerTitle}>{dish.name}</Text></View>
-                    <View>
+                    <View style={{alignItems:"center"}}>
                         <Text style={styles.headerSubtitle}>
                             <Image source={flame}/> {dish.calories} - kcal {dish.weight}g
                         </Text>

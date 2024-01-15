@@ -20,7 +20,6 @@ import MyOrdersScreen from "./src/screens/MyOrdersScreen";
 import unauthorizedHomeScreen from "./src/screens/UnauthorizedHomeScreen";
 import UnauthorizedDishDetailScreen from "./src/screens/UnauthorizedDishDetailScreen";
 import MySettingsScreen from "./src/screens/MySettingsScreen";
-import MyProfileScreen from "./src/screens/MyProfileScreen";
 import ChangeLanguageScreen from "./src/screens/ChangeLanguageScreen";
 import AvatarChangeScreen from "./src/screens/AvatarChangeScreen";
 
@@ -63,11 +62,11 @@ export default function App() {
                                 <Stack.Screen name="DishDetailScreen" component={DishDetailScreen}/>
                                 <Stack.Screen name="UnauthorizedDishDetailScreen"
                                               component={UnauthorizedDishDetailScreen}/>
-                                <Stack.Screen name="MyProfileScreen" component={MyProfileScreen}/>
                                 <Stack.Screen name="MyOrdersScreen" component={MyOrdersScreen}/>
                                 <Stack.Screen name="MySettingsScreen" component={MySettingsScreen}/>
                                 <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen}/>
                                 <Stack.Screen name="AvatarChangeScreen" component={AvatarChangeScreen}/>
+
                             </Stack.Navigator>
                         </NavigationContainer>
                         :

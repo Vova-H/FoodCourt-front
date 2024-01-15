@@ -5,6 +5,7 @@ import {useGetAllDishesQuery, useGetDishesByKeywordsMutation} from "../redux/ser
 import {useDispatch, useSelector} from "react-redux";
 import {saveDishes} from "../redux/features/DishesSlice";
 import MySpinner from "./UI/MySpiner";
+import {i18n} from "../redux/features/LangSlice";
 
 
 const Menu = () => {
@@ -15,8 +16,13 @@ const Menu = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const dishesFromSlice = useSelector(state => state.dishesReducer.dishes)
     const {isLoading} = useGetAllDishesQuery({lang: lang, userId: user.id ? user.id : 0})
+    const placeholderSearchDish = i18n.t("homeScreen.placeholderSearchDish")
     const searchDishesHandler = async () => {
-        return getDishesByKeywords({lang, words: searchQuery, userId: user.id ? user.id : 0})
+        return getDishesByKeywords({
+            lang,
+            words: searchQuery,
+            userId: user.id ? user.id : 0
+        })
     }
     useEffect(() => {
         const delayTimer = setTimeout(() => {
@@ -43,7 +49,7 @@ const Menu = () => {
         <View>
             <View style={styles.searchInputWrapper}>
                 <TextInput
-                    placeholder="Введите текст"
+                    placeholder={placeholderSearchDish}
                     cursorColor={"black"}
                     value={searchQuery}
                     onChangeText={(text) => setSearchQuery(text)}

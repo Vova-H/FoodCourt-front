@@ -14,3 +14,4 @@ const LoginSchema = (lang) => {
 };
 
 export default LoginSchema
+

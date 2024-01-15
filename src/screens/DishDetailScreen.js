@@ -1,5 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {
+    Alert,
+    Image,
+    ImageBackground,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import theme from "../../theme";
 import DishCounter from "../components/DishCounter";
@@ -107,7 +117,7 @@ const DishDetailScreen = (props) => {
                         }
                     </View>
                     <View><Text style={styles.headerTitle}>{dish.name}</Text></View>
-                    <View>
+                    <View style={{alignItems:"center"}}>
                         <Text style={styles.headerSubtitle}>
                             <Image source={flame}/> {dish.calories} - kcal {dish.weight}g
                         </Text>
@@ -123,10 +133,12 @@ const DishDetailScreen = (props) => {
                                  setTotalPrice={setTotalPrice}
                                  setQuantity={setQuantity}
                     />
-                    <View>
+                    <ScrollView style={{
+                        minHeight: Platform.OS === 'ios' ? "50%" : "30%",
+                    }}>
                         <Text style={styles.detailTitle}>{locDishDetail}</Text>
                         <Text style={styles.detailDescription}>{dish.description}</Text>
-                    </View>
+                    </ScrollView>
                 </ImageBackground>
             </View>
             <View style={styles.orderBtnWrapper}>
@@ -165,6 +177,8 @@ const styles = StyleSheet.create({
     },
     headerSubtitle: {
         textAlign: "center",
+        justifyContent:"center",
+        alignItems:"center",
         marginBottom: "10%",
         fontFamily: theme.fonts.robotoRegular,
         fontSize: 16,
@@ -184,7 +198,8 @@ const styles = StyleSheet.create({
     },
     detailDescription: {
         fontFamily: theme.fonts.robotoRegular,
-        fontSize: 15
+        fontSize: 15,
+        lineHeight: Platform.OS === 'ios' ? 20 : undefined,
     },
     orderBtnWrapper: {
         alignItems: "center",
