@@ -18,9 +18,9 @@ export const usersAPI = createApi({
     tagTypes: ['Users'],
     endpoints: (builder) => ({
         getUserById: builder.query({
-            query: (id) => {
+            query: (data) => {
                 return {
-                    url: `/${id}`,
+                    url: `/${data.id}?lang=${data.lang}`,
                     method: "GET",
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'

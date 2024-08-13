@@ -34,7 +34,6 @@ const PreviewComponent = ({backgroundColor, mainImg, sideNextAriaImg, title, sub
                 </Text>
                 <MyProgressBar activePage={activePage}/>
             </View>
-
         </View>
     );
 };

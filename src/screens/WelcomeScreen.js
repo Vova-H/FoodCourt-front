@@ -9,7 +9,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../redux/features/AuthSlice";
 
 const WelcomeScreen = () => {
-
     const lang = useSelector(state => state.langReducer.lang)
     const locTitle = i18n.t("welcomeScreen.title")
     const locSubtitle = i18n.t("welcomeScreen.subtitle")
@@ -24,9 +23,9 @@ const WelcomeScreen = () => {
         dispatch(logoutUser())
         navigation.navigate("LoginScreen")
     }
+
     return (
         <View style={styles.container}>
-
             <Image
                 style={styles.image}
                 source={mainImg}
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         height: "15%",
         marginBottom: "10%"
-    }
+    },
 });
 
 export default WelcomeScreen;
