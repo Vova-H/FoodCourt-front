@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {BackHandler, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {changeLanguage, i18n} from "../redux/features/LangSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigation} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import theme from "../../theme";
 import CountryFlag from "react-native-country-flag";
 import CustomButton from "../components/UI/CustomButton";
@@ -20,10 +20,12 @@ const ChoosingLanguageScreen = () => {
         navigation.navigate("PreviewScreen")
     }
 
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-        return () => backHandler.remove()
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true);
+            return () => backHandler.remove();
+        }, [])
+    );
 
     return (
         <View style={styles.container}>
@@ -41,6 +43,8 @@ const ChoosingLanguageScreen = () => {
             <CustomButton
                 title={i18n.t("choosingLanguage.btnFirstTime")}
                 pressFunc={nextScreenHandler}
+                propsTitleStyles={{color: theme.colors.white}}
+                propsButtonStyles={{backgroundColor: theme.colors.primary}}
             />
         </View>
     );
@@ -49,7 +53,7 @@ const ChoosingLanguageScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.yellow,
+        backgroundColor: theme.colors.background,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -57,11 +61,14 @@ const styles = StyleSheet.create({
         marginBottom: 40,
         fontFamily: theme.fonts.robotoBold,
         textTransform: 'capitalize',
-        fontSize: 35
+        fontSize: 35,
+        color: theme.colors.textPrimary
     },
     flag: {
         marginBottom: 40,
-
+        borderColor: theme.colors.surface,
+        borderWidth: 2,
+        borderRadius: 15
     }
 });
 

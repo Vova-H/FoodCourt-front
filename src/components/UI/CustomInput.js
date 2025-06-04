@@ -21,19 +21,20 @@ const CustomInput = ({inputLabel = "", placeholder = "", onBlur, onChangeText, v
                     onBlur={onBlur}
                     value={value}
                     secureTextEntry={hidden}
+                    cursorColor={theme.colors.textPrimary}
                 />
                 <View style={styles.inputIcons}>
-                    <TouchableOpacity onPress={() => changeVisibility(true)}>
-                        <Image
-                            source={closedEye}
-                            style={styles.iconItem}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => changeVisibility(false)}>
-                        <Image
-                            source={openedEye}
-                            style={styles.iconItem}
-                        />
+                    <TouchableOpacity onPress={() => changeVisibility(prevState => !prevState)}>
+                        { hidden ?
+                            <Image
+                                source={openedEye}
+                                style={styles.iconItem}
+                            /> :
+                            <Image
+                                source={closedEye}
+                                style={styles.iconItem}
+                            />
+                        }
                     </TouchableOpacity>
                 </View>
             </View> :
@@ -46,6 +47,7 @@ const CustomInput = ({inputLabel = "", placeholder = "", onBlur, onChangeText, v
                     onChangeText={onChangeText}
                     onBlur={onBlur}
                     value={value}
+                    cursorColor={theme.colors.textPrimary}
                 />
             </View>
 
@@ -60,7 +62,8 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 2,
-        borderColor: "black",
+        borderColor: theme.colors.neutral,
+        color: theme.colors.textPrimary,
         borderRadius: 10,
         marginBottom: 15,
         paddingHorizontal: 15,
@@ -70,7 +73,8 @@ const styles = StyleSheet.create({
 
     passwordInput: {
         borderWidth: 2,
-        borderColor: "black",
+        borderColor: theme.colors.neutral,
+        color: theme.colors.textPrimary,
         borderRadius: 10,
         marginBottom: 15,
         paddingHorizontal: 15,

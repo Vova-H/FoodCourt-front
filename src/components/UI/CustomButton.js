@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     btnTitle: {
-        color: theme.colors.wight,
+        color: theme.colors.white,
         fontFamily: theme.fonts.robotoBold,
         fontSize: 19,
         lineHeight: 22,

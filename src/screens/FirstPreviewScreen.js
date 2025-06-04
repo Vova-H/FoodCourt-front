@@ -1,6 +1,7 @@
 import React from 'react';
 import PreviewComponent from "../components/PreviewComponent";
 import {i18n} from "../redux/features/LangSlice";
+import theme from "../../theme";
 
 
 const FirstPreviewScreen = () => {
@@ -18,6 +19,7 @@ const FirstPreviewScreen = () => {
             title={locTitle}
             subtitle={locSubtitle}
             activePage={1}
+            backgroundColor={theme.colors.background}
         />
     );
 };

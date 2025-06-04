@@ -39,14 +39,16 @@ const WelcomeScreen = () => {
                 </Text>
                 <CustomButton
                     title={i18n.t("welcomeScreen.btnView")}
-                    propsButtonStyles={{marginBottom: 10}}
+                    propsButtonStyles={{marginBottom: 10, borderColor: theme.colors.primary, borderWidth: 2}}
                     pressFunc={enterWithoutAuthHandler}
                     inActive={true}
+                    propsTitleStyles={{color:theme.colors.textPrimary}}
                 />
                 <CustomButton
                     title={i18n.t("welcomeScreen.btnLogin")}
-                    propsButtonStyles={{marginBottom: "12%"}}
+                    propsButtonStyles={{marginBottom: "12%", backgroundColor: theme.colors.primary}}
                     pressFunc={enterWithAuthHandler}
+                    propsTitleStyles={{color:theme.colors.white}}
                 />
             </View>
         </View>
@@ -58,13 +60,13 @@ const styles = StyleSheet.create({
     ...mainStyles,
     container: {
         flex: 1,
-        backgroundColor: theme.colors.yellow,
+        backgroundColor: theme.colors.background,
         alignItems: "center"
     },
     title: {
         width: "55%",
         fontFamily: theme.fonts.robotoBold,
-        color: theme.colors.black,
+        color: theme.colors.textPrimary,
         textTransform: "capitalize",
         fontSize: 32,
         lineHeight: 40,
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
     subtitle: {
         width: "50%",
         fontFamily: theme.fonts.robotoRegular,
+        color: theme.colors.textPrimary,
         lineHeight: 20,
         fontSize: 14,
         textTransform: "capitalize",

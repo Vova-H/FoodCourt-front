@@ -1,48 +1,40 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import CustomButton from "../components/UI/CustomButton";
-import {mainStyles} from "../styles/global.styles";
-import {useNavigation} from "@react-navigation/native";
-import {i18n} from "../redux/features/LangSlice";
+import { mainStyles } from "../styles/global.styles";
+import { useNavigation } from "@react-navigation/native";
+import { i18n } from "../redux/features/LangSlice";
 import theme from "../../theme";
 
 const GetStartedScreen = () => {
+    const navigation = useNavigation();
+    const locTitle = i18n.t("getStartedScreen.title");
+    const locSubtitle = i18n.t("getStartedScreen.subtitle");
+    const mainImg = require("../../assets/img/preview3.png");
 
-    const locTitle = i18n.t("getStartedScreen.title")
-    const locSubtitle = i18n.t("getStartedScreen.subtitle")
-    const mainImg = require("../../assets/img/preview3.png")
-    const navigation = useNavigation()
     return (
         <View style={styles.container}>
-
-            <Image
-                style={styles.image}
-                source={mainImg}
-            />
+            <Image style={styles.image} source={mainImg} />
             <View style={styles.contentWrapper}>
-                <Text style={styles.title}>
-                    {locTitle}
-                </Text>
-                <Text style={styles.subtitle}>
-                    {locSubtitle}
-                </Text>
+                <Text style={styles.title}>{locTitle}</Text>
+                <Text style={styles.subtitle}>{locSubtitle}</Text>
                 <CustomButton
                     title={i18n.t("getStartedScreen.btn")}
                     pressFunc={() => navigation.navigate("WelcomeScreen")}
+                    propsTitleStyles={{ color: theme.colors.white }}
+                    propsButtonStyles={{ backgroundColor: theme.colors.primary }}
                 />
             </View>
-
         </View>
     );
 };
 
-
 const styles = StyleSheet.create({
     ...mainStyles,
-    title:{
+    title: {
         width: "65%",
         fontFamily: theme.fonts.playfairDisplayBlack,
-        color: theme.colors.black,
+        color: theme.colors.textPrimary,
         textTransform: "capitalize",
         fontSize: 30,
         lineHeight: 40,

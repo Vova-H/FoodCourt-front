@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     ...mainStyles,
     container: {
         flex: 1,
-        backgroundColor: theme.colors.yellow,
+        backgroundColor: theme.colors.background,
         alignItems: "center",
     },
     image: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: theme.fonts.robotoBold,
-        color: theme.colors.black,
+        color: theme.colors.textPrimary,
         textTransform: "capitalize",
         fontSize: 32,
         marginBottom: 20,
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     subtitle: {
         width: "85%",
         fontFamily: theme.fonts.robotoRegular,
+        color: theme.colors.textPrimary,
         lineHeight: 20,
         fontSize: 14,
         textTransform: "capitalize",

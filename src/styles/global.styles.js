@@ -19,7 +19,7 @@ export const mainStyles = {
     title: {
         width: "55%",
         fontFamily: theme.fonts.playfairDisplayBlack,
-        color: theme.colors.black,
+        color: theme.colors.textPrimary,
         textTransform: "capitalize",
         fontSize: 30,
         lineHeight: 40,
@@ -31,6 +31,7 @@ export const mainStyles = {
         minWidth:"80%",
         height: "30%",
         fontFamily: theme.fonts.latoRegular,
+        color: theme.colors.textPrimary,
         lineHeight: 20,
         fontSize: 16,
         textTransform: "capitalize",

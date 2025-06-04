@@ -21,12 +21,23 @@ const theme = {
             playfairDisplayBlack: "PlayfairDisplay-black"
         },
         colors: {
-            yellow: "#FCBA26",
-            purple: "#AE60ED",
-            black: "#130402",
-            gray: "#ECECEC",
-            lightGray: "#F5F5F5",
-            wight: "#F2F2F7"
+            primary: "#FF7849",
+            secondary: "#FFD93D",
+            accent: "#FF9F1C",
+
+            background: "#FFF8F0",
+
+            surface: "#FFEEDD",
+            textPrimary: "#3E3E3E",
+            textSecondary: "#7D7D7D",
+
+            error: "#D32F2F",
+            white: "#FFFFFF",
+            black: "#1C1C1C",
+
+            neutral: "rgb(113,106,105)",
+            inputBackground: "#FFFDFB",
+            inputFocusBackground: "#FFF3EE"
         }
     }
 ;

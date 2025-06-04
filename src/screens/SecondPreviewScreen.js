@@ -17,7 +17,7 @@ const FirstPreviewScreen = () => {
             title={locTitle}
             subtitle={locSubtitle}
             activePage={2}
-            backgroundColor={theme.colors.yellow}
+            backgroundColor={theme.colors.background}
         />
     );
 };

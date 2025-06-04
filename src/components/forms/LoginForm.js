@@ -103,9 +103,10 @@ const LoginForm = () => {
                             pressFunc={props.handleSubmit}
                         /> :
                         <CustomButton
-                            propsButtonStyles={{marginBottom: 20}}
+                            propsButtonStyles={{marginBottom: 20, backgroundColor: theme.colors.primary}}
                             title={i18n.t("loginScreen.btnLogin")}
                             pressFunc={props.handleSubmit}
+                            propsTitleStyles={{color:theme.colors.white}}
                         />}
 
                     <TouchableOpacity
@@ -132,12 +133,13 @@ const styles = StyleSheet.create({
         lineHeight: 17,
         fontSize: 14,
         letterSpacing: .4,
-        color: "#d91717"
+        color: theme.colors.error
     },
     goToRegisterLink: {
         fontSize: 14,
         fontFamily: theme.fonts.robotoRegular,
-        marginBottom: 20
+        marginBottom: 20,
+        color: theme.colors.textSecondary
     }
 })
 
