@@ -16,8 +16,8 @@ const MyOrdersScreen = () => {
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
     const lang = useSelector(state => state.langReducer.lang)
     const {data, isLoading, refetch} = useGetOrdersQuery({"clientId": userAuth.id, lang})
-    const locTitle = useMemo(() => i18n.t("myOrdersScreen.title"), [])
-    const locLoading = useMemo(() => i18n.t("global.loading"), [])
+    const locTitle = useMemo(() => i18n.t("myOrdersScreen.title"), [lang])
+    const locLoading = useMemo(() => i18n.t("global.loading"), [lang])
 
     useEffect(() => {
         if (!isLoading) {

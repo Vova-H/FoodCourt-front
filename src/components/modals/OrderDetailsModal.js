@@ -12,9 +12,9 @@ const OrderDetailsModal = () => {
     const dispatch = useDispatch()
     const content = useSelector(state => state.orderModalReducer.content)
     const isOpen = useSelector(state => state.orderModalReducer.isOpen)
-    useSelector(state => state.langReducer.lang)
-    const locOrder = useMemo(() => i18n.t("modals.order.order"), []);
-    const locListOfDishes = useMemo(() => i18n.t("modals.order.listOfDishes"), []);
+    const lang = useSelector(state => state.langReducer.lang)
+    const locOrder = useMemo(() => i18n.t("modals.order.order"), [lang]);
+    const locListOfDishes = useMemo(() => i18n.t("modals.order.listOfDishes"), [lang]);
     const renderListOfDishes = useCallback(({item}) => (
         <OrderListDishes item={item} discount={content.discount}/>
     ), [content])
