@@ -12,11 +12,11 @@ const OrdersItem = ({order}) => {
     const dispatch = useDispatch()
     const lang = useSelector(state => state.langReducer.lang)
     const currencies = useSelector(state => state.currencyReducer.currencies)
-    const locStatus = useMemo(() => i18n.t("myOrdersScreen.status"), []);
-    const locStatusValue1 = useMemo(() => i18n.t("myOrdersScreen.statusValue1"), []);
-    const locStatusValue2 = useMemo(() => i18n.t("myOrdersScreen.statusValue2"), []);
-    const locDetailsBtn = useMemo(() => i18n.t("myOrdersScreen.detailsBtn"), []);
-    const locTotalPrice = useMemo(() => i18n.t("myOrdersScreen.totalPrice"), []);
+    const locStatus = useMemo(() => i18n.t("myOrdersScreen.status"), [lang]);
+    const locStatusValue1 = useMemo(() => i18n.t("myOrdersScreen.statusValue1"), [lang]);
+    const locStatusValue2 = useMemo(() => i18n.t("myOrdersScreen.statusValue2"), [lang]);
+    const locDetailsBtn = useMemo(() => i18n.t("myOrdersScreen.detailsBtn"), [lang]);
+    const locTotalPrice = useMemo(() => i18n.t("myOrdersScreen.totalPrice"), [lang]);
     const price = defineCurrency(lang, currencies)
     const calcTotalPrice = (order) => {
         const total = order.dishes.reduce((accumulator, dish) => {
